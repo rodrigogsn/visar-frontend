@@ -10,13 +10,13 @@ const Header = () => {
       </Link>
       <ul>
         <li>
-          <Link to="/contato">Contato</Link>
+          <Link to="/start">Contato</Link>
         </li>
         <li>
-          <Link to="/localizacao">Localização</Link>
+          <Link to="/start">Localização</Link>
         </li>
         <li>
-          <Link to="/login">
+          <Link to="/start">
             <button>Agendar Emplacamento</button>
           </Link>
         </li>

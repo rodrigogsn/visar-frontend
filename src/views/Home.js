@@ -20,7 +20,7 @@ const Home = () => {
         <header>
           <Title text={_home.title} />
           <Paragraph text={_home.paragraph} />
-          <ButtonPrimary text="Agendar agora" link="/login" />
+          <ButtonPrimary text="Agendar agora" link="/start" />
         </header>
         <Image source={image} alt="Agendar agora" />
       </main>

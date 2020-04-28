@@ -1,8 +1,8 @@
 import { createGlobalStyle, keyframes } from "styled-components";
-import { fadeInLeft, fadeOutLeft } from "react-animations";
+import { fadeInLeft, fadeIn } from "react-animations";
 
-export const fadeIn = keyframes`${fadeInLeft}`;
-export const fadeOut = keyframes`${fadeOutLeft}`;
+export const appear = keyframes`${fadeIn}`;
+export const appearLeft = keyframes`${fadeInLeft}`;
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
@@ -35,25 +35,78 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: underline;
     font-weight: bold;
     transition: .3s all;
+    max-width: -moz-fit-content;
+        max-width: -webkit-fit-content;
   }
 
   a:hover {
     color: #2f383e;
   }
 
+  a.miniLink {
+    margin-top: 15px;
+    text-decoration: underline;
+    text-transform: uppercase;
+    color: #828282;
+    font-size: 11px;
+  }
+
+  input, select {
+    border: 3px solid black;
+    height: 40px;
+    padding: 0 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    width: 250px;
+  }
+
+  input::placeholder {
+    color: #c1c1c1;
+  }
+
+  input.disabled {
+    color: #828282;
+    background: #dadada;
+    border-color: #dadada;
+  }
+  
   button {
     background: #ffc300;
-    padding: 20px 20px;
+    padding: 10px 20px;
     text-transform: uppercase;
     font-weight: bold;
     border: none;
     cursor: pointer;
     transition: .3s all;
+    height: 60px;
+    min-width: 180px;
+    
+    &:hover {
+      background: #f5a30a;
+    }
+
+    &.secondary {
+      background: white;
+      border: 3px solid black;
+      box-sizing: border-box;
+      &:hover {
+        background: #dadada;
+      }
+    }
+
+    &.success {
+      background: #25d366;
+      &:hover {
+        background: #1da34f;
+      }
+    }
+
+    &.disabled {
+      background: #dadada;
+      color: #828282;
+    }
   }
 
-  button:hover {
-    background: #f5a30a;
-  }
 
   /********** Navigation Bar **********/
   nav {
@@ -117,7 +170,7 @@ const GlobalStyle = createGlobalStyle`
       }
 
       &.footerTop {
-        padding: 2.5% 50px;
+        padding: 50px 2.5% 65px;
 
         h3 {
           color: #263238;
@@ -169,7 +222,7 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     justify-content: center;
     padding: 80px 0 100px;
-    animation: 0.9s ${fadeIn} ease;
+    animation: 0.9s ${appearLeft} ease;
 
     header {
       display: flex;
@@ -178,13 +231,13 @@ const GlobalStyle = createGlobalStyle`
 
       h1 {
         max-width: 65%;
-        animation: 0.2s ${fadeIn} ease;
+        animation: 0.2s ${appearLeft} ease;
       }
 
       p {
         max-width: 300px;
         margin: 10px 0 20px;
-        animation: 0.5s ${fadeIn} ease;
+        animation: 0.5s ${appearLeft} ease;
       }
 
       a {
@@ -193,7 +246,7 @@ const GlobalStyle = createGlobalStyle`
       }
 
       button {
-        animation: 1s ${fadeIn} ease;
+        animation: 1s ${appearLeft} ease;
       }
     }
 
@@ -202,7 +255,116 @@ const GlobalStyle = createGlobalStyle`
       position: absolute;
       z-index: -1;
       margin-left: 160px;
-      animation: 0.3s ${fadeIn} ease;
+      animation: 0.3s ${appearLeft} ease;
+    }
+  }
+
+
+  /********** Default Pages **********/
+  main.default {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 80px 0 100px;
+    animation: 0.2s ${appear} ease;
+
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h1 {
+        text-align: center;
+      }
+
+      p {
+        max-width: 300px;
+        text-align: center;
+        margin: 10px 0 20px;
+      }
+    }
+
+    .buttonGroup {
+      display: flex;
+      flex-direction: row;
+      margin-top: 10px;
+      
+      a:not(:last-child) {
+        margin-right: 10px;
+      }
+    }
+
+    .buttonGroup-vertical {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+
+      a:not(:last-child) {
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  /********** Input Form **********/
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;    
+
+    & div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .col2-sm-first {
+      flex-direction: row;
+
+      div:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      div:nth-child(1n) input,
+      div:nth-child(1n) select {
+        width: 70px;
+      }
+
+      div:nth-child(2n) input, 
+      div:nth-child(2n) select {
+        width: 170px;
+      }
+    }
+
+    .col2-sm-last {
+      flex-direction: row;
+
+      div:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      div:nth-child(1n) input,
+      div:nth-child(1n) select {
+        width: 170px;
+      }
+
+      div:nth-child(2n) input,
+      div:nth-child(2n) select {
+        width: 70px;
+      }
+    }
+    
+    label {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 250px;
+    }
+
+    button {
+      width: 250px;
     }
   }
 
