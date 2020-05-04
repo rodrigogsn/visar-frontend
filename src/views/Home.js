@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./../components/Header";
 import Footer from "./../components/Footer";
 import {
@@ -12,6 +12,10 @@ import { _home } from "./../views/content";
 import image from "./../assets/img/hero-ilust-1.png";
 
 const Home = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Header />

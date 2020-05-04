@@ -62,6 +62,7 @@ export const _agendamento = {
 //// PAYMENT SETTINGS ////
 export const _metodo = {
   title: `Forma de Pagamento`,
+  paragraph: `Antes de começar, escolha qual será a forma de pagamento.`,
 };
 
 export const _card = {

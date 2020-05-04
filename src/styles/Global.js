@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     outline: 0;
     font-size: 14px;
-    color: #000;
+    /* color: #000; */
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -31,12 +31,17 @@ const GlobalStyle = createGlobalStyle`
     font-size: 32px;
   }
 
+  p.customParagraph {
+    margin: 10px 0 0 !important;
+  }
+
   a {
     text-decoration: underline;
     font-weight: bold;
     transition: .3s all;
+    color: #000;
     max-width: -moz-fit-content;
-        max-width: -webkit-fit-content;
+    max-width: -webkit-fit-content;
   }
 
   a:hover {
@@ -45,7 +50,7 @@ const GlobalStyle = createGlobalStyle`
 
   a.miniLink {
     margin-top: 15px;
-    text-decoration: underline;
+    text-decoration: underline !important;
     text-transform: uppercase;
     color: #828282;
     font-size: 11px;
@@ -108,6 +113,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
 
+
   /********** Navigation Bar **********/
   nav {
     display: flex;
@@ -145,6 +151,10 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
     border-top: 1px solid #26323850;
+
+    .socialIcon {
+      color: #263238;
+    }
 
     section {
       display: flex;
@@ -289,10 +299,50 @@ const GlobalStyle = createGlobalStyle`
       display: flex;
       flex-direction: row;
       margin-top: 10px;
-      
+      max-width: 600px;
+
       a:not(:last-child) {
         margin-right: 10px;
       }
+
+      a {
+        text-decoration: none;
+      }
+
+      .buttonWide {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 290px;
+        border: 3px solid black;
+        padding: 30px 20px;
+        transition: .3s all;
+
+        &:hover {
+          background: #dadada;
+        }
+
+        .buttonWide-image {
+          max-width: 125px;
+        }
+
+        h2 {
+          text-decoration: none;
+          font-size: 24px;
+          font-weight: bold;
+          text-align: center;
+          line-height: 1;
+          margin: 15px 0;
+        }
+
+        p {
+          font-weight: normal;
+          text-align: center;
+          line-height: 1;
+        }
+      }
+
     }
 
     .buttonGroup-vertical {

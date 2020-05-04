@@ -1,6 +1,8 @@
 import React from "react";
 import { Image } from "./../components/Elements";
 import logo from "./../assets/img/gomes.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -31,21 +33,19 @@ const Footer = () => {
         <div>
           <h3>Fale Conosco</h3>
 
-          <div className="row">
-            <p>
-              <strong>Telefone:</strong>
-              <br />
-              (13)3222-5442
-              <br />
-              (13)3223-9102
-            </p>
+          <p>
+            <strong>Telefone:</strong>
+            <br />
+            (13)3222-5442
+            <br />
+            (13)3223-9102
+          </p>
 
-            <p>
-              <strong>Email:</strong>
-              <br />
-              contato@visaremplaca.com.br
-            </p>
-          </div>
+          <p style={{ marginTop: 15 }}>
+            <strong>Email:</strong>
+            <br />
+            contato@visaremplaca.com.br
+          </p>
         </div>
 
         <div>
@@ -54,9 +54,17 @@ const Footer = () => {
             It's actually the minority of religious people who rejects science
             or feel threatened by it or want to sort of undo.
           </p>
-          <span>
-            <p>Instagram</p>
-            <p>Facebook</p>
+
+          <span style={{ display: "flex", alignItems: "center", marginTop: 8 }}>
+            <a href="#" className="socialIcon">
+              <FontAwesomeIcon
+                icon={faInstagram}
+                style={{ fontSize: 26, marginRight: 8 }}
+              />
+            </a>
+            <a href="#" className="socialIcon">
+              <FontAwesomeIcon icon={faFacebookF} style={{ fontSize: 24 }} />
+            </a>
           </span>
         </div>
       </section>

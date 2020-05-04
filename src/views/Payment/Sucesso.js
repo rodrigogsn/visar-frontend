@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
 import { Title, Paragraph, ButtonPrimary } from "./../../components/Elements";
 import { _sucesso } from "./../../views/content";
 
 const Sucesso = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Header />
