@@ -1,38 +1,87 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { estados } from "./../views/content/estados";
+import { Squares } from "react-activity";
+import "react-activity/dist/react-activity.css";
 // import * as cep from "cep-promise";
 
-export const ButtonPrimary = ({ text, link }) => (
-  <Link to={link}>
-    <button>{text}</button>
-  </Link>
+export const Loader = () => (
+  <Squares color="black" size={36} speed={1} animating={true} />
 );
 
-export const ButtonSecondary = ({ text, link }) => (
-  <Link to={link}>
-    <button class="secondary">{text}</button>
-  </Link>
-);
+export const ButtonPrimary = ({ text, link, press }) => {
+  if (link) {
+    return (
+      <Link to={link}>
+        <button onClick={press}>{text}</button>
+      </Link>
+    );
+  } else {
+    return <button onClick={press}>{text}</button>;
+  }
+};
+export const ButtonSecondary = ({ text, link, press }) => {
+  if (link) {
+    return (
+      <Link to={link}>
+        <button onClick={press} className="secondary">
+          {text}
+        </button>
+      </Link>
+    );
+  } else {
+    return (
+      <button onClick={press} className="secondary">
+        {text}
+      </button>
+    );
+  }
+};
 
-export const ButtonSuccess = ({ text, link }) => (
-  <Link to={link}>
-    <button class="success">{text}</button>
-  </Link>
-);
+export const ButtonSuccess = ({ text, link, press }) => {
+  if (link) {
+    return (
+      <Link to={link}>
+        <button onClick={press} className="success">
+          {text}
+        </button>
+      </Link>
+    );
+  } else {
+    return (
+      <button onClick={press} className="success">
+        {text}
+      </button>
+    );
+  }
+};
 
 export const ButtonDisabled = ({ text, link }) => (
   <Link to={link}>
-    <button class="disabled" disabled>
+    <button className="disabled" disabled>
       {text}
     </button>
   </Link>
 );
 
-export const TextInput = ({ type, label, placeholder }) => (
+export const TextInput = ({
+  type,
+  label,
+  name,
+  placeholder,
+  state,
+  onChange,
+}) => (
   <div>
     <label>{label}</label>
-    <input type={type} placeholder={placeholder}></input>
+    <input
+      type={type}
+      name={name}
+      placeholder={placeholder}
+      value={state}
+      onChange={onChange}
+      onFocus={(e) => (e.target.originalvalue = e.target.value)}
+    ></input>
   </div>
 );
 
@@ -43,12 +92,12 @@ export const TextInputDisabled = ({ type, label, placeholder }) => (
       type={type}
       placeholder={placeholder}
       disabled
-      class="disabled"
+      className="disabled"
     ></input>
   </div>
 );
 
-export const DropList = ({ name, label, placeholder }) => {
+export const DropList = ({ name, label, placeholder, onChange }) => {
   const estadosSort = estados.sort((a, b) => (a.sigla > b.sigla ? 1 : -1));
 
   const uf = estadosSort.map((estado) => (
@@ -58,7 +107,12 @@ export const DropList = ({ name, label, placeholder }) => {
   return (
     <div>
       <label>{label}</label>
-      <select id={name}>
+      <select
+        id={name}
+        name={name}
+        onChange={onChange}
+        onFocus={(e) => (e.target.originalvalue = e.target.value)}
+      >
         <option value="">{placeholder}</option>
         {uf}
       </select>

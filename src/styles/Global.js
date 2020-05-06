@@ -38,10 +38,10 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: underline;
     font-weight: bold;
-    transition: .3s all;
     color: #000;
     max-width: -moz-fit-content;
     max-width: -webkit-fit-content;
+    transition: .3s all;
   }
 
   a:hover {
@@ -110,6 +110,16 @@ const GlobalStyle = createGlobalStyle`
       background: #dadada;
       color: #828282;
     }
+  }
+
+  .loader {
+    /* background: #ff000057;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%; */
   }
 
 
@@ -307,6 +317,10 @@ const GlobalStyle = createGlobalStyle`
 
       a {
         text-decoration: none;
+
+        &:hover {
+          color: black;
+        }
       }
 
       .buttonWide {
@@ -320,7 +334,8 @@ const GlobalStyle = createGlobalStyle`
         transition: .3s all;
 
         &:hover {
-          background: #dadada;
+          background: #eeeeee;
+          transform: translate(0px, -5px);
         }
 
         .buttonWide-image {
@@ -354,6 +369,46 @@ const GlobalStyle = createGlobalStyle`
         margin-bottom: 15px;
       }
     }
+    
+    .typeGroup {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 410px;
+
+      a {
+        text-decoration: none;
+
+        &:hover {
+          color: black;
+        }
+      }
+      
+      .typeButton {
+        display: flex;
+        min-width: 200px;
+        border: 3px solid black;
+        padding: 5px;
+
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+
+        &:nth-child(2n - 1):not(:last-child) {
+          margin-right: 10px;
+        }
+
+        .typeBox {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .typeImage {
+          max-width: 50px;
+        }
+      }
+    }
   }
 
   /********** Input Form **********/
@@ -363,13 +418,13 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     flex-direction: column;    
 
-    & div {
+    & div:not(.rai-squares) {
       display: flex;
       flex-direction: column;
     }
 
     .col2-sm-first {
-      flex-direction: row;
+      flex-direction: row !important;
 
       div:not(:last-child) {
         margin-right: 10px;
@@ -387,7 +442,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .col2-sm-last {
-      flex-direction: row;
+      flex-direction: row !important;
 
       div:not(:last-child) {
         margin-right: 10px;

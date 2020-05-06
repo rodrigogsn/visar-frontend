@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { withRouter, useHistory } from "react-router-dom";
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
 import {
@@ -6,10 +7,20 @@ import {
   Paragraph,
   ButtonPrimary,
   ButtonSecondary,
+  ButtonSuccess,
 } from "./../../components/Elements";
 import { _confirmacao } from "./../../views/content";
 
+// import { confirm } from "./../../services/auth";
+
 const Confirmacao = () => {
+  let history = useHistory();
+
+  const handleCLick = () => {
+    /// TEST ONLY, REFACTOR ONCE CRUD IS DONE
+    history.push("/perfil");
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -27,6 +38,10 @@ const Confirmacao = () => {
         <div className="buttonGroup">
           <ButtonPrimary text="Reenviar confirmação" link="/" />
           <ButtonSecondary text="Cadastrar novamente" link="/cadastro" />
+          {/* <ButtonSuccess
+            text="função de Teste: Confirme aqui"
+            press={handleCLick}
+          /> */}
         </div>
       </main>
 
@@ -35,4 +50,4 @@ const Confirmacao = () => {
   );
 };
 
-export default Confirmacao;
+export default withRouter(Confirmacao);
