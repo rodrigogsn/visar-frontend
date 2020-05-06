@@ -53,6 +53,9 @@ const Perfil = () => {
       })
       .catch((error) => {
         console.log(error.response);
+        alert(
+          "Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios."
+        );
         setButtonText("Enviar");
       });
   };

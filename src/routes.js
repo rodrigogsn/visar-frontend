@@ -1,5 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+
+import { isAuthenticated } from "./services/auth";
 
 import Home from "./views/Home";
 import Login from "./views/Login";
@@ -21,6 +28,19 @@ import Card from "./views/Payment/Card";
 import Revisao from "./views/Payment/Revisao";
 import Sucesso from "./views/Payment/Sucesso";
 
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isAuthenticated() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+      )
+    }
+  />
+);
+
 const Routes = () => (
   <Router>
     <Switch>
@@ -30,19 +50,19 @@ const Routes = () => (
       <Route path="/start" exact component={Start} />
       <Route path="/cadastro" exact component={Cadastro} />
       <Route path="/confirmacao" exact component={Confirmacao} />
-      <Route path="/perfil" exact component={Perfil} />
-      <Route path="/atualizar" exact component={Atualizar} />
+      <PrivateRoute path="/perfil" exact component={Perfil} />
+      <PrivateRoute path="/atualizar" exact component={Atualizar} />
 
-      <Route path="/tipo" exact component={Tipo} />
-      <Route path="/subtipo" exact component={Subtipo} />
+      <PrivateRoute path="/tipo" exact component={Tipo} />
+      <PrivateRoute path="/subtipo" exact component={Subtipo} />
 
-      <Route path="/spot" exact component={Spot} />
-      <Route path="/agendamento" exact component={Agendamento} />
+      <PrivateRoute path="/spot" exact component={Spot} />
+      <PrivateRoute path="/agendamento" exact component={Agendamento} />
 
-      <Route path="/metodo" exact component={Metodo} />
-      <Route path="/card" exact component={Card} />
-      <Route path="/revisao" exact component={Revisao} />
-      <Route path="/sucesso" exact component={Sucesso} />
+      <PrivateRoute path="/metodo" exact component={Metodo} />
+      <PrivateRoute path="/card" exact component={Card} />
+      <PrivateRoute path="/revisao" exact component={Revisao} />
+      <PrivateRoute path="/sucesso" exact component={Sucesso} />
 
       <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>
