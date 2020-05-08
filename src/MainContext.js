@@ -6,6 +6,27 @@ const MainContext = React.createContext({
 
   profile: "",
   setProfile: () => {},
+
+  method: "",
+  setMethod: () => {},
+
+  category: "",
+  setCategory: () => {},
+
+  subcategory: "",
+  setSubcategory: () => {},
+
+  location: "",
+  setLocation: () => {},
+
+  spot: "",
+  setSpot: () => {},
+
+  appointment: "",
+  setAppointment: () => {},
+
+  total: "",
+  setTotal: () => {},
 });
 
 export default MainContext;

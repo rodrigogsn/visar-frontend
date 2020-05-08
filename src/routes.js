@@ -20,7 +20,8 @@ import Atualizar from "./views/SignUp/Atualizar";
 import Tipo from "./views/Vehicle/Tipo";
 import Subtipo from "./views/Vehicle/Subtipo";
 
-import Spot from "./views/Appointment/Spot";
+import Regiao from "./views/Appointment/Regiao";
+import Local from "./views/Appointment/Local";
 import Agendamento from "./views/Appointment/Agendamento";
 
 import Metodo from "./views/Payment/Metodo";
@@ -56,7 +57,8 @@ const Routes = () => (
       <PrivateRoute path="/tipo" exact component={Tipo} />
       <PrivateRoute path="/subtipo" exact component={Subtipo} />
 
-      <PrivateRoute path="/spot" exact component={Spot} />
+      <PrivateRoute path="/regiao" exact component={Regiao} />
+      <PrivateRoute path="/local" exact component={Local} />
       <PrivateRoute path="/agendamento" exact component={Agendamento} />
 
       <PrivateRoute path="/metodo" exact component={Metodo} />

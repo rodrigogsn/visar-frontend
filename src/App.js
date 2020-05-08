@@ -6,12 +6,33 @@ import MainContext from "./MainContext";
 const App = () => {
   const [user, setUser] = useState("");
   const [profile, setProfile] = useState(false);
+  const [method, setMethod] = useState("");
+  const [category, setCategory] = useState("");
+  const [subcategory, setSubcategory] = useState("");
+  const [location, setLocation] = useState("");
+  const [spot, setSpot] = useState("");
+  const [appointment, setAppointment] = useState("");
+  const [total, setTotal] = useState("");
 
   const value = {
     user,
     setUser,
     profile,
     setProfile,
+    method,
+    setMethod,
+    category,
+    setCategory,
+    subcategory,
+    setSubcategory,
+    location,
+    setLocation,
+    spot,
+    setSpot,
+    appointment,
+    setAppointment,
+    total,
+    setTotal,
   };
 
   return (

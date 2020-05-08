@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
 import { Title, Paragraph } from "./../../components/Elements";
 import { _metodo } from "./../../views/content";
 
+import api from "./../../services/api";
 import MainContext from "./../../MainContext";
 
 import { ReactComponent as SvgCredito } from "./../../assets/img/credit-card-option.svg";
@@ -12,11 +13,42 @@ import { ReactComponent as SvgDebito } from "./../../assets/img/debit-card-optio
 import { ReactComponent as SvgBoleto } from "./../../assets/img/boleto-option.svg";
 
 const Metodo = () => {
-  const { profile } = useContext(MainContext);
+  let history = useHistory();
+
+  const { profile, setMethod } = useContext(MainContext);
+
+  if (!profile) {
+    history.push("/");
+  }
+
+  const [methods, setMethods] = useState();
+
+  const handleMethods = async () => {
+    await api
+      .get("/payment_methods")
+      .then((response) => {
+        console.log(response.data);
+        setMethods(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
+
+  const saveMethod = (key) => {
+    const array = methods.map((item) => item.id);
+
+    const selected = array.find((item) => item === key);
+
+    setMethod(selected);
+
+    history.push("/tipo");
+  };
 
   useEffect(() => {
-    handleDates();
     window.scrollTo(0, 0);
+    handleMethods();
+    handleDates();
   }, []);
 
   const handleDates = () => {
@@ -44,35 +76,29 @@ const Metodo = () => {
         </header>
 
         <div className="buttonGroup">
-          <Link to="/">
-            <div className="buttonWide">
-              <SvgCredito className="buttonWide-image" alt="" />
-              <h2>Cartão de Crédito</h2>
-              <p>
-                Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
-              </p>
-            </div>
-          </Link>
+          <div className="buttonWide" onClick={() => saveMethod(1)}>
+            <SvgCredito className="buttonWide-image" alt="" />
+            <h2>Cartão de Crédito</h2>
+            <p>
+              Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
+            </p>
+          </div>
 
-          <Link to="/">
-            <div className="buttonWide">
-              <SvgDebito className="buttonWide-image" alt="" />
-              <h2>Cartão de Débito</h2>
-              <p>
-                Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
-              </p>
-            </div>
-          </Link>
+          <div className="buttonWide" onClick={() => saveMethod(2)}>
+            <SvgDebito className="buttonWide-image" alt="" />
+            <h2>Cartão de Débito</h2>
+            <p>
+              Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
+            </p>
+          </div>
 
-          <Link to="/">
-            <div className="buttonWide">
-              <SvgBoleto className="buttonWide-image" alt="" />
-              <h2>Boleto</h2>
-              <p>
-                Agende uma data a partir de <strong>{handleDates()[1]}</strong>.
-              </p>
-            </div>
-          </Link>
+          <div className="buttonWide" onClick={() => saveMethod(3)}>
+            <SvgBoleto className="buttonWide-image" alt="" />
+            <h2>Boleto</h2>
+            <p>
+              Agende uma data a partir de <strong>{handleDates()[1]}</strong>.
+            </p>
+          </div>
         </div>
       </main>
 

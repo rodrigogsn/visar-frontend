@@ -12,13 +12,20 @@ import {
 import { _login } from "./../views/content";
 
 import api from "./../services/api";
-import { login, isAuthenticated, profile } from "./../services/auth";
+import {
+  login,
+  isAuthenticated,
+  isProfileSet,
+  profile,
+} from "./../services/auth";
 import MainContext from "./../MainContext";
 
 const Login = () => {
   let history = useHistory();
 
-  const { setUser, setProfile } = useContext(MainContext);
+  const { setUser, profile: contextProfile, setProfile } = useContext(
+    MainContext
+  );
 
   const [buttonText, setButtonText] = useState("Entrar");
 
@@ -73,7 +80,6 @@ const Login = () => {
           history.push("/perfil");
         } else {
           handleProfile();
-          history.push("/metodo");
         }
       })
       .catch((error) => {
@@ -90,13 +96,20 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated()) {
+    if (isAuthenticated() && isProfileSet()) {
       handleProfile();
-      history.push("/metodo");
     }
 
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    console.log(contextProfile);
+
+    if (contextProfile) {
+      history.push("/metodo");
+    }
+  }, [contextProfile]);
 
   return (
     <>

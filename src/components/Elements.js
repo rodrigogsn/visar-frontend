@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { estados } from "./../views/content/estados";
 import { Squares } from "react-activity";
 import "react-activity/dist/react-activity.css";
+
+import api from "./../services/api";
+import MainContext from "./../MainContext";
 // import * as cep from "cep-promise";
 
 export const Loader = () => (
@@ -97,10 +100,10 @@ export const TextInputDisabled = ({ type, label, placeholder }) => (
   </div>
 );
 
-export const DropList = ({ name, label, placeholder, onChange }) => {
+export const DropListUF = ({ name, label, placeholder, onChange }) => {
   const estadosSort = estados.sort((a, b) => (a.sigla > b.sigla ? 1 : -1));
 
-  const uf = estadosSort.map((estado) => (
+  const options = estadosSort.map((estado) => (
     <option value={estado.sigla}>{estado.sigla}</option>
   ));
 
@@ -114,7 +117,7 @@ export const DropList = ({ name, label, placeholder, onChange }) => {
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
       >
         <option value="">{placeholder}</option>
-        {uf}
+        {options}
       </select>
     </div>
   );

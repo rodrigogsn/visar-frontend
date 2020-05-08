@@ -73,6 +73,7 @@ const GlobalStyle = createGlobalStyle`
     color: #828282;
     background: #dadada;
     border-color: #dadada;
+    cursor: default;
   }
   
   button {
@@ -109,6 +110,7 @@ const GlobalStyle = createGlobalStyle`
     &.disabled {
       background: #dadada;
       color: #828282;
+      cursor: default;
     }
   }
 
@@ -332,6 +334,11 @@ const GlobalStyle = createGlobalStyle`
         border: 3px solid black;
         padding: 30px 20px;
         transition: .3s all;
+        cursor: pointer;
+
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
 
         &:hover {
           background: #eeeeee;
@@ -364,6 +371,7 @@ const GlobalStyle = createGlobalStyle`
       display: flex;
       flex-direction: column;
       margin-top: 10px;
+      
 
       a:not(:last-child) {
         margin-bottom: 15px;
@@ -376,20 +384,20 @@ const GlobalStyle = createGlobalStyle`
       justify-content: space-between;
       flex-wrap: wrap;
       max-width: 410px;
-
-      a {
-        text-decoration: none;
-
-        &:hover {
-          color: black;
-        }
-      }
       
       .typeButton {
         display: flex;
+        justify-content: center;
         min-width: 200px;
         border: 3px solid black;
-        padding: 5px;
+        padding: 30px 20px;
+        transition: .3s all;
+        cursor: pointer;
+
+        &:hover {
+          background: #eeeeee;
+          transform: translate(0px, -3px);
+        }
 
         &:not(:last-child) {
           margin-bottom: 10px;
@@ -397,11 +405,6 @@ const GlobalStyle = createGlobalStyle`
 
         &:nth-child(2n - 1):not(:last-child) {
           margin-right: 10px;
-        }
-
-        .typeBox {
-          display: flex;
-          justify-content: space-between;
         }
 
         .typeImage {

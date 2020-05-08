@@ -2,6 +2,7 @@ export const TOKEN_KEY = "@visar-Token";
 export const USER_DATA = "@visar-User";
 export const USER_PROFILE = "@visar-Profile";
 
+// Verifica se o usuário já está autenticado
 export const isAuthenticated = () => {
   const isAuth = localStorage.getItem(TOKEN_KEY) !== null;
 
@@ -9,11 +10,22 @@ export const isAuthenticated = () => {
     ? JSON.parse(localStorage.getItem(USER_DATA)).confirmed
     : false;
 
+  if (isAuth && confirmed) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+// Verifica se o usuário já tem perfil
+export const isProfileSet = () => {
+  const isAuth = localStorage.getItem(TOKEN_KEY) !== null;
+
   const profile = localStorage.getItem(USER_DATA)
     ? JSON.parse(localStorage.getItem(USER_DATA)).profile
     : false;
 
-  if (isAuth && confirmed && profile) {
+  if (isAuth && profile) {
     return true;
   } else {
     return false;
@@ -34,13 +46,3 @@ export const profile = (profile) => {
 export const logout = () => {
   localStorage.clear();
 };
-
-// export const confirm = () => {
-//   let data = JSON.parse(localStorage.getItem(USER_DATA));
-
-//   data = { ...data, confirmed: 1 };
-
-//   console.log(data);
-
-//   localStorage.setItem(USER_DATA, JSON.stringify(data));
-// };

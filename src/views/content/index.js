@@ -46,10 +46,16 @@ export const _tipo = {
 
 export const _subtipo = {
   title: `Escolha agora o subtipo do veículo.`,
+  paragraph: `Escolha agora o subtipo do veículo.`,
 };
 
 //// APPOINTMENT ////
-export const _spot = {
+export const _regiao = {
+  title: `Região`,
+  paragraph: `Escolha a sua região. Atendemos à domicílio apenas as seguintes regiões:`,
+};
+
+export const _local = {
   title: `Local e Valores`,
   paragraph: `Escolha um dos locais disponíveis para fazer o emplacamento.`,
 };

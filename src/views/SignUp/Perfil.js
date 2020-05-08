@@ -7,7 +7,7 @@ import {
   Paragraph,
   ButtonPrimary,
   TextInput,
-  DropList,
+  DropListUF,
   Loader,
 } from "./../../components/Elements";
 import { _perfil } from "./../../views/content";
@@ -162,7 +162,7 @@ const Perfil = () => {
           />
 
           <div className="col2-sm-first">
-            <DropList
+            <DropListUF
               label="UF"
               placeholder="UF"
               name="uf"

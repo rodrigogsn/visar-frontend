@@ -8,7 +8,7 @@ import {
   ButtonSecondary,
   TextInput,
   TextInputDisabled,
-  DropList,
+  // DropListUF,
 } from "./../../components/Elements";
 import { _atualizar } from "./../../views/content";
 
@@ -67,7 +67,13 @@ const Atualizar = () => {
           />
 
           <div className="col2-sm-first">
-            <DropList label="UF" name="uf" placeholder="UF" />
+            {/* <DropListUF
+              label="UF"
+              placeholder="UF"
+              name="uf"
+              value={data.uf}
+              onChange={handleInputChange}
+            /> */}
             <TextInput
               label="Cidade"
               type="text"

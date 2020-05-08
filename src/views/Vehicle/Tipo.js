@@ -1,15 +1,70 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
 import { Title, Paragraph } from "./../../components/Elements";
 import { _tipo } from "./../../views/content";
 
-import { ReactComponent as SvgCredito } from "./../../assets/img/credit-card-option.svg";
+import api from "./../../services/api";
+import MainContext from "./../../MainContext";
 
 const Tipo = () => {
+  let history = useHistory();
+
+  const { profile, setCategory, setSubcategory } = useContext(MainContext);
+
+  const [categories, setCategories] = useState();
+
+  const handleCategories = async () => {
+    await api
+      .get("/vehicle_categories")
+      .then((response) => {
+        console.log(response.data);
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
+
+  const handleSubcategories = async (category_id) => {
+    await api
+      .get("/vehicle_subcategories")
+      .then((response) => {
+        const subcategories = response.data;
+
+        const subcategory = subcategories.filter(
+          (item) => item.category_id === category_id
+        );
+
+        console.log(subcategory);
+
+        // Set all subcategories for context (next screen will filter them)
+        setSubcategory(subcategory);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
+
+  const saveCategory = (key) => {
+    const category = categories.find((item) => item.id === key);
+
+    setCategory(category); // Set category full object for context
+
+    handleSubcategories(category.id); // Select the id from selected category
+
+    history.push("/subtipo");
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    if (!profile) {
+      history.push("/");
+    }
+
+    handleCategories();
   }, []);
 
   return (
@@ -23,54 +78,40 @@ const Tipo = () => {
         </header>
 
         <div className="typeGroup">
-          <Link className="typeButton" to="/">
-            <div class="typeBox">
-              <SvgCredito class="typeImage" alt="" />
-              <h2>De Passageiros</h2>
-            </div>
-          </Link>
+          <div className="typeButton" onClick={() => saveCategory(1)}>
+            {/* <SvgCredito className="typeImage" alt="" /> */}
+            <h2>De Passageiros</h2>
+          </div>
 
-          <Link className="typeButton" to="/">
-            <div>
-              <SvgCredito class="typeImage" alt="" />
-              <h2>De Carga</h2>
-            </div>
-          </Link>
+          <div className="typeButton" onClick={() => saveCategory(2)}>
+            {/* <SvgCredito className="typeImage" alt="" /> */}
+            <h2>De Carga</h2>
+          </div>
 
-          <Link className="typeButton" to="/">
-            <div>
-              <SvgCredito class="typeImage" alt="" />
-              <h2>Misto</h2>
-            </div>
-          </Link>
+          <div className="typeButton" onClick={() => saveCategory(3)}>
+            {/* <SvgCredito className="typeImage" alt="" /> */}
+            <h2>Misto</h2>
+          </div>
 
-          <Link className="typeButton" to="/">
-            <div>
-              <SvgCredito class="typeImage" alt="" />
-              <h2>De Competição</h2>
-            </div>
-          </Link>
+          <div className="typeButton" onClick={() => saveCategory(4)}>
+            {/* <SvgCredito className="typeImage" alt="" /> */}
+            <h2>De Competição</h2>
+          </div>
 
-          <Link className="typeButton" to="/">
-            <div>
-              <SvgCredito class="typeImage" alt="" />
-              <h2>De Tração</h2>
-            </div>
-          </Link>
+          <div className="typeButton" onClick={() => saveCategory(5)}>
+            {/* <SvgCredito className="typeImage" alt="" /> */}
+            <h2>De Tração</h2>
+          </div>
 
-          <Link className="typeButton" to="/">
-            <div>
-              <SvgCredito class="typeImage" alt="" />
-              <h2>Especial</h2>
-            </div>
-          </Link>
+          <div className="typeButton" onClick={() => saveCategory(6)}>
+            {/* <SvgCredito className="typeImage" alt="" /> */}
+            <h2>Especial</h2>
+          </div>
 
-          <Link className="typeButton" to="/">
-            <div>
-              <SvgCredito class="typeImage" alt="" />
-              <h2>De Coleção</h2>
-            </div>
-          </Link>
+          <div className="typeButton" onClick={() => saveCategory(7)}>
+            {/* <SvgCredito className="typeImage" alt="" /> */}
+            <h2>De Coleção</h2>
+          </div>
         </div>
       </main>
 
