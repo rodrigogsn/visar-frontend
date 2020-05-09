@@ -42,12 +42,14 @@ const Metodo = () => {
 
     setMethod(selected);
 
-    history.push("/tipo");
+    history.push("/agendamento");
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
     handleMethods();
+
     handleDates();
   }, []);
 
@@ -69,9 +71,6 @@ const Metodo = () => {
       <main className="default">
         <header>
           <Title text={_metodo.title} />
-          <p className="customParagraph">
-            Olá <strong>{profile.name}</strong>!
-          </p>
           <Paragraph text={_metodo.paragraph} />
         </header>
 

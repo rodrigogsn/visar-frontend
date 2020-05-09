@@ -74,6 +74,9 @@ const Tipo = () => {
       <main className="default">
         <header>
           <Title text={_tipo.title} />
+          <p className="customParagraph">
+            Olá <strong>{profile.name}</strong>!
+          </p>
           <Paragraph text={_tipo.paragraph} />
         </header>
 

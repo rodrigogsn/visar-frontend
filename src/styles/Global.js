@@ -345,6 +345,7 @@ const GlobalStyle = createGlobalStyle`
           transform: translate(0px, -5px);
         }
 
+
         .buttonWide-image {
           max-width: 125px;
         }
@@ -362,6 +363,20 @@ const GlobalStyle = createGlobalStyle`
           font-weight: normal;
           text-align: center;
           line-height: 1;
+        }
+
+        &.disabled {
+          border: 3px solid #828282;
+          cursor: default;
+
+          &:hover {
+            background: transparent;
+            transform: none;
+          }
+
+          h2, p {
+            color: #828282;
+          }
         }
       }
 

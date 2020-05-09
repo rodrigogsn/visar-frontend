@@ -107,7 +107,7 @@ const Login = () => {
     console.log(contextProfile);
 
     if (contextProfile) {
-      history.push("/metodo");
+      history.push("/tipo");
     }
   }, [contextProfile]);
 

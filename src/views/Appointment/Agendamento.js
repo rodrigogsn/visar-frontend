@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
-import { Title, Paragraph, ButtonPrimary } from "./../../components/Elements";
+import { Title, Paragraph, ButtonSuccess } from "./../../components/Elements";
 import { _agendamento } from "./../../views/content";
 
 const Agendamento = () => {
@@ -20,7 +20,7 @@ const Agendamento = () => {
         </header>
 
         <form>
-          <ButtonPrimary text="Cadastrar" link="/cadastro" />
+          <ButtonSuccess text="Pagar ($200)" />
         </form>
       </main>
 

@@ -56,7 +56,7 @@ export const _regiao = {
 };
 
 export const _local = {
-  title: `Local e Valores`,
+  title: `Local`,
   paragraph: `Escolha um dos locais disponíveis para fazer o emplacamento.`,
 };
 
@@ -68,7 +68,7 @@ export const _agendamento = {
 //// PAYMENT SETTINGS ////
 export const _metodo = {
   title: `Forma de Pagamento`,
-  paragraph: `Antes de começar, escolha qual será a forma de pagamento.`,
+  paragraph: `Escolha qual será a forma de pagamento.`,
 };
 
 export const _card = {

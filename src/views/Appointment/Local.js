@@ -11,7 +11,9 @@ import MainContext from "./../../MainContext";
 const Local = () => {
   let history = useHistory();
 
-  const { profile, setSpot, setTotal, method } = useContext(MainContext);
+  const { profile, subcategory, setSpot, setTotal, method } = useContext(
+    MainContext
+  );
 
   const [spots, setSpots] = useState("");
 
@@ -19,20 +21,35 @@ const Local = () => {
     await api
       .get("/spots")
       .then((response) => {
-        const data = response.data.map((spot) => (
-          <div
-            key={spot.id}
-            className="buttonWide"
-            style={{ minHeight: "fit-content" }}
-            onClick={() => {
-              handleClick(spot);
-            }}
-          >
-            <h2>{spot.name}</h2>
-            <p>Descrição</p>
-            <span>R$ 000</span>
-          </div>
-        ));
+        const data = response.data.map((spot) => {
+          const incompany_isValid =
+            !subcategory[0].incompany && spot.incompany ? false : true;
+
+          const disabledClass =
+            !spot.active || !incompany_isValid
+              ? "buttonWide disabled"
+              : "buttonWide";
+
+          const active = !spot.active || !incompany_isValid ? false : true;
+
+          return (
+            <div
+              key={spot.id}
+              className={disabledClass}
+              // style={{ minHeight: "fit-content" }}
+              onClick={() => {
+                if (!active) {
+                  return;
+                }
+                handleClick(spot);
+              }}
+            >
+              <h2>{spot.name}</h2>
+              <p>Descrição</p>
+              <span>R$ 000</span>
+            </div>
+          );
+        });
 
         setSpots(data);
       })
@@ -41,8 +58,10 @@ const Local = () => {
       });
   };
 
-  const handleClick = (spot) => {
+  const handleClick = (spot, active) => {
     setSpot(spot);
+
+    history.push("/metodo");
   };
 
   useEffect(() => {

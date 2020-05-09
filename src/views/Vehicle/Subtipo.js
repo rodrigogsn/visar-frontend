@@ -20,23 +20,27 @@ const Subtipo = () => {
 
   const [options, setOptions] = useState("");
 
+  const [subcategories, setSubcategories] = useState("");
+
   const [button, setButton] = useState(<ButtonDisabled text="Continuar" />);
 
   const handleSubcategories = async () => {
     await api
       .get("/vehicle_subcategories")
       .then((response) => {
-        const subcategories = response.data.filter(
+        const data = response.data.filter(
           (item) => item.category_id === category.id
         );
 
-        const data = subcategories.map((subcategory) => (
+        const html = data.map((subcategory) => (
           <option key={subcategory.id} value={subcategory.id}>
             {subcategory.name}
           </option>
         ));
 
-        setOptions(data);
+        setSubcategories(data);
+
+        setOptions(html);
       })
       .catch((error) => {
         console.log(error.response);
@@ -44,9 +48,9 @@ const Subtipo = () => {
   };
 
   const handleInputChange = (e) => {
-    setSubcategory(e.target.value);
+    const selected = subcategories.filter((item) => item.id == e.target.value);
 
-    console.log(e.target.value);
+    setSubcategory(selected);
 
     if (e.target.value !== "") {
       setButton(<ButtonPrimary text="Continuar" press={handleClick} />);
