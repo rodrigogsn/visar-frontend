@@ -125,6 +125,7 @@ const Login = () => {
             label="Email"
             type="email"
             name="email"
+            required={true}
             placeholder="Digite o seu email"
             value={auth.email}
             onChange={handleInputChange}
@@ -133,6 +134,7 @@ const Login = () => {
             label="Senha"
             type="password"
             name="password"
+            required={true}
             placeholder="Digite sua senha"
             value={auth.password}
             onChange={handleInputChange}

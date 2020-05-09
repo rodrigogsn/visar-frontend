@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { estados } from "./../views/content/estados";
 import { Squares } from "react-activity";
 import "react-activity/dist/react-activity.css";
-// import * as cep from "cep-promise";
+
+import InputMask from "react-input-mask";
 
 export const Loader = () => (
   <Squares color="black" size={36} speed={1} animating={true} />
@@ -71,19 +72,31 @@ export const TextInput = ({
   placeholder,
   state,
   onChange,
-}) => (
-  <div>
-    <label>{label}</label>
-    <input
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      value={state}
-      onChange={onChange}
-      onFocus={(e) => (e.target.originalvalue = e.target.value)}
-    ></input>
-  </div>
-);
+  required,
+  mask,
+  alwaysShowMask,
+  onKeyDown,
+  onKeyUp,
+}) => {
+  return (
+    <div>
+      <label>{label}</label>
+      <InputMask
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        value={state}
+        onChange={onChange}
+        required={required}
+        mask={mask}
+        alwaysShowMask={alwaysShowMask}
+        onKeyDown={onKeyDown}
+        onKeyUp={onKeyUp}
+        onFocus={(e) => (e.target.originalvalue = e.target.value)}
+      ></InputMask>
+    </div>
+  );
+};
 
 export const TextInputDisabled = ({ type, label, placeholder }) => (
   <div>
@@ -97,7 +110,13 @@ export const TextInputDisabled = ({ type, label, placeholder }) => (
   </div>
 );
 
-export const DropListUF = ({ name, label, placeholder, onChange }) => {
+export const DropListUF = ({
+  name,
+  label,
+  placeholder,
+  onChange,
+  required,
+}) => {
   const estadosSort = estados.sort((a, b) => (a.sigla > b.sigla ? 1 : -1));
 
   const options = estadosSort.map((estado) => (
@@ -110,6 +129,7 @@ export const DropListUF = ({ name, label, placeholder, onChange }) => {
       <select
         id={name}
         name={name}
+        required={required}
         onChange={onChange}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
       >
