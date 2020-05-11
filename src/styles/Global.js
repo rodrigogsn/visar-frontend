@@ -14,7 +14,6 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     outline: 0;
     font-size: 14px;
-    /* color: #000; */
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -39,8 +38,7 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: underline;
     font-weight: bold;
     color: #000;
-    max-width: -moz-fit-content;
-    max-width: -webkit-fit-content;
+    max-width: fit-content;
     transition: .3s all;
   }
 
@@ -327,6 +325,7 @@ const GlobalStyle = createGlobalStyle`
 
       .buttonWide {
         display: flex;
+        flex: 1;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
@@ -335,6 +334,12 @@ const GlobalStyle = createGlobalStyle`
         padding: 30px 20px;
         transition: .3s all;
         cursor: pointer;
+
+        &.customHeight {
+          min-height: fit-content;
+          justify-content: center;
+          padding: 10px 20px;
+        }
 
         &:not(:last-child) {
           margin-right: 10px;

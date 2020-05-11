@@ -22,8 +22,7 @@ const Regiao = () => {
         const data = response.data.map((location) => (
           <div
             key={location.id}
-            className="buttonWide"
-            style={{ minHeight: "fit-content" }}
+            className="buttonWide customHeight"
             onClick={() => {
               handleClick(location);
             }}

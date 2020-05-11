@@ -11,9 +11,7 @@ import MainContext from "./../../MainContext";
 const Local = () => {
   let history = useHistory();
 
-  const { profile, subcategory, setSpot, setTotal, method } = useContext(
-    MainContext
-  );
+  const { profile, subcategory, setSpot } = useContext(MainContext);
 
   const [spots, setSpots] = useState("");
 
@@ -27,8 +25,8 @@ const Local = () => {
 
           const disabledClass =
             !spot.active || !incompany_isValid
-              ? "buttonWide disabled"
-              : "buttonWide";
+              ? "buttonWide customHeight disabled"
+              : "buttonWide customHeight";
 
           const active = !spot.active || !incompany_isValid ? false : true;
 
@@ -36,7 +34,6 @@ const Local = () => {
             <div
               key={spot.id}
               className={disabledClass}
-              // style={{ minHeight: "fit-content" }}
               onClick={() => {
                 if (!active) {
                   return;
@@ -45,8 +42,7 @@ const Local = () => {
               }}
             >
               <h2>{spot.name}</h2>
-              <p>Descrição</p>
-              <span>R$ 000</span>
+              <p>{spot.description}</p>
             </div>
           );
         });
