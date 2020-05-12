@@ -69,9 +69,11 @@ export const TextInput = ({
   type,
   label,
   name,
+  style,
   placeholder,
   state,
   onChange,
+  onBlur,
   required,
   mask,
   alwaysShowMask,
@@ -80,7 +82,7 @@ export const TextInput = ({
 }) => {
   return (
     <div>
-      <label>{label}</label>
+      <label className={style}>{label}</label>
       <InputMask
         type={type}
         name={name}
@@ -90,21 +92,24 @@ export const TextInput = ({
         required={required}
         mask={mask}
         alwaysShowMask={alwaysShowMask}
+        onBlur={onBlur}
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
+        className={style}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
       ></InputMask>
     </div>
   );
 };
 
-export const TextInputDisabled = ({ type, label, placeholder }) => (
+export const TextInputDisabled = ({ type, label, placeholder, state }) => (
   <div>
     <label>{label}</label>
     <input
       type={type}
       placeholder={placeholder}
       disabled
+      value={state}
       className="disabled"
     ></input>
   </div>
@@ -113,6 +118,7 @@ export const TextInputDisabled = ({ type, label, placeholder }) => (
 export const DropListUF = ({
   name,
   label,
+  state,
   placeholder,
   onChange,
   required,
@@ -129,6 +135,7 @@ export const DropListUF = ({
       <select
         id={name}
         name={name}
+        value={state}
         required={required}
         onChange={onChange}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}

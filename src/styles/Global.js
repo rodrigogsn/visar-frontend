@@ -61,6 +61,7 @@ const GlobalStyle = createGlobalStyle`
     margin-bottom: 15px;
     box-sizing: border-box;
     width: 250px;
+    transition: 0.3s all;
   }
 
   input::placeholder {
@@ -72,6 +73,10 @@ const GlobalStyle = createGlobalStyle`
     background: #dadada;
     border-color: #dadada;
     cursor: default;
+  }
+
+  input.inputError {
+    border-color: red;
   }
   
   button {
@@ -485,6 +490,11 @@ const GlobalStyle = createGlobalStyle`
     label {
       font-size: 14px;
       font-weight: bold;
+      transition: 0.3s all;
+
+      &.inputError {
+        color: red;
+      }
     }
 
     input, select {
