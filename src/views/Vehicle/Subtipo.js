@@ -16,7 +16,13 @@ import MainContext from "./../../MainContext";
 const Subtipo = () => {
   let history = useHistory();
 
-  const { profile, category, setSubcategory } = useContext(MainContext);
+  const {
+    profile,
+    category,
+    setSubcategory,
+    subtotal,
+    setSubtotal,
+  } = useContext(MainContext);
 
   const [options, setOptions] = useState("");
 
@@ -50,10 +56,14 @@ const Subtipo = () => {
   const handleInputChange = (e) => {
     const selected = subcategories.filter((item) => item.id == e.target.value);
 
-    setSubcategory(selected);
+    setSubcategory(selected[0]);
 
     if (e.target.value !== "") {
       setButton(<ButtonPrimary text="Continuar" press={handleClick} />);
+
+      setSubtotal({ ...subtotal, subcategory: selected[0].value });
+
+      console.log("Valor por Subtipo:", selected[0].value, "Total:", subtotal);
     } else {
       setButton(<ButtonDisabled text="Continuar" />);
     }

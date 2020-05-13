@@ -15,7 +15,7 @@ import { ReactComponent as SvgBoleto } from "./../../assets/img/boleto-option.sv
 const Metodo = () => {
   let history = useHistory();
 
-  const { profile, setMethod } = useContext(MainContext);
+  const { profile, setMethod, subtotal, setSubtotal } = useContext(MainContext);
 
   if (!profile) {
     history.push("/");
@@ -36,11 +36,14 @@ const Metodo = () => {
   };
 
   const saveMethod = (key) => {
-    const array = methods.map((item) => item.id);
+    const method = methods.filter((item) => item.id == key);
 
-    const selected = array.find((item) => item === key);
+    setMethod(method[0]);
 
-    setMethod(selected);
+    setSubtotal({
+      ...subtotal,
+      method: method[0].increase + method[0].discount,
+    });
 
     history.push("/agendamento");
   };
@@ -55,6 +58,7 @@ const Metodo = () => {
 
   const handleDates = () => {
     const date1 = new Date();
+    date1.setDate(date1.getDate() + 1);
     const currentDate = new Intl.DateTimeFormat("pt-BR").format(date1);
 
     const date2 = new Date();

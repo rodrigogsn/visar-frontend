@@ -8,7 +8,6 @@ import {
   ButtonPrimary,
   TextInput,
   TextInputDisabled,
-  DropListUF,
   Loader,
 } from "./../../components/Elements";
 import { _perfil } from "./../../views/content";
@@ -24,6 +23,7 @@ const Perfil = () => {
   const { setProfile } = useContext(MainContext);
 
   const [buttonText, setButtonText] = useState("Enviar");
+
   const [cpfMask, setCpfMask] = useState("999.999.999-99");
 
   const [validation, setValidation] = useState({

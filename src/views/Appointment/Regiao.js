@@ -11,7 +11,7 @@ import MainContext from "./../../MainContext";
 const Regiao = () => {
   let history = useHistory();
 
-  const { profile, setLocation, setTotal, method } = useContext(MainContext);
+  const { profile, setLocation } = useContext(MainContext);
 
   const [locations, setLocations] = useState("");
 

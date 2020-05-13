@@ -52,7 +52,7 @@ export const _subtipo = {
 //// APPOINTMENT ////
 export const _regiao = {
   title: `Região`,
-  paragraph: `Escolha a sua região. Atendemos à domicílio apenas as seguintes regiões:`,
+  paragraph: `Escolha a sua região.`,
 };
 
 export const _local = {

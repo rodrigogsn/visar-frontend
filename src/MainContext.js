@@ -25,8 +25,8 @@ const MainContext = React.createContext({
   appointment: "",
   setAppointment: () => {},
 
-  total: "",
-  setTotal: () => {},
+  subtotal: "",
+  setSubtotal: () => {},
 });
 
 export default MainContext;

@@ -451,6 +451,25 @@ const GlobalStyle = createGlobalStyle`
       flex-direction: column;
     }
 
+    .col2 {
+      flex-direction: row !important;
+      
+      div:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      div:nth-child(1n) input,
+      div:nth-child(1n) select,
+      div:nth-child(2n) input, 
+      div:nth-child(2n) select {
+        width: 120px;
+      }
+
+      label {
+        width: auto;
+      }
+    }
+
     .col2-sm-first {
       flex-direction: row !important;
 
@@ -466,6 +485,10 @@ const GlobalStyle = createGlobalStyle`
       div:nth-child(2n) input, 
       div:nth-child(2n) select {
         width: 170px;
+      }
+
+      label {
+        width: auto;
       }
     }
 
@@ -485,12 +508,17 @@ const GlobalStyle = createGlobalStyle`
       div:nth-child(2n) select {
         width: 70px;
       }
+
+      label {
+        width: auto;
+      }
     }
     
     label {
       font-size: 14px;
       font-weight: bold;
       transition: 0.3s all;
+      width: 250px;
 
       &.inputError {
         color: red;
@@ -499,6 +527,13 @@ const GlobalStyle = createGlobalStyle`
 
     input, select {
       width: 250px;
+    }
+
+    .appointmentInput {
+      text-transform: uppercase;
+      font-weight: bold;
+      text-align: center;
+      text-align-last:center;
     }
 
     button {

@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { estados } from "./../views/content/estados";
+import { meses } from "./../views/content/meses";
+import { horarios } from "./../views/content/horarios";
 import { Squares } from "react-activity";
 import "react-activity/dist/react-activity.css";
 
@@ -139,6 +141,139 @@ export const DropListUF = ({
         required={required}
         onChange={onChange}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
+      >
+        <option value="">{placeholder}</option>
+        {options}
+      </select>
+    </div>
+  );
+};
+
+export const DropListMonth = ({
+  name,
+  label,
+  state,
+  style,
+  placeholder,
+  onChange,
+  required,
+}) => {
+  const options = meses.map((mes) => (
+    <option value={mes.value}>{mes.name}</option>
+  ));
+
+  return (
+    <div>
+      <label>{label}</label>
+      <select
+        id={name}
+        name={name}
+        value={state}
+        required={required}
+        onChange={onChange}
+        className={style}
+        onFocus={(e) => (e.target.originalvalue = e.target.value)}
+      >
+        <option value="">{placeholder}</option>
+        {options}
+      </select>
+    </div>
+  );
+};
+
+export const DropListDay = ({
+  name,
+  label,
+  month,
+  style,
+  year,
+  state,
+  blockedWeeekdays,
+  placeholder,
+  onChange,
+  required,
+}) => {
+  /**
+   * @param {int} The month number, 0 based
+   * @param {int} The year, not zero based, required to account for leap years
+   * @return {Date[]} List with date objects for each day of the month
+   */
+  const getDaysInMonth = (month, year) => {
+    let date = new Date(year, month, 1);
+    let days = [];
+    while (date.getMonth() === month) {
+      days.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+
+    const result = days
+      .filter((item) => {
+        const w = item
+          .toLocaleDateString("pt-BR", { weekday: "short" })
+          .substring(0, 3);
+
+        return w !== blockedWeeekdays[0];
+      })
+      .map((item) => {
+        const d = item.toLocaleDateString("pt-BR");
+        const w = item
+          .toLocaleDateString("pt-BR", { weekday: "short" })
+          .substring(0, 3);
+
+        return { d, w };
+      });
+
+    return result;
+  };
+
+  const options = getDaysInMonth(parseInt(month), year).map((dia) => (
+    <option value={dia.d}>
+      {dia.d} ({dia.w})
+    </option>
+  ));
+
+  return (
+    <div>
+      <label>{label}</label>
+      <select
+        id={name}
+        name={name}
+        value={state}
+        required={required}
+        onChange={onChange}
+        className={style}
+        onFocus={(e) => (e.target.originalvalue = e.target.value)}
+      >
+        {options}
+      </select>
+    </div>
+  );
+};
+
+export const DropListTime = ({
+  name,
+  label,
+  state,
+  style,
+  placeholder,
+  onChange,
+  required,
+}) => {
+  const options = horarios.map((horario) => (
+    <option value={horario.value}>{horario.value}</option>
+  ));
+
+  return (
+    <div>
+      <label>{label}</label>
+      <select
+        id={name}
+        name={name}
+        value={state}
+        required={required}
+        onChange={onChange}
+        onFocus={(e) => (e.target.originalvalue = e.target.value)}
+        className={style}
       >
         <option value="">{placeholder}</option>
         {options}

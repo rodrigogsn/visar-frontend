@@ -11,7 +11,14 @@ import MainContext from "./../../MainContext";
 const Local = () => {
   let history = useHistory();
 
-  const { profile, subcategory, setSpot } = useContext(MainContext);
+  const {
+    profile,
+    subcategory,
+    setSpot,
+    location,
+    subtotal,
+    setSubtotal,
+  } = useContext(MainContext);
 
   const [spots, setSpots] = useState("");
 
@@ -20,15 +27,14 @@ const Local = () => {
       .get("/spots")
       .then((response) => {
         const data = response.data.map((spot) => {
-          const incompany_isValid =
-            !subcategory[0].incompany && spot.incompany ? false : true;
+          const freetax = !subcategory.incompany && spot.freetax ? false : true;
 
           const disabledClass =
-            !spot.active || !incompany_isValid
+            !spot.active || !freetax
               ? "buttonWide customHeight disabled"
               : "buttonWide customHeight";
 
-          const active = !spot.active || !incompany_isValid ? false : true;
+          const active = !spot.active || !freetax ? false : true;
 
           return (
             <div
@@ -56,6 +62,15 @@ const Local = () => {
 
   const handleClick = (spot, active) => {
     setSpot(spot);
+
+    if (spot.freetax) {
+      setSubtotal({ ...subtotal, spot: 0 });
+    } else {
+      setSubtotal({
+        ...subtotal,
+        spot: location.increase + location.discount,
+      });
+    }
 
     history.push("/metodo");
   };

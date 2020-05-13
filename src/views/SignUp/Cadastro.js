@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
@@ -13,9 +13,13 @@ import {
 import { _cadastro } from "./../../views/content";
 
 import api from "./../../services/api";
+import MainContext from "./../../MainContext";
+import { logout } from "./../../services/auth";
 
 const Cadastro = () => {
   let history = useHistory();
+
+  const { setUser, setProfile } = useContext(MainContext);
 
   const [buttonText, setButtonText] = useState("Cadastrar");
 
@@ -34,6 +38,10 @@ const Cadastro = () => {
       .then((response) => {
         console.log(response.data);
         setButtonText("Cadastrar");
+
+        setUser("");
+        setProfile("");
+        logout();
         history.push("/confirmacao");
       })
       .catch((error) => {

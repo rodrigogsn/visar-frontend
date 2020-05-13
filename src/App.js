@@ -12,7 +12,7 @@ const App = () => {
   const [location, setLocation] = useState("");
   const [spot, setSpot] = useState("");
   const [appointment, setAppointment] = useState("");
-  const [total, setTotal] = useState("");
+  const [subtotal, setSubtotal] = useState(0);
 
   const value = {
     user,
@@ -31,8 +31,8 @@ const App = () => {
     setSpot,
     appointment,
     setAppointment,
-    total,
-    setTotal,
+    subtotal,
+    setSubtotal,
   };
 
   return (
