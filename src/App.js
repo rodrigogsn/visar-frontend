@@ -13,6 +13,7 @@ const App = () => {
   const [spot, setSpot] = useState("");
   const [appointment, setAppointment] = useState("");
   const [subtotal, setSubtotal] = useState(0);
+  const [fullDay, setFullDay] = useState(false);
 
   const value = {
     user,
@@ -33,6 +34,8 @@ const App = () => {
     setAppointment,
     subtotal,
     setSubtotal,
+    fullDay,
+    setFullDay,
   };
 
   return (

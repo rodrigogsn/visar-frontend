@@ -81,8 +81,8 @@ export const _revisao = {
 };
 
 export const _sucesso = {
-  title: `Concluído`,
-  subtitle: `Código da transação`,
+  title: `Agendamento OK!`,
+  subtitle: `Aguardando confirmação do pagamento.`,
   legal: `What you need, above all else, is a love for your subject, whatever it is. You've got to be so deeply in love with your subject that when curve balls are thrown, when hurdles are put in place, you've got the energy to overcome them. What you need, above all else, is a love for your subject, whatever it is. You've got to be so deeply in love with your subject that when curve balls are thrown, when hurdles are put in place, you've got the energy to overcome them.`,
   boleto: `Se boleto foi gerado! Você também receberá o boleto por email.
   Aguardamos o pagamento para concluir o agendamento. Leva até 3 dias úteis para confirmação do pagamento via boleto. Assim que houver confirmação, você será notificado via email.`,

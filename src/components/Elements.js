@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { estados } from "./../views/content/estados";
 import { meses } from "./../views/content/meses";
@@ -6,7 +6,11 @@ import { horarios } from "./../views/content/horarios";
 import { Squares } from "react-activity";
 import "react-activity/dist/react-activity.css";
 
+import MainContext from "./../MainContext";
+
 import InputMask from "react-input-mask";
+
+let fullDay = false;
 
 export const Loader = () => (
   <Squares color="black" size={36} speed={1} animating={true} />
@@ -128,7 +132,9 @@ export const DropListUF = ({
   const estadosSort = estados.sort((a, b) => (a.sigla > b.sigla ? 1 : -1));
 
   const options = estadosSort.map((estado) => (
-    <option value={estado.sigla}>{estado.sigla}</option>
+    <option key={estado.id} value={estado.sigla}>
+      {estado.sigla}
+    </option>
   ));
 
   return (
@@ -155,12 +161,17 @@ export const DropListMonth = ({
   state,
   style,
   placeholder,
+  currentMonth,
   onChange,
   required,
 }) => {
-  const options = meses.map((mes) => (
-    <option value={mes.value}>{mes.name}</option>
-  ));
+  const options = meses
+    .filter((mes) => mes.value >= currentMonth)
+    .map((mes) => (
+      <option key={mes.value} value={mes.value}>
+        {mes.name}
+      </option>
+    ));
 
   return (
     <div>
@@ -184,53 +195,36 @@ export const DropListMonth = ({
 export const DropListDay = ({
   name,
   label,
-  month,
+  days,
   style,
   year,
   state,
-  blockedWeeekdays,
   placeholder,
+  currentMonth,
+  currentDay,
+  methodDays,
   onChange,
   required,
 }) => {
-  /**
-   * @param {int} The month number, 0 based
-   * @param {int} The year, not zero based, required to account for leap years
-   * @return {Date[]} List with date objects for each day of the month
-   */
-  const getDaysInMonth = (month, year) => {
-    let date = new Date(year, month, 1);
-    let days = [];
-    while (date.getMonth() === month) {
-      days.push(new Date(date));
-      date.setDate(date.getDate() + 1);
-    }
+  const options = days
+    .filter((value) => {
+      const day = parseInt(value.d.substring(0, 2));
+      const month = parseInt(value.d.substring(3, 5)) - 1;
 
-    const result = days
-      .filter((item) => {
-        const w = item
-          .toLocaleDateString("pt-BR", { weekday: "short" })
-          .substring(0, 3);
+      if (month === currentMonth && day < currentDay + methodDays) {
+        return false;
+      }
 
-        return w !== blockedWeeekdays[0];
-      })
-      .map((item) => {
-        const d = item.toLocaleDateString("pt-BR");
-        const w = item
-          .toLocaleDateString("pt-BR", { weekday: "short" })
-          .substring(0, 3);
-
-        return { d, w };
-      });
-
-    return result;
-  };
-
-  const options = getDaysInMonth(parseInt(month), year).map((dia) => (
-    <option value={dia.d}>
-      {dia.d} ({dia.w})
-    </option>
-  ));
+      console.log(day, month, currentDay, currentMonth, methodDays);
+      return true;
+    })
+    .map((dia) => {
+      return (
+        <option key={dia.d} value={dia.d}>
+          {dia.d} ({dia.w})
+        </option>
+      );
+    });
 
   return (
     <div>
@@ -244,6 +238,7 @@ export const DropListDay = ({
         className={style}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
       >
+        <option key="" value=""></option>
         {options}
       </select>
     </div>
@@ -255,13 +250,21 @@ export const DropListTime = ({
   label,
   state,
   style,
+  disabled,
+  time,
   placeholder,
   onChange,
   required,
 }) => {
-  const options = horarios.map((horario) => (
-    <option value={horario.value}>{horario.value}</option>
-  ));
+  const options = time.map((horario) => {
+    if (horario) {
+      return (
+        <option key={horario} value={horario}>
+          {horario}
+        </option>
+      );
+    }
+  });
 
   return (
     <div>
@@ -272,6 +275,7 @@ export const DropListTime = ({
         value={state}
         required={required}
         onChange={onChange}
+        disabled={disabled}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
         className={style}
       >

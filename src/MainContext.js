@@ -27,6 +27,9 @@ const MainContext = React.createContext({
 
   subtotal: "",
   setSubtotal: () => {},
+
+  fullDay: "",
+  setFullDay: () => {},
 });
 
 export default MainContext;
