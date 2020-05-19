@@ -31,7 +31,7 @@ const Perfil = () => {
     birthdate: "",
     area_code: "",
     phone: "",
-    zipode: "",
+    zipcode: "",
   });
 
   const [data, setData] = useState({
@@ -45,7 +45,7 @@ const Perfil = () => {
     address_number: "",
     district: "",
     uf: "",
-    zipode: "",
+    zipcode: "",
     city: "",
   });
 
@@ -209,7 +209,7 @@ const Perfil = () => {
       address_number: data.address_number,
       district: data.district,
       uf: data.uf,
-      zipode: data.zipode.replace(/[^a-zA-Z0-9]/g, ""),
+      zipcode: data.zipcode.replace(/[^a-zA-Z0-9]/g, ""),
       city: data.city,
     };
 
@@ -218,7 +218,7 @@ const Perfil = () => {
     setButtonText(<Loader />);
 
     await api
-      .post("/profiles", data)
+      .post("/profiles", request)
       .then((response) => {
         console.log(response.data);
 
@@ -332,13 +332,13 @@ const Perfil = () => {
           <TextInput
             label="CEP"
             type="text"
-            name="zipode"
+            name="zipcode"
             style={validation.zipcode}
             required={true}
             mask="99999-999"
             alwaysShowMask={false}
             placeholder="Digite seu CEP"
-            state={data.zipode}
+            state={data.zipcode}
             onChange={handleInputChange}
             onBlur={(e) => findCep(e)}
           />

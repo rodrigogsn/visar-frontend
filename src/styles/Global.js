@@ -301,6 +301,8 @@ const GlobalStyle = createGlobalStyle`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    flex: none;
+
     padding: 80px 0 100px;
     animation: 0.2s ${appear} ease;
 

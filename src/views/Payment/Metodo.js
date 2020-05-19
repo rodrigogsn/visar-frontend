@@ -91,13 +91,13 @@ const Metodo = () => {
             </p>
           </div>
 
-          <div className="buttonWide" onClick={() => saveMethod(2)}>
+          {/* <div className="buttonWide" onClick={() => saveMethod(2)}>
             <SvgDebito className="buttonWide-image" alt="" />
             <h2>Cartão de Débito</h2>
             <p>
               Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
             </p>
-          </div>
+          </div> */}
 
           <div className="buttonWide" onClick={() => saveMethod(3)}>
             <SvgBoleto className="buttonWide-image" alt="" />

@@ -235,7 +235,7 @@ const AgendamentoBoleto = () => {
           value: response.data.total,
         };
 
-        handleBoletoTransaction(transaction);
+        handleBoletoTransaction(transaction, response.data.id);
       })
       .catch((error) => {
         console.log(error.response);
@@ -243,10 +243,10 @@ const AgendamentoBoleto = () => {
       });
   };
 
-  const handleBoletoTransaction = async (data) => {
+  const handleBoletoTransaction = async (data, appointment_id) => {
     await api
       .post("/transaction", data)
-      .then((response) => {
+      .then(async (response) => {
         console.log(response.data);
 
         setBoleto({
@@ -254,7 +254,16 @@ const AgendamentoBoleto = () => {
           link: response.data.paymentLink,
         });
 
-        history.push("/boleto");
+        /**
+         * Inserting the transaction code inside this appointment
+         */
+        await api
+          .put(`/appointments/${appointment_id}`, {
+            transaction: response.data.code,
+          })
+          .then((response) => {
+            return history.push("/boleto");
+          });
       })
       .catch((error) => {
         console.log(error?.response.message.message);
