@@ -433,6 +433,7 @@ const GlobalStyle = createGlobalStyle`
       justify-content: space-between;
       flex-wrap: wrap;
       max-width: 410px;
+      transition: 0.3s all;
       
       .typeButton {
         display: flex;
@@ -562,6 +563,113 @@ const GlobalStyle = createGlobalStyle`
 
     button {
       width: 250px;
+    }
+  }
+
+  /********** Input Form **********/
+  @media (max-width: 700px) {
+    nav {
+      flex-direction: column;
+      border-bottom: 1px solid #26323850;
+      padding: 20px 10px;
+
+      img {
+        max-width: 130px;
+        padding-top: 5px;
+      }
+
+      ul {
+        margin-top: 10px;
+
+        li a {
+          font-size: 12px;
+          text-decoration: underline;
+        }
+      
+        li a button {
+          padding: 0px;
+          text-decoration: underline;
+          background-color: transparent;
+          font-size: 12px;
+          min-width: unset;
+          height: 35px;
+
+          &:hover {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+
+    main.home {
+      flex-direction: column-reverse;
+      padding-top: 5px;
+
+      header {
+        margin: 0 10px;
+        align-items: center;
+        text-align: center;
+
+        h1 {
+          max-width: none;
+          text-align: center;
+          line-height: 1.1;
+          font-size: 28px;
+        }
+      }
+
+      img {
+        position: relative;
+        max-width: 90%;
+        margin-left: 0;
+      }
+    }
+
+    main.default {
+      margin: 0 10px;
+
+      .buttonGroup {
+        flex-direction: column;
+
+        button {
+          margin-bottom: 12px;
+        }
+
+        .buttonWide:not(:last-child) {
+          margin-right: 0;
+          margin-bottom: 12px;
+        }
+      }
+
+
+      .typeGroup {
+        flex-direction: column;
+
+        .typeButton:nth-child(2n - 1):not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+    
+
+    footer section {
+      flex-direction: column;
+
+      div:not(:last-child) {
+        margin-bottom: 30px;
+      }
+
+      &.footerTop p, &.footerTop strong {
+        font-size: 14px;
+      }
+
+      &.footerBottom {
+        padding: 10px;
+        
+        p {
+          text-align: center;
+        }
+      }
     }
   }
 

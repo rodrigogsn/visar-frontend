@@ -9,9 +9,9 @@ const Header = () => {
         <img src={logo} alt="Logotipo Visar Emplaca" />
       </Link>
       <ul>
-        <li>
+        {/* <li>
           <Link to="/start">Contato</Link>
-        </li>
+        </li> */}
         <li>
           <Link to="/start">Localização</Link>
         </li>
