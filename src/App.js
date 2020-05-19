@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Routes from "./routes";
 import GlobalStyle from "./styles/Global";
 import MainContext from "./MainContext";
+import LoadLibrary from "./utils/LoadLibrary";
 
 const App = () => {
   const [user, setUser] = useState("");
@@ -14,6 +15,8 @@ const App = () => {
   const [appointment, setAppointment] = useState("");
   const [subtotal, setSubtotal] = useState(0);
   const [fullDay, setFullDay] = useState(false);
+  const [boleto, setBoleto] = useState("");
+  const [transaction, setTransaction] = useState("");
 
   const value = {
     user,
@@ -36,13 +39,19 @@ const App = () => {
     setSubtotal,
     fullDay,
     setFullDay,
+    boleto,
+    setBoleto,
+    transaction,
+    setTransaction,
   };
 
   return (
-    <MainContext.Provider value={value}>
-      <GlobalStyle />
-      <Routes />
-    </MainContext.Provider>
+    <LoadLibrary>
+      <MainContext.Provider value={value}>
+        <GlobalStyle />
+        <Routes />
+      </MainContext.Provider>
+    </LoadLibrary>
   );
 };
 

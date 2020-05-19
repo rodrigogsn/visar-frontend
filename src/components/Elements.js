@@ -215,7 +215,7 @@ export const DropListDay = ({
         return false;
       }
 
-      console.log(day, month, currentDay, currentMonth, methodDays);
+      // console.log(day, month, currentDay, currentMonth, methodDays);
       return true;
     })
     .map((dia) => {
@@ -256,7 +256,7 @@ export const DropListTime = ({
   onChange,
   required,
 }) => {
-  const options = time.map((horario) => {
+  const options = time.sort().map((horario) => {
     if (horario) {
       return (
         <option key={horario} value={horario}>
@@ -294,7 +294,13 @@ export const MiniLink = ({ text, link }) => (
 
 export const Title = ({ text }) => <h1>{text}</h1>;
 
+export const Subtitle = ({ text }) => <h2>{text}</h2>;
+
 export const Paragraph = ({ text }) => <p>{text}</p>;
+
+export const Warning = ({ text }) => <p className="warning">{text}</p>;
+
+export const Code = ({ text }) => <p className="code">{text}</p>;
 
 export const Image = ({ source, alt, title }) => (
   <img src={source} alt={alt} title={title} />

@@ -30,6 +30,12 @@ const MainContext = React.createContext({
 
   fullDay: "",
   setFullDay: () => {},
+
+  boleto: "",
+  setBoleto: () => {},
+
+  transaction: "",
+  setTransaction: () => {},
 });
 
 export default MainContext;

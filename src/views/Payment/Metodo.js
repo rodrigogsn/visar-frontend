@@ -45,7 +45,11 @@ const Metodo = () => {
       method: method[0].increase + method[0].discount,
     });
 
-    history.push("/agendamento");
+    if (method[0].pagseguro === "boleto") {
+      history.push("/agendamento-boleto");
+    } else {
+      history.push("/agendamento-card");
+    }
   };
 
   useEffect(() => {

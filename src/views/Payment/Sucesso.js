@@ -1,8 +1,14 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
-import { Title, Paragraph, ButtonPrimary } from "./../../components/Elements";
+import {
+  Title,
+  Paragraph,
+  Warning,
+  Subtitle,
+  Code,
+} from "./../../components/Elements";
 import { _sucesso } from "./../../views/content";
 
 import MainContext from "./../../MainContext";
@@ -10,14 +16,16 @@ import MainContext from "./../../MainContext";
 const Sucesso = () => {
   let history = useHistory();
 
-  const { profile } = useContext(MainContext);
+  const { setProfile, transaction } = useContext(MainContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    if (!profile) {
-      history.push("/");
-    }
+    setProfile("");
+
+    // if (!transaction) {
+    //   history.push("/");
+    // }
   }, []);
 
   return (
@@ -27,8 +35,17 @@ const Sucesso = () => {
       <main className="default">
         <header>
           <Title text={_sucesso.title} />
-          <Paragraph text={_sucesso.subtitle} />
+
+          <Subtitle text={_sucesso.subtitle} />
+
+          <Code text={transaction} />
         </header>
+
+        <section>
+          <Paragraph text={_sucesso.paragraph} />
+
+          <Warning text={_sucesso.legal} />
+        </section>
       </main>
 
       <Footer />

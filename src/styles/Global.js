@@ -30,8 +30,18 @@ const GlobalStyle = createGlobalStyle`
     font-size: 32px;
   }
 
+  h2 {
+    font-size: 18px;
+    margin: 5px 0 10px;
+  }
+
   p.customParagraph {
     margin: 10px 0 0 !important;
+  }
+
+  .warning {
+    font-style: italic;
+    font-size: 12px;
   }
 
   a {
@@ -310,6 +320,18 @@ const GlobalStyle = createGlobalStyle`
       }
     }
 
+    section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      p {
+        max-width: 300px;
+        text-align: center;
+        margin: 10px 0 20px;
+      }
+    }
+
     .buttonGroup {
       display: flex;
       flex-direction: row;
@@ -360,7 +382,7 @@ const GlobalStyle = createGlobalStyle`
           max-width: 125px;
         }
 
-        h2 {
+        & h2 {
           text-decoration: none;
           font-size: 24px;
           font-weight: bold;
@@ -384,7 +406,7 @@ const GlobalStyle = createGlobalStyle`
             transform: none;
           }
 
-          h2, p {
+          & h2, p {
             color: #828282;
           }
         }

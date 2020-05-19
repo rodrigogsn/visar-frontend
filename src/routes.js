@@ -22,10 +22,13 @@ import Subtipo from "./views/Vehicle/Subtipo";
 
 import Regiao from "./views/Appointment/Regiao";
 import Local from "./views/Appointment/Local";
-import Agendamento from "./views/Appointment/Agendamento";
+import AgendamentoBoleto from "./views/Appointment/AgendamentoBoleto";
+import AgendamentoCard from "./views/Appointment/AgendamentoCard";
 
 import Metodo from "./views/Payment/Metodo";
 import Card from "./views/Payment/Card";
+import Process from "./views/Payment/Process";
+import Boleto from "./views/Payment/Boleto";
 import Revisao from "./views/Payment/Revisao";
 import Sucesso from "./views/Payment/Sucesso";
 
@@ -59,10 +62,21 @@ const Routes = () => (
 
       <PrivateRoute path="/regiao" exact component={Regiao} />
       <PrivateRoute path="/local" exact component={Local} />
-      <PrivateRoute path="/agendamento" exact component={Agendamento} />
+      <PrivateRoute
+        path="/agendamento-boleto"
+        exact
+        component={AgendamentoBoleto}
+      />
+      <PrivateRoute
+        path="/agendamento-card"
+        exact
+        component={AgendamentoCard}
+      />
 
       <PrivateRoute path="/metodo" exact component={Metodo} />
       <PrivateRoute path="/card" exact component={Card} />
+      <PrivateRoute path="/process" exact component={Process} />
+      <PrivateRoute path="/boleto" exact component={Boleto} />
       <PrivateRoute path="/revisao" exact component={Revisao} />
       <PrivateRoute path="/sucesso" exact component={Sucesso} />
 

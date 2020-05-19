@@ -17,7 +17,7 @@ import { _agendamento } from "./../../views/content";
 import api from "./../../services/api";
 import MainContext from "./../../MainContext";
 
-const Agendamento = () => {
+const AgendamentoBoleto = () => {
   let history = useHistory();
 
   const {
@@ -28,27 +28,20 @@ const Agendamento = () => {
     location,
     method,
     subtotal,
+    setBoleto,
   } = useContext(MainContext);
 
   const total = subtotal.subcategory + subtotal.spot + subtotal.method;
-  const [buttonText, setButtonText] = useState(`Pagar: R$${total}`);
+
+  const [storage, setStorage] = useState("");
+
+  const [buttonText, setButtonText] = useState(`Gerar Boleto: R$${total}`);
+
   const [workTime, setWorkTime] = useState([]);
+
   const [selectedDay, setSelectedDay] = useState(null);
+
   const [blockedWeekdays, setBlockedWeekdays] = useState(["dom"]);
-
-  const [card, setCard] = useState({
-    cc_number: "",
-    cc_exp: "",
-    cc_cvv: "",
-    cc_name: "",
-  });
-
-  const [validation, setValidation] = useState({
-    cc_number: "",
-    cc_exp: "",
-    cc_cvv: "",
-    cc_name: "",
-  });
 
   const [vehicle, setVehicle] = useState({
     plate: "",
@@ -84,10 +77,6 @@ const Agendamento = () => {
     setVehicle({ ...vehicle, [e.target.name]: e.target.value });
   };
 
-  const handleCardInput = (e) => {
-    setCard({ ...card, [e.target.name]: e.target.value });
-  };
-
   const handleDateInput = (e, daysByMonth) => {
     if (e.target.name === "day") {
       setDate({ ...date, time: "" });
@@ -102,20 +91,9 @@ const Agendamento = () => {
     setDate({ ...date, [e.target.name]: e.target.value });
   };
 
-  const emptyMaskValidate = (e) => {
-    const index = e.target.value.indexOf("_");
-
-    if (index !== -1) {
-      setValidation({ ...validation, [e.target.name]: "inputError" });
-    } else {
-      setValidation({ ...validation, [e.target.name]: "" });
-    }
-  };
-
   /**
    * Get Javasctipt array with all days from selected month
    */
-
   const getDaysInMonth = async (selectedMonth) => {
     let d = new Date(date.year, selectedMonth, 1);
     let days = [];
@@ -145,7 +123,6 @@ const Agendamento = () => {
     /**
      * Get All Appointments from API
      */
-
     const formatMonth = ("0" + (parseInt(selectedMonth) + 1)).slice(-2);
     console.log(formatMonth);
 
@@ -164,7 +141,6 @@ const Agendamento = () => {
         /**
          * Add all unappointed work hours to each day, according to default work time
          */
-
         const addTimeArr = result.filter((item) => {
           item.time = workTime.filter((value) => {
             let takenTime = alreadyTaken.filter((time) => {
@@ -183,51 +159,12 @@ const Agendamento = () => {
           return item ? true : false;
         });
 
-        console.log("Method", method.confirm_days);
-        console.log("AllDays, with time:", addTimeArr);
-        console.log("alreadyTaken:", alreadyTaken);
-        console.log("workTime:", workTime);
+        // console.log("Method", method.confirm_days);
+        // console.log("AllDays, with time:", addTimeArr);
+        // console.log("alreadyTaken:", alreadyTaken);
+        // console.log("workTime:", workTime);
         setDaysByMonth(addTimeArr);
       });
-  };
-
-  const handleCreateAppointment = async (vehicle) => {
-    const appointment_data = {
-      status: "Aguardando pagamento",
-      vehicle: vehicle,
-      date: date.day,
-      time: date.time,
-      category: category.id,
-      subcategory: subcategory.id,
-      location: location.id,
-      spot: spot.id,
-      address: profile.address,
-      address2: profile.address2,
-      address_number: profile.address_number,
-      district: profile.district,
-      uf: profile.uf,
-      zipcode: profile.zipcode,
-      payment_method: method.id,
-      transaction: "CODIGOPAGSEGURO",
-    };
-
-    console.log(appointment_data);
-
-    await api
-      .post("/appointments", appointment_data)
-      .then((response) => {
-        console.log(response.data);
-        history.push("/sucesso");
-      })
-      .catch((error) => {
-        console.log(error.response);
-        alert(
-          "Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios."
-        );
-        setButtonText(`Pagar: R$${total}`);
-      });
-
-    setButtonText(`Pagar: R$${total}`);
   };
 
   const handleSendData = async (e) => {
@@ -254,28 +191,109 @@ const Agendamento = () => {
         alert(
           "Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios."
         );
-        setButtonText(`Pagar: R$${total}`);
+        setButtonText(`Gerar Boleto: R$${total}`);
+      });
+  };
+
+  const handleCreateAppointment = async (vehicle) => {
+    const appointment_data = {
+      status: "Aguardando Pagamento",
+      vehicle: vehicle,
+      date: date.day,
+      time: date.time,
+      category: category.id,
+      subcategory: subcategory.id,
+      location: location.id,
+      spot: spot.id,
+      address: profile.address,
+      address2: profile.address2,
+      address_number: profile.address_number,
+      district: profile.district,
+      city: profile.city,
+      uf: profile.uf,
+      zipcode: profile.zipcode,
+      payment_method: method.id,
+    };
+
+    await api
+      .post("/appointments", appointment_data)
+      .then((response) => {
+        const transaction = {
+          name: profile.name,
+          email: storage.email,
+          cpf_cnpj: profile.document,
+          area_code: profile.area_code,
+          phone: profile.phone,
+          birth_date: profile.birthdate,
+          street: profile.address,
+          number: profile.address_number,
+          district: profile.district,
+          city: profile.city,
+          state: profile.uf,
+          postal_code: profile.zipcode,
+          method: method.pagseguro,
+          value: response.data.total,
+        };
+
+        handleBoletoTransaction(transaction);
+      })
+      .catch((error) => {
+        console.log(error.response);
+        setButtonText(`Gerar Boleto: R$${total}`);
+      });
+  };
+
+  const handleBoletoTransaction = async (data) => {
+    await api
+      .post("/transaction", data)
+      .then((response) => {
+        console.log(response.data);
+
+        setBoleto({
+          code: response.data.code,
+          link: response.data.paymentLink,
+        });
+
+        history.push("/boleto");
+      })
+      .catch((error) => {
+        console.log(error?.response.message.message);
+        alert(
+          "Ocorreu um erro ao processar. Verifique os dados e tente novamente."
+        );
+        setButtonText(`Gerar Boleto: R$${total}`);
       });
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    if (!profile) {
+    /**
+     * Getting user email
+     */
+    const storage = JSON.parse(localStorage.getItem("@visar-User"));
+
+    setStorage(storage);
+
+    if (!profile || method.pagseguro !== "boleto") {
       history.push("/");
     }
 
+    /**
+     * Fetching default work time to offer
+     */
+
     handleWorkTime();
 
+    /**
+     * Handling date to use in appointments
+     */
     const d = new Date();
     const currentYear = d.getFullYear();
     const currentMonth = d.getMonth();
     const currentDay = d.getDate();
-
     setDate({ ...date, year: currentYear, currentMonth, currentDay });
   }, []);
-
-  console.log(date);
 
   return (
     <>
@@ -384,48 +402,6 @@ const Agendamento = () => {
               onChange={handleDateInput}
             />
           </div>
-          {/*           
-          <div style={{ marginTop: 30 }}>
-            <TextInput
-              label="Número do Cartão 💳"
-              name="cc_number"
-              required={true}
-              mask="9999 9999 9999 9999"
-              onChange={handleCardInput}
-              style={validation.cc_number}
-              onBlur={(e) => emptyMaskValidate(e)}
-            />
-
-            <div className="col2">
-              <TextInput
-                label="Validade"
-                name="cc_exp"
-                required={true}
-                mask="99/99"
-                placeholder="MM/YY"
-                onChange={handleCardInput}
-                style={validation.cc_exp}
-                onBlur={(e) => emptyMaskValidate(e)}
-              />
-              <TextInput
-                label="CVV"
-                name="cc_cvv"
-                required={true}
-                onChange={handleCardInput}
-                style={validation.cc_cvv}
-                onBlur={(e) => emptyMaskValidate(e)}
-              />
-            </div>
-
-            <TextInput
-              label="Nome do titular"
-              name="cc_name"
-              required={true}
-              onChange={handleCardInput}
-              style={validation.cc_name}
-              onBlur={(e) => emptyMaskValidate(e)}
-            />
-          </div> */}
 
           <ButtonSuccess text={buttonText} />
         </form>
@@ -436,4 +412,4 @@ const Agendamento = () => {
   );
 };
 
-export default Agendamento;
+export default AgendamentoBoleto;
