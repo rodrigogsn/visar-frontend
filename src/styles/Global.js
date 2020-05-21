@@ -568,6 +568,10 @@ const GlobalStyle = createGlobalStyle`
 
   /********** Input Form **********/
   @media (max-width: 700px) {
+    main {
+      flex: none;
+    }
+    
     nav {
       flex-direction: column;
       border-bottom: 1px solid #26323850;
