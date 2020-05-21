@@ -8,6 +8,8 @@ import {
 
 import { isAuthenticated } from "./services/auth";
 
+import Maintenance from "./views/Maintenance";
+
 import Home from "./views/Home";
 import Login from "./views/Login";
 
@@ -48,7 +50,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const Routes = () => (
   <Router>
     <Switch>
-      <Route path="/" exact component={Home} />
+      <Route path="/" exact component={Maintenance} />
+      {/* <Route path="/" exact component={Home} />
       <Route path="/login" exact component={Login} />
 
       <Route path="/start" exact component={Start} />
@@ -80,7 +83,7 @@ const Routes = () => (
       <PrivateRoute path="/revisao" exact component={Revisao} />
       <PrivateRoute path="/sucesso" exact component={Sucesso} />
 
-      <Route path="*" component={() => <h1>Page not found</h1>} />
+      <Route path="*" component={() => <h1>Page not found</h1>} /> */}
     </Switch>
   </Router>
 );
