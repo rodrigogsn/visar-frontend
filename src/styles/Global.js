@@ -572,6 +572,7 @@ const GlobalStyle = createGlobalStyle`
       flex-direction: column;
       border-bottom: 1px solid #26323850;
       padding: 20px 10px;
+      flex: none;
 
       img {
         max-width: 130px;
@@ -641,7 +642,6 @@ const GlobalStyle = createGlobalStyle`
         }
       }
 
-
       .typeGroup {
         flex-direction: column;
 
@@ -651,12 +651,15 @@ const GlobalStyle = createGlobalStyle`
       }
     }
     
-
     footer section {
       flex-direction: column;
 
       div:not(:last-child) {
         margin-bottom: 30px;
+      }
+
+      &.footerTop {
+        flex: none;
       }
 
       &.footerTop p, &.footerTop strong {
@@ -665,6 +668,7 @@ const GlobalStyle = createGlobalStyle`
 
       &.footerBottom {
         padding: 10px;
+        flex: none;
         
         p {
           text-align: center;
