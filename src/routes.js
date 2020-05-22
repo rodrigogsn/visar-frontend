@@ -24,13 +24,14 @@ import Regiao from "./views/Appointment/Regiao";
 import Local from "./views/Appointment/Local";
 import AgendamentoBoleto from "./views/Appointment/AgendamentoBoleto";
 import AgendamentoCard from "./views/Appointment/AgendamentoCard";
+import AgendamentoDebito from "./views/Appointment/AgendamentoDebito";
 
 import Metodo from "./views/Payment/Metodo";
 import Card from "./views/Payment/Card";
 import Process from "./views/Payment/Process";
 import Boleto from "./views/Payment/Boleto";
-import Revisao from "./views/Payment/Revisao";
 import Sucesso from "./views/Payment/Sucesso";
+import Retorno from "./views/Payment/Retorno";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -72,13 +73,18 @@ const Routes = () => (
         exact
         component={AgendamentoCard}
       />
+      <PrivateRoute
+        path="/agendamento-debito"
+        exact
+        component={AgendamentoDebito}
+      />
 
       <PrivateRoute path="/metodo" exact component={Metodo} />
       <PrivateRoute path="/card" exact component={Card} />
       <PrivateRoute path="/process" exact component={Process} />
       <PrivateRoute path="/boleto" exact component={Boleto} />
-      <PrivateRoute path="/revisao" exact component={Revisao} />
       <PrivateRoute path="/sucesso" exact component={Sucesso} />
+      <PrivateRoute path="/retorno" exact component={Retorno} />
 
       <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>

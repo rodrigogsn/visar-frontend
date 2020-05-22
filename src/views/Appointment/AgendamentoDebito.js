@@ -17,7 +17,7 @@ import { _agendamento } from "./../../views/content";
 import api from "./../../services/api";
 import MainContext from "./../../MainContext";
 
-const AgendamentoBoleto = () => {
+const AgendamentoDebito = () => {
   let history = useHistory();
 
   const {
@@ -31,12 +31,11 @@ const AgendamentoBoleto = () => {
     setBoleto,
   } = useContext(MainContext);
 
-  // This adds PagSeguro Boleto R$1,00 tax in frontend, but subtotal.method will calculate it properly
-  const total = subtotal.subcategory + subtotal.spot + subtotal.method + 1;
+  const total = subtotal.subcategory + subtotal.spot + subtotal.method;
 
   const [storage, setStorage] = useState("");
 
-  const [buttonText, setButtonText] = useState(`Gerar Boleto: R$${total}`);
+  const [buttonText, setButtonText] = useState(`Pagar: R$${total}`);
 
   const [workTime, setWorkTime] = useState([]);
 
@@ -192,7 +191,7 @@ const AgendamentoBoleto = () => {
         alert(
           "Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios."
         );
-        setButtonText(`Gerar Boleto: R$${total}`);
+        setButtonText(`Pagar: R$${total}`);
       });
   };
 
@@ -234,13 +233,14 @@ const AgendamentoBoleto = () => {
           postal_code: profile.zipcode,
           method: method.pagseguro,
           value: response.data.total,
+          bankName: "itau",
         };
 
         handleTransaction(transaction, response.data.id);
       })
       .catch((error) => {
         console.log(error);
-        setButtonText(`Gerar Boleto: R$${total}`);
+        setButtonText(`Pagar: R$${total}`);
       });
   };
 
@@ -271,7 +271,7 @@ const AgendamentoBoleto = () => {
         alert(
           "Ocorreu um erro ao processar. Verifique os dados e tente novamente."
         );
-        setButtonText(`Gerar Boleto: R$${total}`);
+        setButtonText(`Pagar: R$${total}`);
       });
   };
 
@@ -285,7 +285,7 @@ const AgendamentoBoleto = () => {
 
     setStorage(storage);
 
-    if (!profile || method.pagseguro !== "boleto") {
+    if (!profile || method.pagseguro !== "eft") {
       history.push("/");
     }
 
@@ -426,4 +426,4 @@ const AgendamentoBoleto = () => {
   );
 };
 
-export default AgendamentoBoleto;
+export default AgendamentoDebito;

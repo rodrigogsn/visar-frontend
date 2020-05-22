@@ -68,7 +68,7 @@ const Local = () => {
     } else {
       setSubtotal({
         ...subtotal,
-        spot: location.increase + location.discount,
+        spot: location.increase - location.discount,
       });
     }
 
