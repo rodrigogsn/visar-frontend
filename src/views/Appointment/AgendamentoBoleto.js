@@ -198,7 +198,6 @@ const AgendamentoBoleto = () => {
 
   const handleCreateAppointment = async (vehicle) => {
     const appointment_data = {
-      status: "0",
       vehicle: vehicle,
       date: date.day,
       time: date.time,
@@ -262,10 +261,16 @@ const AgendamentoBoleto = () => {
           .put(`/appointments/${appointment_id}`, {
             status: response.data.status,
             transaction: response.data.code,
+            payment_link: response.data.paymentLink,
           })
-          .then((response) => {
-            return history.push("/boleto");
-          });
+          .then(async (response) => {});
+
+        /**
+         * Sending boleto via email
+         */
+        await api.post(`/boleto/${appointment_id}`).then((response) => {
+          return history.push("/boleto");
+        });
       })
       .catch((error) => {
         console.log(error.response);

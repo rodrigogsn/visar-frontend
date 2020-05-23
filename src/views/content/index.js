@@ -94,7 +94,7 @@ export const _sucesso = {
 
 export const _boleto = {
   title: `Agendamento concluído! ✅`,
-  subtitle: `0 do boleto.`,
+  subtitle: `Aguardando pagamento do boleto.`,
   paragraph: `Leva até 3 dias úteis para confirmação do pagamento. Assim que houver confirmação, você será notificado via email.`,
   legal: `O agendamento será efetivado somente após a confirmação do pagamento.`,
 };

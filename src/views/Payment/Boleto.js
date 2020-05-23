@@ -44,7 +44,7 @@ const Sucesso = () => {
           <Paragraph text={_boleto.paragraph} />
 
           <a href={boleto.link} target="_blank" rel="noopener noreferrer">
-            <ButtonPrimary text="📄 Imprimir boleto" />
+            <ButtonPrimary text="📄 Visualizar boleto" />
           </a>
 
           <Warning text={_boleto.legal} />
