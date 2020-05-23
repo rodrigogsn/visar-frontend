@@ -131,9 +131,7 @@ const Process = () => {
 
     if (profile) {
       handleCard();
-    }
-
-    if (!profile) {
+    } else {
       history.push("/");
     }
   }, []);

@@ -198,7 +198,7 @@ const AgendamentoBoleto = () => {
 
   const handleCreateAppointment = async (vehicle) => {
     const appointment_data = {
-      status: "Aguardando Pagamento",
+      status: "0",
       vehicle: vehicle,
       date: date.day,
       time: date.time,
@@ -239,7 +239,7 @@ const AgendamentoBoleto = () => {
         handleTransaction(transaction, response.data.id);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
         setButtonText(`Gerar Boleto: R$${total}`);
       });
   };
@@ -260,6 +260,7 @@ const AgendamentoBoleto = () => {
          */
         await api
           .put(`/appointments/${appointment_id}`, {
+            status: response.data.status,
             transaction: response.data.code,
           })
           .then((response) => {

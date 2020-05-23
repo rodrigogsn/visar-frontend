@@ -224,7 +224,7 @@ const AgendamentoCard = () => {
 
   const handleCreateAppointment = async (vehicle) => {
     const appointment_data = {
-      status: "Aguardando Pagamento",
+      status: "0",
       vehicle: vehicle,
       date: date.day,
       time: date.time,
