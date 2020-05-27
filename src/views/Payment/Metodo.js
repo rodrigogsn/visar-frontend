@@ -92,6 +92,7 @@ const Metodo = () => {
               Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
             </p>
           </div>
+
           {/* 
           <div className="buttonWide" onClick={() => saveMethod(2)}>
             <SvgDebito className="buttonWide-image" alt="" />

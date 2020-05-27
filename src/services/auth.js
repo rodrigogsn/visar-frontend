@@ -1,5 +1,6 @@
 export const TOKEN_KEY = "@visar-Token";
 export const USER_DATA = "@visar-User";
+export const USER_MAIL = "@visar-Mail";
 export const USER_PROFILE = "@visar-Profile";
 
 // Verifica se o usuário já está autenticado
@@ -38,6 +39,10 @@ export const login = (token, user) => {
   localStorage.setItem(TOKEN_KEY, token);
   localStorage.setItem(USER_DATA, user);
 };
+
+// export const saveMail = (token, mail) => {
+//   localStorage.setItem(USER_MAIL, mail);
+// };
 
 export const profile = (profile) => {
   localStorage.setItem(USER_PROFILE, profile);

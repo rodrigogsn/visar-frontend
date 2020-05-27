@@ -11,9 +11,11 @@ import { isAuthenticated } from "./services/auth";
 import Home from "./views/Home";
 import Login from "./views/Login";
 
+import Confirm from "./views/ConfirmEmail/Confirm";
+import Reconfirm from "./views/ConfirmEmail/Reconfirm";
+
 import Start from "./views/SignUp/Start";
 import Cadastro from "./views/SignUp/Cadastro";
-import Confirmacao from "./views/SignUp/Confirmacao";
 import Perfil from "./views/SignUp/Perfil";
 import Atualizar from "./views/SignUp/Atualizar";
 
@@ -52,9 +54,11 @@ const Routes = () => (
       <Route path="/" exact component={Home} />
       <Route path="/login" exact component={Login} />
 
+      <Route path="/confirm" exact component={Confirm} />
+      <Route path="/reconfirm" exact component={Reconfirm} />
+
       <Route path="/start" exact component={Start} />
       <Route path="/cadastro" exact component={Cadastro} />
-      <Route path="/confirmacao" exact component={Confirmacao} />
       <PrivateRoute path="/perfil" exact component={Perfil} />
       <PrivateRoute path="/atualizar" exact component={Atualizar} />
 
