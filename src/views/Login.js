@@ -75,12 +75,13 @@ const Login = () => {
       .catch((error) => {
         console.log(error.response);
 
+        setButtonText("Entrar");
+
         if (error.response.data.error) {
           alert("Login inválido.");
         } else {
           alert(error.response.data[0].message);
         }
-        setButtonText("Entrar");
       });
   };
 

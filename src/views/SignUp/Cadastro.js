@@ -57,7 +57,7 @@ const Cadastro = () => {
           .catch((error) => {
             setButtonText("Cadastrar");
 
-            console.log(error);
+            console.log(error.response);
           });
       })
       .catch((error) => {
