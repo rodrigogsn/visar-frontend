@@ -7,6 +7,7 @@ import {
   Paragraph,
   MiniLink,
   ButtonSecondary,
+  Loader,
 } from "./../../components/Elements";
 import { _reconfirm } from "./../content/index";
 
@@ -21,6 +22,8 @@ const Reconfirm = () => {
   const [buttonText, setButtonText] = useState("Reenviar Confirmação");
 
   const handleReconfirm = async () => {
+    setButtonText(<Loader />);
+
     const data = {
       email: location.state.email,
       redirect_url: process.env.REACT_APP_REDIRECT_URL,
@@ -40,7 +43,7 @@ const Reconfirm = () => {
       .catch((error) => {
         setButtonText("Cadastrar");
 
-        console.log(error);
+        console.log(error.response);
       });
   };
 
