@@ -56,7 +56,7 @@ const Login = () => {
       .then((response) => {
         console.log(response.data);
 
-        const { profile, confirmed } = response.data.data;
+        const { profile, confirmed, email } = response.data.data;
 
         setUser(response.data);
 
@@ -65,7 +65,7 @@ const Login = () => {
         setButtonText("Entrar");
 
         if (!confirmed) {
-          history.push("/confirm");
+          history.push("/reconfirm", { email });
         } else if (!profile) {
           history.push("/perfil");
         } else {

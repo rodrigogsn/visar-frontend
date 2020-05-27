@@ -63,7 +63,7 @@ const Reconfirm = () => {
         </header>
 
         <ButtonSecondary text={buttonText} press={() => handleReconfirm()} />
-        <MiniLink text="Já confirmei!" link="/login" />
+        <MiniLink text="Fazer login" link="/login" />
       </main>
 
       <Footer />
