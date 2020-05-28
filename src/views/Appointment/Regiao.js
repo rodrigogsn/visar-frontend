@@ -63,7 +63,13 @@ const Regiao = () => {
           <Paragraph text={_regiao.paragraph} />
         </header>
 
-        <div className="buttonGroup">{locations}</div>
+        <div className="buttonGroup">
+          {locations}
+          <div className="buttonWide customHeight disabled">
+            <h2>Outras Regiões</h2>
+            <p>(Em breve)</p>
+          </div>
+        </div>
       </main>
 
       <Footer />
