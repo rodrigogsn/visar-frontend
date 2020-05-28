@@ -22,12 +22,12 @@ export const _cadastro = {
 
 export const _confirm = {
   title: `Confirme o seu email`,
-  paragraph: `Uma mensagem de confirmação foi enviada para o seu email. Acesse o link de confirmação na mensagem para fazer login.`,
+  paragraph: `Uma mensagem de confirmação já foi enviada para o seu email. Acesse o link de confirmação na mensagem para fazer login.`,
 };
 
 export const _reconfirm = {
   title: `Confirme o seu email`,
-  paragraph: `Uma mensagem de confirmação foi enviada para o seu email. Acesse o link de confirmação na mensagem para fazer login.`,
+  paragraph: `Uma mensagem de confirmação já foi enviada para o seu email. Acesse o link de confirmação na mensagem para fazer login.`,
 };
 
 export const _reconfirmacao = {

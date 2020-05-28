@@ -32,7 +32,7 @@ const Reconfirm = () => {
     await api
       .post("/confirm", data)
       .then(() => {
-        setButtonText("Cadastrar");
+        setButtonText("Reenviar Confirmação");
 
         alert(
           `Email reenviado para ${location.state.email}! Favor confirmar para continuar o cadastro.`
@@ -41,7 +41,7 @@ const Reconfirm = () => {
         history.push("/");
       })
       .catch((error) => {
-        setButtonText("Cadastrar");
+        setButtonText("Reenviar Confirmação");
 
         console.log(error.response);
       });

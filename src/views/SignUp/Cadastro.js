@@ -55,6 +55,8 @@ const Cadastro = () => {
             history.push("/reconfirm", { email: response.data.email });
           })
           .catch((error) => {
+            alert(error.response.data.error.message);
+
             setButtonText("Cadastrar");
 
             console.log(error.response);
