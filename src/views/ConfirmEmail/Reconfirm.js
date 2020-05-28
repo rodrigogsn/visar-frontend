@@ -29,6 +29,8 @@ const Reconfirm = () => {
       redirect_url: process.env.REACT_APP_REDIRECT_URL,
     };
 
+    console.log("enviando:", data);
+
     await api
       .post("/confirm", data)
       .then(() => {
@@ -41,6 +43,8 @@ const Reconfirm = () => {
         history.push("/");
       })
       .catch((error) => {
+        alert(error.response.data.error.message);
+
         setButtonText("Reenviar Confirmação");
 
         console.log(error.response);
