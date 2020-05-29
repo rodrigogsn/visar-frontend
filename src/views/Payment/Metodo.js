@@ -68,7 +68,7 @@ const Metodo = () => {
     const currentDate = new Intl.DateTimeFormat("pt-BR").format(date1);
 
     const date2 = new Date();
-    date2.setDate(date2.getDate() + 3);
+    date2.setDate(date2.getDate() + 10);
     const nextDate = new Intl.DateTimeFormat("pt-BR").format(date2);
 
     return [currentDate, nextDate];
@@ -93,14 +93,13 @@ const Metodo = () => {
             </p>
           </div>
 
-          {/* 
           <div className="buttonWide" onClick={() => saveMethod(2)}>
             <SvgDebito className="buttonWide-image" alt="" />
             <h2>Cartão de Débito</h2>
             <p>
               Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
             </p>
-          </div> */}
+          </div>
 
           <div className="buttonWide" onClick={() => saveMethod(3)}>
             <SvgBoleto className="buttonWide-image" alt="" />
