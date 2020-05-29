@@ -34,6 +34,9 @@ const MainContext = React.createContext({
   boleto: "",
   setBoleto: () => {},
 
+  eft: "",
+  setEft: () => {},
+
   transaction: "",
   setTransaction: () => {},
 });

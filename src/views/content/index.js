@@ -97,9 +97,16 @@ export const _sucesso = {
   legal: "Em caso de dúvidas, fale conosco: (13)3222-5442",
 };
 
+export const _eft = {
+  title: `Agendamento concluído! ✅`,
+  subtitle: `Aguardando pagamento bancário.`,
+  paragraph: `Use o link a seguir para acessar sua conta e efetuar o pagamento. Após autorizado, o agendamento será efetivado e você receberá um email com confirmação`,
+  legal: `O agendamento será efetivado somente após a confirmação do pagamento. Caso contário será cancelado automaticamente.`,
+};
+
 export const _boleto = {
   title: `Agendamento concluído! ✅`,
   subtitle: `Aguardando pagamento do boleto.`,
   paragraph: `Leva até 3 dias úteis para confirmação do pagamento. Assim que houver confirmação, você será notificado via email.`,
-  legal: `O agendamento será efetivado somente após a confirmação do pagamento.`,
+  legal: `O agendamento será efetivado somente após a confirmação do pagamento. Caso contário será cancelado automaticamente.`,
 };

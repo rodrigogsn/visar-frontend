@@ -28,7 +28,7 @@ const AgendamentoDebito = () => {
     location,
     method,
     subtotal,
-    setBoleto,
+    setEft,
   } = useContext(MainContext);
 
   const total = subtotal.subcategory + subtotal.spot + subtotal.method;
@@ -62,6 +62,13 @@ const AgendamentoDebito = () => {
     currentYear: "",
   });
   const [daysByMonth, setDaysByMonth] = useState([]);
+
+  const deleteAppointment = async (appointment_id) => {
+    await api.delete(`/appointments/${appointment_id}`).then((response) => {
+      console.log("Agendamento cancelado");
+      history.goBack();
+    });
+  };
 
   const handleWorkTime = async () => {
     await api.get("/work_times").then((response) => {
@@ -216,61 +223,79 @@ const AgendamentoDebito = () => {
 
     await api
       .post("/appointments", appointment_data)
-      .then((response) => {
-        const transaction = {
-          name: profile.name,
-          email: storage.email,
-          cpf_cnpj: profile.document,
-          area_code: profile.area_code,
-          phone: profile.phone,
-          birth_date: profile.birthdate,
-          street: profile.address,
-          number: profile.address_number,
-          district: profile.district,
-          city: profile.city,
-          state: profile.uf,
-          postal_code: profile.zipcode,
-          method: method.pagseguro,
-          value: response.data.total,
-          bankName: "itau",
-        };
+      .then(async (response_appointment) => {
+        await api.get("/session").then((response_session) => {
+          window.PagSeguroDirectPayment.setSessionId(
+            response_session.data.session_id
+          );
 
-        handleTransaction(transaction, response.data.id);
-      })
-      .catch((error) => {
-        console.log(error);
-        setButtonText(`Pagar: R$${total}`);
-      });
-  };
+          /**
+           * Getting sender hash
+           */
+          window.PagSeguroDirectPayment.onSenderHashReady(async function (
+            response_hash
+          ) {
+            if (response_hash.status == "error") {
+              console.log(response_hash.message);
+              return false;
+            }
+            var hash = response_hash.senderHash; //Hash estará disponível nesta variável.
 
-  const handleTransaction = async (data, appointment_id) => {
-    await api
-      .post("/transaction", data)
-      .then(async (response) => {
-        console.log(response.data);
+            const transaction = {
+              name: profile.name,
+              email: storage.email,
+              cpf_cnpj: profile.document,
+              area_code: profile.area_code,
+              phone: profile.phone,
+              birth_date: profile.birthdate,
+              street: profile.address,
+              number: profile.address_number,
+              district: profile.district,
+              city: profile.city,
+              state: profile.uf,
+              postal_code: profile.zipcode,
+              method: method.pagseguro,
+              value: response_appointment.data.total,
+              hash: process.env.REACT_APP_NODE_ENV === "production" ? hash : "",
+              bankName: "itau",
+            };
 
-        setBoleto({
-          code: response.data.code,
-          link: response.data.paymentLink,
-        });
+            await api
+              .post("/transaction", transaction)
+              .then(async (response_transaction) => {
+                setEft({
+                  code: response_transaction.data.code,
+                  link: response_transaction.data.paymentLink,
+                });
 
-        /**
-         * Inserting the transaction code inside this appointment
-         */
-        await api
-          .put(`/appointments/${appointment_id}`, {
-            status: response.data.status,
-            transaction: response.data.code,
-          })
-          .then((response) => {
-            return history.push("/boleto");
+                /**
+                 * Inserting the transaction code inside this appointment
+                 */
+                await api
+                  .put(`/appointments/${response_appointment.data.id}`, {
+                    status: response_transaction.data.status,
+                    transaction: response_transaction.data.code,
+                    payment_link: response_transaction.data.paymentLink,
+                  })
+                  .then(async () => {
+                    return history.push("/debito");
+                  });
+              })
+              .catch((error) => {
+                console.log(error.response);
+                alert(
+                  "Ocorreu um erro ao processar. Verifique os dados e tente novamente."
+                );
+
+                deleteAppointment(response_appointment.data.id);
+
+                setButtonText(`Pagar: R$${total}`);
+              });
           });
+        });
       })
       .catch((error) => {
         console.log(error.response);
-        alert(
-          "Ocorreu um erro ao processar. Verifique os dados e tente novamente."
-        );
         setButtonText(`Pagar: R$${total}`);
       });
   };

@@ -95,7 +95,7 @@ const Metodo = () => {
 
           <div className="buttonWide" onClick={() => saveMethod(2)}>
             <SvgDebito className="buttonWide-image" alt="" />
-            <h2>Cartão de Débito</h2>
+            <h2>Online Banking</h2>
             <p>
               Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
             </p>

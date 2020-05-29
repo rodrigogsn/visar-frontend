@@ -16,6 +16,7 @@ const App = () => {
   const [subtotal, setSubtotal] = useState(0);
   const [fullDay, setFullDay] = useState(false);
   const [boleto, setBoleto] = useState("");
+  const [eft, setEft] = useState("");
   const [transaction, setTransaction] = useState("");
 
   const value = {
@@ -41,6 +42,8 @@ const App = () => {
     setFullDay,
     boleto,
     setBoleto,
+    eft,
+    setEft,
     transaction,
     setTransaction,
   };

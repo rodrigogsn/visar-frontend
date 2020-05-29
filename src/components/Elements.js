@@ -78,6 +78,7 @@ export const TextInput = ({
   style,
   placeholder,
   autocomplete,
+  maxlength,
   state,
   onChange,
   onBlur,
@@ -95,6 +96,7 @@ export const TextInput = ({
         name={name}
         placeholder={placeholder}
         autocomplete={autocomplete}
+        maxlength={maxlength}
         value={state}
         onChange={onChange}
         required={required}

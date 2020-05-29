@@ -32,6 +32,7 @@ import Metodo from "./views/Payment/Metodo";
 import Card from "./views/Payment/Card";
 import Process from "./views/Payment/Process";
 import Boleto from "./views/Payment/Boleto";
+import Debito from "./views/Payment/Debito";
 import Sucesso from "./views/Payment/Sucesso";
 import Retorno from "./views/Payment/Retorno";
 
@@ -87,6 +88,7 @@ const Routes = () => (
       <PrivateRoute path="/card" exact component={Card} />
       <PrivateRoute path="/process" exact component={Process} />
       <PrivateRoute path="/boleto" exact component={Boleto} />
+      <PrivateRoute path="/debito" exact component={Debito} />
       <PrivateRoute path="/sucesso" exact component={Sucesso} />
       <PrivateRoute path="/retorno" exact component={Retorno} />
 

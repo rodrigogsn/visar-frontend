@@ -407,6 +407,7 @@ const AgendamentoCard = () => {
               <TextInput
                 label="Validade"
                 name="cc_exp"
+                maxlength={5}
                 autocomplete="cc-exp"
                 required={true}
                 mask="99/99"

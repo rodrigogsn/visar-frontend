@@ -5,25 +5,24 @@ import Footer from "./../../components/Footer";
 import {
   Title,
   Paragraph,
-  Warning,
   Subtitle,
+  ButtonPrimary,
+  Warning,
   Code,
 } from "./../../components/Elements";
-import { _sucesso } from "./../../views/content";
+import { _eft } from "./../../views/content";
 
 import MainContext from "./../../MainContext";
 
 const Sucesso = () => {
   let history = useHistory();
 
-  const { setProfile, transaction } = useContext(MainContext);
+  const { profile, eft } = useContext(MainContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    setProfile("");
-
-    if (!transaction) {
+    if (!profile) {
       history.push("/");
     }
   }, []);
@@ -34,17 +33,21 @@ const Sucesso = () => {
 
       <main className="default">
         <header>
-          <Title text={_sucesso.title} />
+          <Title text={_eft.title} />
 
-          <Subtitle text={_sucesso.subtitle} />
+          <Subtitle text={_eft.subtitle} />
 
-          <Code text={transaction} />
+          {/* <Code text={eft.code} /> */}
         </header>
 
         <section>
-          <Paragraph text={_sucesso.paragraph} />
+          <Paragraph text={_eft.paragraph} />
 
-          <Warning text={_sucesso.legal} />
+          <a href={eft.link} target="_blank" rel="noopener noreferrer">
+            <ButtonPrimary text="Acessar Online Banking" />
+          </a>
+
+          <Warning text={_eft.legal} />
         </section>
       </main>
 
