@@ -77,6 +77,7 @@ export const TextInput = ({
   name,
   style,
   placeholder,
+  autocomplete,
   state,
   onChange,
   onBlur,
@@ -93,6 +94,7 @@ export const TextInput = ({
         type={type}
         name={name}
         placeholder={placeholder}
+        autocomplete={autocomplete}
         value={state}
         onChange={onChange}
         required={required}

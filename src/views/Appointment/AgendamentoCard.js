@@ -406,6 +406,8 @@ const AgendamentoCard = () => {
             <div className="col2">
               <TextInput
                 label="Validade"
+                name="cc_exp"
+                autocomplete="cc-exp"
                 required={true}
                 mask="99/99"
                 placeholder="MM/YY"
