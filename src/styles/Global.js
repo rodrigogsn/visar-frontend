@@ -337,8 +337,9 @@ const GlobalStyle = createGlobalStyle`
     .buttonGroup {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
       margin-top: 10px;
-      max-width: 600px;
+      /* max-width: 600px; */
 
       a:not(:last-child) {
         margin-right: 10px;
@@ -352,11 +353,31 @@ const GlobalStyle = createGlobalStyle`
         }
       }
 
+      .buttonWide-container {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+
+        &.active {
+          .buttonWide {
+            border-color: #25d366;
+          }
+
+          h2 {
+            color: #25d366;
+          }
+        }
+
+      }
+
       .buttonWide {
         display: flex;
         flex: 1;
         flex-direction: column;
-        justify-content: space-between;
         align-items: center;
         min-height: 290px;
         border: 3px solid black;
@@ -364,21 +385,31 @@ const GlobalStyle = createGlobalStyle`
         transition: .3s all;
         cursor: pointer;
 
-        &.customHeight {
-          min-height: fit-content;
-          justify-content: center;
-          padding: 10px 20px;
+        &.select {
+          display: flex;
+          flex-direction: row;
+          justify-content: stretch;
+          min-height: auto;
+          padding: 0px 0px;
+          padding-right: 10px;
+
+          h2 {
+            padding-left: 10px;
+            font-size: 15px;
+          }
+
         }
 
-        &:not(:last-child) {
-          margin-right: 10px;
+        &.customHeight {
+          min-height: 130px;
+          justify-content: center;
+          padding: 10px 20px;
         }
 
         &:hover {
           background: #eeeeee;
           transform: translate(0px, -5px);
         }
-
 
         .buttonWide-image {
           max-width: 125px;
@@ -413,6 +444,23 @@ const GlobalStyle = createGlobalStyle`
           }
         }
       }
+
+      .buttonWide-detail {
+          display: flex;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
+
+          & p {
+            font-size: 12px;
+            margin: 8px;
+            max-width: 160px;
+          }
+
+          & strong {
+            font-size: 12px;
+          }
+        }
 
     }
 
@@ -659,7 +707,7 @@ const GlobalStyle = createGlobalStyle`
           margin-bottom: 12px;
         }
 
-        .buttonWide:not(:last-child) {
+        .buttonWide-container:not(:last-child) {
           margin-right: 0;
           margin-bottom: 12px;
         }
@@ -692,6 +740,14 @@ const GlobalStyle = createGlobalStyle`
       &.footerBottom {
         padding: 10px;
         flex: none;
+        
+        .copyright {
+          margin-right: 0;
+        }
+
+        .logoWrapper {
+          margin: 15px 0;
+        }
         
         p {
           text-align: center;

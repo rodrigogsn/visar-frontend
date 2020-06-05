@@ -285,7 +285,7 @@ const AgendamentoBoleto = () => {
                  */
                 await api
                   .post(`/boleto/${response_appointment.data.id}`)
-                  .then((response) => {
+                  .then(() => {
                     return history.push("/boleto");
                   });
               })

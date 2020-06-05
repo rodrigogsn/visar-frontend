@@ -37,9 +37,12 @@ const Local = () => {
           const active = !spot.active || !freetax ? false : true;
 
           return (
-            <div
+            <span
+              className="buttonWide-container"
+              onClick={() => {
+                handleClick(location);
+              }}
               key={spot.id}
-              className={disabledClass}
               onClick={() => {
                 if (!active) {
                   return;
@@ -47,9 +50,11 @@ const Local = () => {
                 handleClick(spot);
               }}
             >
-              <h2>{spot.name}</h2>
-              <p>{spot.description}</p>
-            </div>
+              <div className={disabledClass}>
+                <h2>{spot.name}</h2>
+                <p>{spot.description}</p>
+              </div>
+            </span>
           );
         });
 

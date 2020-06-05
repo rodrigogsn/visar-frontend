@@ -85,29 +85,55 @@ const Metodo = () => {
         </header>
 
         <div className="buttonGroup">
-          <div className="buttonWide" onClick={() => saveMethod(1)}>
-            <SvgCredito className="buttonWide-image" alt="" />
-            <h2>Cartão de Crédito</h2>
-            <p>
-              Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
-            </p>
-          </div>
+          <span className="buttonWide-container">
+            <div
+              className="buttonWide"
+              style={{ flex: "initial", minHeight: "auto" }}
+              onClick={() => saveMethod(1)}
+            >
+              <SvgCredito className="buttonWide-image" alt="" />
+              <h2>Cartão de Crédito</h2>
+              <p>
+                Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
+              </p>
+            </div>
+            <div className="buttonWide-detail"></div>
+          </span>
 
-          <div className="buttonWide" onClick={() => saveMethod(2)}>
-            <SvgDebito className="buttonWide-image" alt="" />
-            <h2>Online Banking</h2>
-            <p>
-              Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
-            </p>
-          </div>
+          <span className="buttonWide-container">
+            <div
+              className="buttonWide"
+              style={{ flex: "initial", minHeight: "auto" }}
+              onClick={() => saveMethod(2)}
+            >
+              <SvgDebito className="buttonWide-image" alt="" />
+              <h2>Online Banking</h2>
+              <p>
+                Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
+              </p>
+            </div>
+            <div className="buttonWide-detail">
+              <p>
+                <strong>Disponível para:</strong> Itaú, Bradesco, Banco do
+                Brasil e Banrisul.
+              </p>
+            </div>
+          </span>
 
-          <div className="buttonWide" onClick={() => saveMethod(3)}>
-            <SvgBoleto className="buttonWide-image" alt="" />
-            <h2>Boleto</h2>
-            <p>
-              Agende uma data a partir de <strong>{handleDates()[1]}</strong>.
-            </p>
-          </div>
+          <span className="buttonWide-container">
+            <div
+              className="buttonWide"
+              style={{ flex: "initial", minHeight: "auto" }}
+              onClick={() => saveMethod(3)}
+            >
+              <SvgBoleto className="buttonWide-image" alt="" />
+              <h2>Boleto</h2>
+              <p>
+                Agende uma data a partir de <strong>{handleDates()[1]}</strong>.
+              </p>
+            </div>
+            <div className="buttonWide-detail"></div>
+          </span>
         </div>
       </main>
 

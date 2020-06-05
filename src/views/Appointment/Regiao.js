@@ -20,15 +20,17 @@ const Regiao = () => {
       .get("/locations")
       .then((response) => {
         const data = response.data.map((location) => (
-          <div
-            key={location.id}
-            className="buttonWide customHeight"
+          <span
+            className="buttonWide-container"
             onClick={() => {
               handleClick(location);
             }}
+            key={location.id}
           >
-            <h2>{location.name}</h2>
-          </div>
+            <div className="buttonWide customHeight">
+              <h2>{location.name}</h2>
+            </div>
+          </span>
         ));
 
         setLocations(data);
@@ -65,10 +67,12 @@ const Regiao = () => {
 
         <div className="buttonGroup">
           {locations}
-          <div className="buttonWide customHeight disabled">
-            <h2>Outras Regiões</h2>
-            <p>(Em breve)</p>
-          </div>
+          <span className="buttonWide-container">
+            <div className="buttonWide customHeight disabled">
+              <h2>Outras Regiões</h2>
+              <p>(Em breve)</p>
+            </div>
+          </span>
         </div>
       </main>
 

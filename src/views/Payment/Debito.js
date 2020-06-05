@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
 import {
   Title,
   Paragraph,
   Subtitle,
-  ButtonPrimary,
+  ButtonSuccess,
   Warning,
   Code,
 } from "./../../components/Elements";
@@ -16,6 +16,7 @@ import MainContext from "./../../MainContext";
 
 const Sucesso = () => {
   let history = useHistory();
+  const location = useLocation();
 
   const { profile, eft } = useContext(MainContext);
 
@@ -44,7 +45,7 @@ const Sucesso = () => {
           <Paragraph text={_eft.paragraph} />
 
           <a href={eft.link} target="_blank" rel="noopener noreferrer">
-            <ButtonPrimary text="Acessar Online Banking" />
+            <ButtonSuccess text={`Pagar: R$${location.state.total}`} />
           </a>
 
           <Warning text={_eft.legal} />
