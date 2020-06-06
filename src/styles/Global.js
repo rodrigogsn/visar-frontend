@@ -232,7 +232,7 @@ const GlobalStyle = createGlobalStyle`
         background: #19408c;
         padding: 1.5% 50px;
         align-items: center;
-        min-height: fit-content
+        min-height: fit-content;
 
         .copyright {
           flex: 2;
