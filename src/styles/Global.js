@@ -207,7 +207,7 @@ const GlobalStyle = createGlobalStyle`
 
       &.footerTop {
         padding: 50px 2.5% 65px;
-        min-height: fit-content
+        min-height: fit-content;
 
         h3 {
           color: #263238;
