@@ -86,11 +86,7 @@ const Metodo = () => {
 
         <div className="buttonGroup">
           <span className="buttonWide-container">
-            <div
-              className="buttonWide"
-              style={{ flex: "initial", minHeight: "auto" }}
-              onClick={() => saveMethod(1)}
-            >
+            <div className="buttonWide metodo" onClick={() => saveMethod(1)}>
               <SvgCredito className="buttonWide-image" alt="" />
               <h2>Cartão de Crédito</h2>
               <p>
@@ -101,11 +97,7 @@ const Metodo = () => {
           </span>
 
           <span className="buttonWide-container">
-            <div
-              className="buttonWide"
-              style={{ flex: "initial", minHeight: "auto" }}
-              onClick={() => saveMethod(2)}
-            >
+            <div className="buttonWide metodo" onClick={() => saveMethod(2)}>
               <SvgDebito className="buttonWide-image" alt="" />
               <h2>Online Banking</h2>
               <p>
@@ -121,11 +113,7 @@ const Metodo = () => {
           </span>
 
           <span className="buttonWide-container">
-            <div
-              className="buttonWide"
-              style={{ flex: "initial", minHeight: "auto" }}
-              onClick={() => saveMethod(3)}
-            >
+            <div className="buttonWide metodo" onClick={() => saveMethod(3)}>
               <SvgBoleto className="buttonWide-image" alt="" />
               <h2>Boleto</h2>
               <p>

@@ -385,6 +385,11 @@ const GlobalStyle = createGlobalStyle`
         transition: .3s all;
         cursor: pointer;
 
+        &.metodo {
+          flex: initial;
+          min-height: auto;
+        }
+
         &.select {
           display: flex;
           flex-direction: row;
