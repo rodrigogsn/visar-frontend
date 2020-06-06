@@ -146,6 +146,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: space-between;
     align-items: center;
     padding: 20px 30px;
+    min-height: fit-content;
 
     img {
       max-width: 125px;
@@ -206,6 +207,7 @@ const GlobalStyle = createGlobalStyle`
 
       &.footerTop {
         padding: 50px 2.5% 65px;
+        min-height: fit-content
 
         h3 {
           color: #263238;
@@ -230,6 +232,7 @@ const GlobalStyle = createGlobalStyle`
         background: #19408c;
         padding: 1.5% 50px;
         align-items: center;
+        min-height: fit-content
 
         .copyright {
           flex: 2;
