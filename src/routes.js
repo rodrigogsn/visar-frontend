@@ -6,10 +6,12 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { isAuthenticated } from "./services/auth";
+import { isAuthenticated, isAdmin } from "./services/auth";
 
 import Home from "./views/Home";
 import Login from "./views/Login";
+import AdminLogin from "./views/Admin/Login";
+import Dashboard from "./views/Admin/Dashboard";
 
 import Confirm from "./views/ConfirmEmail/Confirm";
 import Reconfirm from "./views/ConfirmEmail/Reconfirm";
@@ -29,7 +31,6 @@ import AgendamentoCard from "./views/Appointment/AgendamentoCard";
 import AgendamentoDebito from "./views/Appointment/AgendamentoDebito";
 
 import Metodo from "./views/Payment/Metodo";
-import Card from "./views/Payment/Card";
 import Process from "./views/Payment/Process";
 import Boleto from "./views/Payment/Boleto";
 import Debito from "./views/Payment/Debito";
@@ -49,23 +50,34 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   />
 );
 
+const AdminRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) =>
+      isAdmin() ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{ pathname: "/admin", state: { from: props.location } }}
+        />
+      )
+    }
+  />
+);
+
 const Routes = () => (
   <Router>
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/login" exact component={Login} />
-
       <Route path="/confirm" exact component={Confirm} />
       <Route path="/reconfirm" exact component={Reconfirm} />
-
       <Route path="/start" exact component={Start} />
       <Route path="/cadastro" exact component={Cadastro} />
       <PrivateRoute path="/perfil" exact component={Perfil} />
       <PrivateRoute path="/atualizar" exact component={Atualizar} />
-
       <PrivateRoute path="/tipo" exact component={Tipo} />
       <PrivateRoute path="/subtipo" exact component={Subtipo} />
-
       <PrivateRoute path="/regiao" exact component={Regiao} />
       <PrivateRoute path="/local" exact component={Local} />
       <PrivateRoute
@@ -83,15 +95,18 @@ const Routes = () => (
         exact
         component={AgendamentoDebito}
       />
-
       <PrivateRoute path="/metodo" exact component={Metodo} />
-      <PrivateRoute path="/card" exact component={Card} />
       <PrivateRoute path="/process" exact component={Process} />
       <PrivateRoute path="/boleto" exact component={Boleto} />
       <PrivateRoute path="/debito" exact component={Debito} />
       <PrivateRoute path="/sucesso" exact component={Sucesso} />
       <PrivateRoute path="/retorno" exact component={Retorno} />
 
+      {/* Admin Routes */}
+      <Route path="/admin" exact component={AdminLogin} />
+      <Route path="/dashboard" exact component={Dashboard} />
+
+      {/* 404 */}
       <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>
   </Router>

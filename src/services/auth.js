@@ -18,6 +18,21 @@ export const isAuthenticated = () => {
   }
 };
 
+// Verifica se o usuário já está autenticado
+export const isAdmin = () => {
+  const isAuth = localStorage.getItem(TOKEN_KEY) !== null;
+
+  const admin = localStorage.getItem(USER_DATA)
+    ? JSON.parse(localStorage.getItem(USER_DATA)).admin
+    : false;
+
+  if (isAuth && admin) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 // Verifica se o usuário já tem perfil
 export const isProfileSet = () => {
   const isAuth = localStorage.getItem(TOKEN_KEY) !== null;

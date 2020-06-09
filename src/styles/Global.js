@@ -127,6 +127,11 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  .logo-admin {
+    max-width: 120px;
+    margin: 20px 0;
+  } 
+
   .loader {
     /* background: #ff000057;
     display: flex;

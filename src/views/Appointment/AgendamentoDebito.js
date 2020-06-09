@@ -42,7 +42,7 @@ const AgendamentoDebito = () => {
   const [buttonText, setButtonText] = useState(`Continuar: R$${total}`);
   const [workTime, setWorkTime] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
-  const [blockedWeekdays, setBlockedWeekdays] = useState(["dom"]);
+  const [blockedWeekdays, setBlockedWeekdays] = useState(["dom", "sáb"]);
   const [vehicle, setVehicle] = useState({
     plate: "",
     brand: "",
@@ -120,7 +120,7 @@ const AgendamentoDebito = () => {
           .toLocaleDateString("pt-BR", { weekday: "short" })
           .substring(0, 3);
 
-        return w !== blockedWeekdays[0];
+        return !blockedWeekdays.includes(w);
       })
       .map((item) => {
         const d = item.toLocaleDateString("pt-BR");
@@ -212,7 +212,7 @@ const AgendamentoDebito = () => {
 
   const handleCreateAppointment = async (vehicle) => {
     const appointment_data = {
-      vehicle: vehicle,
+      vehicle_id: vehicle,
       date: date.day,
       time: date.time,
       category: category.id,

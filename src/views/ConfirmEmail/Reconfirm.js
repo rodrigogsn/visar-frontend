@@ -12,14 +12,13 @@ import {
 import { _reconfirm } from "./../content/index";
 
 import api from "./../../services/api";
-import MainContext from "./../../MainContext";
 
 const Reconfirm = () => {
   let history = useHistory();
 
   const location = useLocation();
 
-  const [buttonText, setButtonText] = useState("Reenviar Confirmação");
+  const [buttonText, setButtonText] = useState("Não recebi o email");
 
   const handleReconfirm = async () => {
     setButtonText(<Loader />);
@@ -34,7 +33,7 @@ const Reconfirm = () => {
     await api
       .post("/confirm", data)
       .then(() => {
-        setButtonText("Reenviar Confirmação");
+        setButtonText("Não recebi o email");
 
         alert(
           `Email reenviado para ${location.state.email}! Favor confirmar para continuar o cadastro.`
@@ -45,7 +44,7 @@ const Reconfirm = () => {
       .catch((error) => {
         alert(error.response.data.error.message);
 
-        setButtonText("Reenviar Confirmação");
+        setButtonText("Não recebi o email");
 
         console.log(error.response);
       });
@@ -69,8 +68,12 @@ const Reconfirm = () => {
           <Paragraph text={_reconfirm.paragraph} />
         </header>
 
-        <ButtonSecondary text={buttonText} press={() => handleReconfirm()} />
-        <MiniLink text="Fazer login" link="/login" />
+        {/* <ButtonSecondary text={buttonText} press={() => handleReconfirm()} /> */}
+
+        <div className="buttonGroup">
+          <MiniLink text={buttonText} press={() => handleReconfirm()} />
+          <MiniLink text="Já confirmei" link="/login" />
+        </div>
       </main>
 
       <Footer />

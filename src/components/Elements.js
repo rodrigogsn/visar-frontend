@@ -1,16 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { estados } from "./../views/content/estados";
 import { meses } from "./../views/content/meses";
-import { horarios } from "./../views/content/horarios";
 import { Squares } from "react-activity";
 import "react-activity/dist/react-activity.css";
-
-import MainContext from "./../MainContext";
-
 import InputMask from "react-input-mask";
+import moment from "moment";
 
-let fullDay = false;
+moment.locale("pt-br");
 
 export const Loader = () => (
   <Squares color="black" size={36} speed={1} animating={true} />
@@ -95,8 +92,8 @@ export const TextInput = ({
         type={type}
         name={name}
         placeholder={placeholder}
-        autoComplete={autocomplete}
-        maxLength={maxlength}
+        autocomplete={autocomplete}
+        maxlength={maxlength}
         value={state}
         onChange={onChange}
         required={required}
@@ -215,11 +212,15 @@ export const DropListDay = ({
       const day = parseInt(value.d.substring(0, 2));
       const month = parseInt(value.d.substring(3, 5)) - 1;
 
-      if (month === currentMonth && day < currentDay + methodDays) {
+      const current_moment = moment([year, currentMonth, currentDay]).add(
+        methodDays,
+        "days"
+      );
+
+      if (moment([year, month, day]) < current_moment) {
         return false;
       }
 
-      // console.log(day, month, currentDay, currentMonth, methodDays);
       return true;
     })
     .map((dia) => {
@@ -290,8 +291,8 @@ export const DropListTime = ({
   );
 };
 
-export const MiniLink = ({ text, link }) => (
-  <Link to={link} className="miniLink">
+export const MiniLink = ({ text, link, press }) => (
+  <Link to={link} className="miniLink" onClick={press}>
     {text}
   </Link>
 );

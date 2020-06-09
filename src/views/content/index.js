@@ -9,6 +9,10 @@ export const _login = {
   title: `Faça login`,
 };
 
+export const _admin = {
+  title: `Administração`,
+};
+
 //// SIGNUP ////
 export const _start = {
   title: `Já tem cadastro?`,
@@ -93,20 +97,20 @@ export const _revisao = {
 export const _sucesso = {
   title: `Agendamento concluído! ✅`,
   subtitle: `Aguardando autorização da operadora.`,
-  paragraph: `Após autorizado, o agendamento será efetivado e você receberá um email com confirmação.`,
+  paragraph: `Após autorizado, o agendamento será efetivado e você receberá um email com confirmação. Para atendimento à domicílio, a tolerância para chegada no recinto é de 15 minutos.`,
   legal: "Em caso de dúvidas, fale conosco: (13)3222-5442",
 };
 
 export const _eft = {
-  title: `Agendamento concluído!`,
+  title: `Agendamento concluído! ✅`,
   subtitle: `Aguardando pagamento bancário.`,
-  paragraph: `Use o link a seguir para acessar sua conta e efetuar o pagamento. Após autorizado, o agendamento será efetivado e você receberá um email com confirmação`,
+  paragraph: `Use o link a seguir para acessar sua conta e efetuar o pagamento. Após autorizado, o agendamento será efetivado e você receberá um email com confirmação. Para atendimento à domicílio, a tolerância para chegada no recinto é de 15 minutos.`,
   legal: `O agendamento será efetivado somente após a confirmação do pagamento. Caso contário será cancelado automaticamente.`,
 };
 
 export const _boleto = {
-  title: `Agendamento concluído!`,
+  title: `Agendamento concluído! ✅`,
   subtitle: `Aguardando pagamento do boleto.`,
-  paragraph: `Leva até 3 dias úteis para confirmação do pagamento. Assim que houver confirmação, você será notificado via email.`,
+  paragraph: `Leva até 3 dias úteis para confirmação do pagamento. Assim que houver confirmação, você será notificado via email. Para atendimento à domicílio, a tolerância para chegada no recinto é de 15 minutos.`,
   legal: `O agendamento será efetivado somente após a confirmação do pagamento. Caso contário será cancelado automaticamente.`,
 };

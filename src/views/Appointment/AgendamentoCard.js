@@ -40,7 +40,7 @@ const AgendamentoCard = () => {
 
   const [selectedDay, setSelectedDay] = useState(null);
 
-  const [blockedWeekdays, setBlockedWeekdays] = useState(["dom"]);
+  const [blockedWeekdays, setBlockedWeekdays] = useState(["dom", "sáb"]);
 
   const [vehicle, setVehicle] = useState({
     plate: "",
@@ -136,7 +136,7 @@ const AgendamentoCard = () => {
           .toLocaleDateString("pt-BR", { weekday: "short" })
           .substring(0, 3);
 
-        return w !== blockedWeekdays[0];
+        return !blockedWeekdays.includes(w);
       })
       .map((item) => {
         const d = item.toLocaleDateString("pt-BR");
@@ -224,7 +224,7 @@ const AgendamentoCard = () => {
 
   const handleCreateAppointment = async (vehicle) => {
     const appointment_data = {
-      vehicle: vehicle,
+      vehicle_id: vehicle,
       date: date.day,
       time: date.time,
       category: category.id,
@@ -410,11 +410,26 @@ const AgendamentoCard = () => {
                 maxlength={5}
                 autocomplete="cc-exp"
                 required={true}
-                mask="99/99"
+                // mask="99/99"
                 placeholder="MM/YY"
                 onChange={handleCardInput}
                 style={validation.cc_exp}
                 onBlur={(e) => emptyMaskValidate(e)}
+                onKeyUp={(e) => {
+                  console.log(e.target.value.length);
+                  var x = e.which || e.keyCode;
+
+                  if (x === 8 || x === 46 || x === 16) {
+                    return;
+                  }
+
+                  if (
+                    e.target.value.length == 2 &&
+                    e.target.value.indexOf("/") === -1
+                  ) {
+                    e.target.value += "/";
+                  }
+                }}
               />
               <TextInput
                 label="CVV"
