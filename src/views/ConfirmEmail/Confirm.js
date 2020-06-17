@@ -10,14 +10,10 @@ import {
   ButtonSecondary,
   Loader,
 } from "./../../components/Elements";
-import { _confirm } from "./../content/index";
 
 import api from "./../../services/api";
-import MainContext from "./../../MainContext";
 
 const Confirm = () => {
-  let history = useHistory();
-
   const location = useLocation();
 
   const [title, setTitle] = useState(<Title text="Verificando" />);

@@ -1,21 +1,21 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { Title, Paragraph } from "./../../components/Elements";
-import { _regiao } from "./../../views/content";
+// import React, { useState, useContext, useEffect } from "react";
+// import { useHistory } from "react-router-dom";
+// import { Title, Paragraph } from "./../../components/Elements";
+// import { _regiao } from "./../../views/content";
 
-import api from "./../../services/api";
-import MainContext from "./../../MainContext";
+// import api from "./../../services/api";
+// import MainContext from "./../../MainContext";
 
-const Dashboard = () => {
-  const history = useHistory();
+// const Dashboard = () => {
+//   const history = useHistory();
 
-  useEffect(() => {}, []);
+//   useEffect(() => {}, []);
 
-  return (
-    <>
-      <h1>Dashboard</h1>
-    </>
-  );
-};
+//   return (
+//     <>
+//       <h1>Dashboard</h1>
+//     </>
+//   );
+// };
 
-export default Dashboard;
+// export default Dashboard;
