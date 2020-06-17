@@ -160,7 +160,7 @@ export const DropListMonth = ({
   name,
   label,
   state,
-  style,
+  customClass,
   placeholder,
   currentMonth,
   onChange,
@@ -183,7 +183,7 @@ export const DropListMonth = ({
         value={state}
         required={required}
         onChange={onChange}
-        className={style}
+        className={customClass}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
       >
         <option value="">{placeholder}</option>

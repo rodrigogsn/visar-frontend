@@ -229,7 +229,7 @@ const AgendamentoCard = () => {
       time: date.time,
       category: category.id,
       subcategory: subcategory.id,
-      location: location.id,
+      location: location?.id,
       spot: spot.id,
       address: address.address,
       address2: address.address2,

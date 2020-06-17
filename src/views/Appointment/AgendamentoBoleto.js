@@ -211,7 +211,7 @@ const AgendamentoBoleto = () => {
       category: category.id,
       subcategory: subcategory.id,
       spot: spot.id,
-      location: location.id,
+      location: location?.id,
       address: address.address,
       address2: address.address2,
       address_number: address.address_number,

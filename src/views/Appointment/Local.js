@@ -21,7 +21,49 @@ const Local = () => {
     subtotal,
     setSubtotal,
   } = useContext(MainContext);
+
   const [spots, setSpots] = useState("");
+
+  const handleSpots = async () => {
+    await api
+      .get("/spots")
+      .then((response) => {
+        const data = response.data.map((spot) => {
+          const freetax = !subcategory.incompany && spot.freetax ? false : true;
+
+          const disabledClass =
+            !spot.active || !freetax
+              ? "buttonWide customHeight disabled"
+              : "buttonWide customHeight";
+
+          const active = !spot.active || !freetax ? false : true;
+
+          return (
+            <span
+              key={spot.id}
+              className="buttonWide-container"
+              onClick={() => {
+                if (!active) {
+                  return;
+                }
+
+                handleClick(spot);
+              }}
+            >
+              <div className={disabledClass}>
+                <h2>{spot.name}</h2>
+                <p>{spot.description}</p>
+              </div>
+            </span>
+          );
+        });
+
+        setSpots(data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
 
   const handleClick = async (spot) => {
     setSpot(spot);
@@ -36,11 +78,16 @@ const Local = () => {
         .then((response) => {
           const city = response.data.find((el) => el.name === profile.city);
 
-          setLocation(city);
+          if (!city) {
+            setLocation(null);
+          } else {
+            setLocation(city);
+          }
+
           setSubtotal({ ...subtotal, spot: 0 });
           setAddress(profile);
 
-          console.log(location);
+          console.log(city, location, profile);
         })
         .catch((error) => {
           console.log(error);
@@ -63,48 +110,7 @@ const Local = () => {
       history.push("/");
     }
 
-    const handleSpots = async () => {
-      await api
-        .get("/spots")
-        .then((response) => {
-          const data = response.data.map((spot) => {
-            const freetax =
-              !subcategory.incompany && spot.freetax ? false : true;
-
-            const disabledClass =
-              !spot.active || !freetax
-                ? "buttonWide customHeight disabled"
-                : "buttonWide customHeight";
-
-            const active = !spot.active || !freetax ? false : true;
-
-            return (
-              <span
-                key={spot.id}
-                className="buttonWide-container"
-                onClick={() => {
-                  if (!active) {
-                    return;
-                  }
-
-                  handleClick(spot);
-                }}
-              >
-                <div className={disabledClass}>
-                  <h2>{spot.name}</h2>
-                  <p>{spot.description}</p>
-                </div>
-              </span>
-            );
-          });
-          handleSpots();
-
-          setSpots(data);
-        })
-        .catch((error) => {
-          console.log(error.response);
-        });
-    };
+    handleSpots();
   }, []);
 
   return (
