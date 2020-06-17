@@ -12,6 +12,7 @@ const App = () => {
   const [subcategory, setSubcategory] = useState("");
   const [location, setLocation] = useState("");
   const [spot, setSpot] = useState("");
+  const [address, setAddress] = useState("");
   const [appointment, setAppointment] = useState("");
   const [subtotal, setSubtotal] = useState(0);
   const [fullDay, setFullDay] = useState(false);
@@ -34,6 +35,8 @@ const App = () => {
     setLocation,
     spot,
     setSpot,
+    address,
+    setAddress,
     appointment,
     setAppointment,
     subtotal,

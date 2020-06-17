@@ -69,8 +69,8 @@ const Subtipo = () => {
     }
   };
 
-  const handleClick = (location) => {
-    history.push("/regiao");
+  const handleClick = () => {
+    history.push("/local");
   };
 
   useEffect(() => {

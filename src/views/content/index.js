@@ -64,6 +64,16 @@ export const _regiao = {
   paragraph: `Escolha a sua região.`,
 };
 
+export const _atualizar_endereco = {
+  title: `Escolher Novo Endereço`,
+  paragraph: `Digite um novo endereço para efetuarmos o serviço a domicílio.`,
+};
+
+export const _endereco = {
+  title: `Endereço para Atendimento 🏠`,
+  forbidden: `A região cadatrada não possui atendimento a domicílio ainda. As regiões disponíves são: `,
+};
+
 export const _local = {
   title: `Local`,
   paragraph: `Escolha um dos locais disponíveis para fazer o emplacamento.`,

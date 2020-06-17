@@ -22,6 +22,9 @@ const MainContext = React.createContext({
   spot: "",
   setSpot: () => {},
 
+  address: "",
+  setAddress: () => {},
+
   appointment: "",
   setAppointment: () => {},
 

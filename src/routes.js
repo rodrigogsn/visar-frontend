@@ -25,6 +25,8 @@ import Tipo from "./views/Vehicle/Tipo";
 import Subtipo from "./views/Vehicle/Subtipo";
 
 import Regiao from "./views/Appointment/Regiao";
+import ConfirmarEndereco from "./views/Appointment/ConfirmarEndereco";
+import AtualizarEndereco from "./views/Appointment/AtualizarEndereco";
 import Local from "./views/Appointment/Local";
 import AgendamentoBoleto from "./views/Appointment/AgendamentoBoleto";
 import AgendamentoCard from "./views/Appointment/AgendamentoCard";
@@ -79,6 +81,16 @@ const Routes = () => (
       <PrivateRoute path="/tipo" exact component={Tipo} />
       <PrivateRoute path="/subtipo" exact component={Subtipo} />
       <PrivateRoute path="/regiao" exact component={Regiao} />
+      <PrivateRoute
+        path="/confirmar-endereco"
+        exact
+        component={ConfirmarEndereco}
+      />
+      <PrivateRoute
+        path="/atualizar-endereco"
+        exact
+        component={AtualizarEndereco}
+      />
       <PrivateRoute path="/local" exact component={Local} />
       <PrivateRoute
         path="/agendamento-boleto"

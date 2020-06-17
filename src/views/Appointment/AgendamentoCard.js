@@ -25,6 +25,7 @@ const AgendamentoCard = () => {
     category,
     subcategory,
     spot,
+    address,
     location,
     method,
     subtotal,
@@ -156,14 +157,17 @@ const AgendamentoCard = () => {
     await api
       .get(`/appointments_bymonth/${date.year}/${formatMonth}`)
       .then((response) => {
-        const alreadyTaken = response.data.map((item) => {
-          return {
-            date: item.date,
-            day: parseInt(item.date.substring(0, 2)),
-            month: parseInt(item.date.substring(3, 5)),
-            time: item.time,
-          };
-        });
+        const alreadyTaken = response.data
+          .filter((item) => item.status != 7) // Enable cancelled appointments dates to be chosen again
+          .map((item) => {
+            return {
+              date: item.date,
+              day: parseInt(item.date.substring(0, 2)),
+              month: parseInt(item.date.substring(3, 5)),
+              time: item.time,
+              status: item.status,
+            };
+          });
 
         /**
          * Add all unappointed work hours to each day, according to default work time
@@ -186,10 +190,6 @@ const AgendamentoCard = () => {
           return item ? true : false;
         });
 
-        // console.log("Method", method.confirm_days);
-        // console.log("AllDays, with time:", addTimeArr);
-        // console.log("alreadyTaken:", alreadyTaken);
-        // console.log("workTime:", workTime);
         setDaysByMonth(addTimeArr);
       });
   };
@@ -231,13 +231,13 @@ const AgendamentoCard = () => {
       subcategory: subcategory.id,
       location: location.id,
       spot: spot.id,
-      address: profile.address,
-      address2: profile.address2,
-      address_number: profile.address_number,
-      district: profile.district,
-      city: profile.city,
-      uf: profile.uf,
-      zipcode: profile.zipcode,
+      address: address.address,
+      address2: address.address2,
+      address_number: address.address_number,
+      district: address.district,
+      city: address.city,
+      uf: address.uf,
+      zipcode: address.zipcode,
       payment_method: method.id,
     };
 

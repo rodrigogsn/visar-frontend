@@ -68,7 +68,7 @@ const Metodo = () => {
     const currentDate = new Intl.DateTimeFormat("pt-BR").format(date1);
 
     const date2 = new Date();
-    date2.setDate(date2.getDate() + 10);
+    date2.setDate(date2.getDate() + 5);
     const nextDate = new Intl.DateTimeFormat("pt-BR").format(date2);
 
     return [currentDate, nextDate];
