@@ -264,7 +264,7 @@ const AgendamentoDebito = () => {
               postal_code: profile.zipcode,
               method: method.pagseguro,
               value: response_appointment.data.total,
-              hash: process.env.REACT_APP_NODE_ENV === "production" ? hash : "",
+              hash: hash,
               bankName: bank,
             };
 

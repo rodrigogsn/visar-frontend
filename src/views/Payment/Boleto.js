@@ -8,7 +8,6 @@ import {
   Subtitle,
   ButtonPrimary,
   Warning,
-  Code,
 } from "./../../components/Elements";
 import { _boleto } from "./../../views/content";
 
@@ -36,8 +35,6 @@ const Sucesso = () => {
           <Title text={_boleto.title} />
 
           <Subtitle text={_boleto.subtitle} />
-
-          {/* <Code text={boleto.code} /> */}
         </header>
 
         <section>

@@ -72,8 +72,7 @@ const Process = () => {
                   method: method.pagseguro,
                   value: location.state.appointment.total,
                   credit_card_token: response.card.token,
-                  hash:
-                    process.env.REACT_APP_NODE_ENV === "production" ? hash : "",
+                  hash: hash,
                 };
 
                 await api
