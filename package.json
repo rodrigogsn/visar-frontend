@@ -22,9 +22,12 @@
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.0"
   },
+  "devDependencies": {
+    "netlify-cli": "^2.54.0"
+  },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "yarn build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
