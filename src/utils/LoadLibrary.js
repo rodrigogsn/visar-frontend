@@ -24,7 +24,6 @@ export default class LoadLibrary extends React.Component {
    * componentDidMount
    */
   componentDidMount() {
-    const { env } = this.props;
     const { loaded } = this.state;
 
     if (
