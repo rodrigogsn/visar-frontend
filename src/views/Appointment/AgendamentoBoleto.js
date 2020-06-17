@@ -419,7 +419,7 @@ const AgendamentoBoleto = () => {
               required={true}
               placeholder="Escolha um mês"
               currentMonth={date.currentMonth}
-              style="appointmentInput"
+              customClass="appointmentInput"
               state={date.month}
               onChange={handleDateInput}
             />
@@ -430,7 +430,7 @@ const AgendamentoBoleto = () => {
               year={date.year}
               required={true}
               placeholder=""
-              style="appointmentInput"
+              customClass="appointmentInput"
               days={daysByMonth}
               state={date.day}
               currentMonth={date.currentMonth}
@@ -444,7 +444,7 @@ const AgendamentoBoleto = () => {
               required={true}
               placeholder=""
               time={selectedDay?.time || workTime}
-              style="appointmentInput"
+              customClass="appointmentInput"
               state={date.time}
               onChange={handleDateInput}
             />

@@ -197,7 +197,7 @@ export const DropListDay = ({
   name,
   label,
   days,
-  style,
+  customClass,
   year,
   state,
   placeholder,
@@ -240,7 +240,7 @@ export const DropListDay = ({
         value={state}
         required={required}
         onChange={onChange}
-        className={style}
+        className={customClass}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
       >
         <option key="" value=""></option>
@@ -254,7 +254,7 @@ export const DropListTime = ({
   name,
   label,
   state,
-  style,
+  customClass,
   disabled,
   time,
   placeholder,
@@ -282,7 +282,7 @@ export const DropListTime = ({
         onChange={onChange}
         disabled={disabled}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
-        className={style}
+        className={customClass}
       >
         <option value="">{placeholder}</option>
         {options}
