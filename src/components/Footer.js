@@ -48,25 +48,28 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* <div>
-          <h3>Novidades</h3>
-          <p>
-            It's actually the minority of religious people who rejects science
-            or feel threatened by it or want to sort of undo.
-          </p>
+        <div>
+          <h3>Siga-nos!</h3>
+          <p>Curta a Visar Emplaca e fique por dentro das novidades.</p>
 
           <span style={{ display: "flex", alignItems: "center", marginTop: 8 }}>
-            <a href="#" className="socialIcon">
+            <a
+              href="https://www.instagram.com/visaremplaca"
+              className="socialIcon"
+            >
               <FontAwesomeIcon
                 icon={faInstagram}
                 style={{ fontSize: 26, marginRight: 8 }}
               />
             </a>
-            <a href="#" className="socialIcon">
+            <a
+              href="https://www.facebook.com/visaremplaca"
+              className="socialIcon"
+            >
               <FontAwesomeIcon icon={faFacebookF} style={{ fontSize: 24 }} />
             </a>
           </span>
-        </div> */}
+        </div>
       </section>
 
       <section className="footerBottom">
