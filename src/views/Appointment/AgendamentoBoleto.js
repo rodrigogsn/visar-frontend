@@ -74,9 +74,17 @@ const AgendamentoBoleto = () => {
 
   const handleWorkTime = async () => {
     await api.get("/work_times").then((response) => {
-      const data = response.data.map((item) => {
+      let data = response.data.map((item) => {
         return item.value;
       });
+
+      /**
+       * Este slice SOMENTE pode ficar presente DURANTE a PANDEMIA,
+       * limitando os horários de atendimento
+       */
+      if (spot.freetax === 1) {
+        data = data.slice(6, 19);
+      }
 
       setWorkTime(data);
     });

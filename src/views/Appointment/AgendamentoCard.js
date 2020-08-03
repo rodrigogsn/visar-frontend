@@ -92,12 +92,26 @@ const AgendamentoCard = () => {
   };
 
   const handleWorkTime = async () => {
+    console.log(spot.freetax === 1);
+
     await api.get("/work_times").then((response) => {
-      const data = response.data.map((item) => {
+      let data = response.data.map((item) => {
         return item.value;
       });
 
+      data.sort();
+
+      /**
+       * Este slice SOMENTE pode ficar presente DURANTE a PANDEMIA,
+       * limitando os horários de atendimento
+       */
+      if (spot.freetax === 1) {
+        data = data.slice(6, 19);
+      }
+
       setWorkTime(data);
+
+      console.log(data);
     });
   };
 
@@ -120,7 +134,7 @@ const AgendamentoCard = () => {
   };
 
   /**
-   * Get Javasctipt array with all days from selected month
+   * Get Javascript array with all days from selected month
    */
   const getDaysInMonth = async (selectedMonth) => {
     let d = new Date(date.year, selectedMonth, 1);

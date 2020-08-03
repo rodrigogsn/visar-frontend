@@ -57,11 +57,15 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a.miniLink {
+    display: flex;
+    align-self: center;
+
     margin-top: 15px;
     text-decoration: underline !important;
     text-transform: uppercase;
     color: #828282;
     font-size: 11px;
+    white-space: nowrap;
   }
 
   input, select {
@@ -455,6 +459,10 @@ const GlobalStyle = createGlobalStyle`
           & h2, p {
             color: #828282;
           }
+
+          & p {
+           max-width: 270px;
+          }  
         }
       }
 
