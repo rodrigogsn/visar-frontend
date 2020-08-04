@@ -23,7 +23,7 @@ import MainContext from "./../MainContext";
 const Login = () => {
   let history = useHistory();
 
-  const { setUser, profile: contextProfile, setProfile } = useContext(
+  const { user, setUser, profile: contextProfile, setProfile } = useContext(
     MainContext
   );
 
@@ -34,9 +34,11 @@ const Login = () => {
     password: "",
   });
 
-  const handleProfile = async () => {
+  const handleProfile = async (user_id) => {
+    console.log(user_id);
+
     await api
-      .get("/profiles")
+      .get(`/profiles/${user_id}`)
       .then((response) => {
         setProfile(response.data[0]);
         profile(JSON.stringify(response.data[0]));
@@ -69,7 +71,7 @@ const Login = () => {
         } else if (!profile) {
           history.push("/perfil");
         } else {
-          handleProfile();
+          handleProfile(response.data.data.id);
         }
       })
       .catch((error) => {
@@ -90,8 +92,16 @@ const Login = () => {
   };
 
   useEffect(() => {
+    console.log(user);
+
     if (isAuthenticated() && isProfileSet()) {
-      handleProfile();
+      const USER_DATA = "@visar-User";
+
+      const user_id = localStorage.getItem(USER_DATA)
+        ? JSON.parse(localStorage.getItem(USER_DATA)).id
+        : false;
+
+      handleProfile(user_id);
     }
 
     window.scrollTo(0, 0);
