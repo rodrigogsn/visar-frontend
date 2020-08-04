@@ -1,2 +1,43 @@
-https://visaremplca.com.br/*    /index.html   200
+/login /index.html   200
 
+/confirm /index.html   200
+
+/reconfirm /index.html   200
+
+/start /index.html   200
+
+/cadastro /index.html   200
+
+/perfil /index.html   200
+
+/atualizar /index.html   200
+
+/tipo /index.html   200
+
+/subtipo /index.html   200
+
+/regiao /index.html   200
+
+/confirmar-endereco /index.html   200
+
+/atualizar-endereco /index.html   200
+
+/local /index.html   200
+
+/agendamento-boleto /index.html   200
+
+/agendamento-card /index.html   200
+
+/agendamento-debito /index.html   200
+
+/metodo /index.html   200
+
+/process /index.html   200
+
+/boleto /index.html   200
+
+/debito /index.html   200
+
+/sucesso /index.html   200
+
+/retorno /index.html   200
