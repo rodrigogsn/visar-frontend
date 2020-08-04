@@ -1,5 +1,6 @@
 export const TOKEN_KEY = "@visar-Token";
 export const USER_DATA = "@visar-User";
+export const USER_MAIL = "@visar-Mail";
 export const USER_PROFILE = "@visar-Profile";
 
 // Verifica se o usuário já está autenticado
@@ -11,6 +12,21 @@ export const isAuthenticated = () => {
     : false;
 
   if (isAuth && confirmed) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+// Verifica se o usuário já está autenticado
+export const isAdmin = () => {
+  const isAuth = localStorage.getItem(TOKEN_KEY) !== null;
+
+  const admin = localStorage.getItem(USER_DATA)
+    ? JSON.parse(localStorage.getItem(USER_DATA)).admin
+    : false;
+
+  if (isAuth && admin) {
     return true;
   } else {
     return false;
@@ -38,6 +54,10 @@ export const login = (token, user) => {
   localStorage.setItem(TOKEN_KEY, token);
   localStorage.setItem(USER_DATA, user);
 };
+
+// export const saveMail = (token, mail) => {
+//   localStorage.setItem(USER_MAIL, mail);
+// };
 
 export const profile = (profile) => {
   localStorage.setItem(USER_PROFILE, profile);

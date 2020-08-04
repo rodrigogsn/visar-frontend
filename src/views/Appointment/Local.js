@@ -15,7 +15,9 @@ const Local = () => {
     profile,
     subcategory,
     setSpot,
+    setAddress,
     location,
+    setLocation,
     subtotal,
     setSubtotal,
   } = useContext(MainContext);
@@ -37,19 +39,22 @@ const Local = () => {
           const active = !spot.active || !freetax ? false : true;
 
           return (
-            <div
+            <span
               key={spot.id}
-              className={disabledClass}
+              className="buttonWide-container"
               onClick={() => {
                 if (!active) {
                   return;
                 }
+
                 handleClick(spot);
               }}
             >
-              <h2>{spot.name}</h2>
-              <p>{spot.description}</p>
-            </div>
+              <div className={disabledClass}>
+                <h2>{spot.name}</h2>
+                <p>{spot.description}</p>
+              </div>
+            </span>
           );
         });
 
@@ -60,19 +65,42 @@ const Local = () => {
       });
   };
 
-  const handleClick = (spot, active) => {
+  const handleClick = async (spot) => {
     setSpot(spot);
 
     if (spot.freetax) {
-      setSubtotal({ ...subtotal, spot: 0 });
-    } else {
-      setSubtotal({
-        ...subtotal,
-        spot: location.increase + location.discount,
-      });
-    }
+      /**
+       * If the job will happen in company, set all values and default address
+       */
 
-    history.push("/metodo");
+      await api
+        .get("/locations")
+        .then((response) => {
+          const city = response.data.find((el) => el.name === profile.city);
+
+          if (!city) {
+            setLocation(null);
+          } else {
+            setLocation(city);
+          }
+
+          setSubtotal({ ...subtotal, spot: 0 });
+          setAddress(profile);
+
+          console.log(city, location, profile);
+        })
+        .catch((error) => {
+          console.log(error);
+          return alert("Ocorreu um erro! Tente novamente, por favor.");
+        });
+
+      history.push("/metodo");
+    } else {
+      /**
+       * If the job will happen in client, they need to confirm their own address
+       */
+      history.push("/confirmar-endereco");
+    }
   };
 
   useEffect(() => {

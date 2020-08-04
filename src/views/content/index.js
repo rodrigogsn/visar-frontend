@@ -1,12 +1,16 @@
 //// HOME ////
 export const _home = {
   title: `Agende online o emplacamento do seu veículo.`,
-  paragraph: `My parents didn't know much science; in fact, they didn't know science at all. But they could recognize a science book when they saw it, and they spent a lot of time at bookstores, combing the remainder tables for science books to buy for me.`,
+  paragraph: `Faça um agendamento online com a Visar Emplaca, e garanta o emplacamento do seu veículo. Efetuamos o serviço a domicílio para a Baixada Santista, ou em nosso próprio estabelecimento. Confira!`,
 };
 
 //// LOGIN ////
 export const _login = {
   title: `Faça login`,
+};
+
+export const _admin = {
+  title: `Administração`,
 };
 
 //// SIGNUP ////
@@ -20,9 +24,14 @@ export const _cadastro = {
   paragraph: `Digite um email válido e a sua senha. Este será o seu login.`,
 };
 
-export const _confirmacao = {
+export const _confirm = {
   title: `Confirme o seu email`,
-  paragraph: `Uma mensagem de confirmação foi enviada para o seu email. Acesse o link de confirmação na mensagem para fazer login.`,
+  paragraph: `Uma mensagem de confirmação já foi enviada para o seu email. Acesse o link de confirmação na mensagem para fazer login.`,
+};
+
+export const _reconfirm = {
+  title: `Confirme o seu email`,
+  paragraph: `Uma mensagem de confirmação já foi enviada para o seu email. Acesse o link de confirmação na mensagem para fazer login.`,
 };
 
 export const _reconfirmacao = {
@@ -53,6 +62,16 @@ export const _subtipo = {
 export const _regiao = {
   title: `Região`,
   paragraph: `Escolha a sua região.`,
+};
+
+export const _atualizar_endereco = {
+  title: `Escolher Novo Endereço`,
+  paragraph: `Digite um novo endereço para efetuarmos o serviço a domicílio.`,
+};
+
+export const _endereco = {
+  title: `Endereço para Atendimento 🏠`,
+  forbidden: `A região cadatrada não possui atendimento a domicílio ainda. As regiões disponíves são: `,
 };
 
 export const _local = {
@@ -88,13 +107,20 @@ export const _revisao = {
 export const _sucesso = {
   title: `Agendamento concluído! ✅`,
   subtitle: `Aguardando autorização da operadora.`,
-  paragraph: `Após autorizado, o agendamento será efetivado e você receberá um email com confirmação.`,
+  paragraph: `Após autorizado, o agendamento será efetivado e você receberá um email com confirmação. Para atendimento à domicílio, a tolerância para chegada no recinto é de 15 minutos.`,
   legal: "Em caso de dúvidas, fale conosco: (13)3222-5442",
+};
+
+export const _eft = {
+  title: `Agendamento concluído! ✅`,
+  subtitle: `Aguardando pagamento bancário.`,
+  paragraph: `Use o link a seguir para acessar sua conta e efetuar o pagamento. Após autorizado, o agendamento será efetivado e você receberá um email com confirmação. Para atendimento à domicílio, a tolerância para chegada no recinto é de 15 minutos.`,
+  legal: `O agendamento será efetivado somente após a confirmação do pagamento. Caso contário será cancelado automaticamente.`,
 };
 
 export const _boleto = {
   title: `Agendamento concluído! ✅`,
   subtitle: `Aguardando pagamento do boleto.`,
-  paragraph: `Leva até 3 dias úteis para confirmação do pagamento. Assim que houver confirmação, você será notificado via email.`,
-  legal: `O agendamento será efetivado somente após a confirmação do pagamento.`,
+  paragraph: `Leva até 3 dias úteis para confirmação do pagamento. Assim que houver confirmação, você será notificado via email. Para atendimento à domicílio, a tolerância para chegada no recinto é de 15 minutos.`,
+  legal: `O agendamento será efetivado somente após a confirmação do pagamento. Caso contário será cancelado automaticamente.`,
 };

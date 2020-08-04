@@ -29,99 +29,112 @@ const Process = () => {
     await api.get("/session").then((response) => {
       window.PagSeguroDirectPayment.setSessionId(response.data.session_id);
 
-      window.PagSeguroDirectPayment.getBrand({
-        cardBin: cc_number.replace(/\s/g, "").substring(0, 6),
-        success: function (response) {
-          const data = cc_exp.split("/");
+      /**
+       * Getting sender hash
+       */
+      window.PagSeguroDirectPayment.onSenderHashReady(function (response) {
+        if (response.status == "error") {
+          console.log(response.message);
+          return false;
+        }
+        var hash = response.senderHash; //Hash estará disponível nesta variável.
 
-          console.log("brand", response.brand.name);
-          console.log(data[0], `20${data[1]}`);
+        window.PagSeguroDirectPayment.getBrand({
+          cardBin: cc_number.replace(/\s/g, "").substring(0, 6),
+          success: function (response) {
+            const data = cc_exp.split("/");
 
-          window.PagSeguroDirectPayment.createCardToken({
-            cardNumber: cc_number.replace(/\s/g, ""), // Número do cartão de crédito
-            brand: response.brand.name, // Bandeira do cartão
-            cvv: cc_cvv, // CVV do cartão
-            expirationMonth: data[0], // Mês da expiração do cartão
-            expirationYear: `20${data[1]}`, // Ano da expiração do cartão, é necessário os 4 dígitos.
-            success: async function (response) {
-              console.log(response);
+            console.log("brand", response.brand.name);
+            console.log(data[0], `20${data[1]}`);
 
-              const transaction = {
-                name: profile.name,
-                email: location.state.email,
-                cpf_cnpj: profile.document,
-                area_code: profile.area_code,
-                phone: profile.phone,
-                birth_date: profile.birthdate,
-                street: profile.address,
-                number: profile.address_number,
-                district: profile.district,
-                city: profile.city,
-                state: profile.uf,
-                postal_code: profile.zipcode,
-                method: method.pagseguro,
-                value: location.state.appointment.total,
-                credit_card_token: response.card.token,
-              };
+            window.PagSeguroDirectPayment.createCardToken({
+              cardNumber: cc_number.replace(/\s/g, ""), // Número do cartão de crédito
+              brand: response.brand.name, // Bandeira do cartão
+              cvv: cc_cvv, // CVV do cartão
+              expirationMonth: data[0], // Mês da expiração do cartão
+              expirationYear: `20${data[1]}`, // Ano da expiração do cartão, é necessário os 4 dígitos.
+              success: async function (response) {
+                console.log(response);
 
-              await api
-                .post("/transaction", transaction)
-                .then(async (response) => {
-                  console.log(response.data);
+                const transaction = {
+                  name: profile.name,
+                  email: location.state.email,
+                  cpf_cnpj: profile.document,
+                  area_code: profile.area_code,
+                  phone: profile.phone,
+                  birth_date: profile.birthdate,
+                  street: profile.address,
+                  number: profile.address_number,
+                  district: profile.district,
+                  city: profile.city,
+                  state: profile.uf,
+                  postal_code: profile.zipcode,
+                  method: method.pagseguro,
+                  value: location.state.appointment.total,
+                  credit_card_token: response.card.token,
+                  hash:
+                    process.env.REACT_APP_NODE_ENV === "production" ? hash : "",
+                };
 
-                  setTransaction(response.data.code);
+                await api
+                  .post("/transaction", transaction)
+                  .then(async (response) => {
+                    console.log(response.data);
 
-                  /**
-                   * Inserting the transaction code inside this appointment
-                   */
-                  await api
-                    .put(`/appointments/${location.state.appointment.id}`, {
-                      transaction: response.data.code,
-                    })
-                    .then((response) => {
-                      return history.push("/sucesso");
-                    });
-                })
-                .catch((error) => {
-                  console.log(error.response);
+                    setTransaction(response.data.code);
 
-                  alert(
-                    "Ocorreu um erro durante a transação. Verifique os dados e tente novamente."
-                  );
+                    /**
+                     * Inserting the transaction code inside this appointment
+                     */
+                    await api
+                      .put(`/appointments/${location.state.appointment.id}`, {
+                        transaction: response.data.code,
+                      })
+                      .then((response) => {
+                        return history.push("/sucesso");
+                      });
+                  })
+                  .catch((error) => {
+                    console.log(error.response);
 
-                  deleteAppointment();
-                });
-            },
-            error: async function (response) {
-              console.log("error", response);
+                    alert(
+                      "Ocorreu um erro durante a transação. Verifique os dados e tente novamente."
+                    );
 
-              alert(
-                `Ocorreu um erro no processamento. Verifique os dados e tente novamente. (${JSON.stringify(
-                  response.errors
-                )})`
-              );
+                    deleteAppointment();
+                  });
+              },
+              error: async function (response) {
+                console.log("error", response);
 
-              deleteAppointment();
-            },
-            complete: function (response) {
-              console.log("complete", response);
-            },
-          });
-        },
-        error: async function (response) {
-          console.log("error", response);
+                alert(
+                  `Ocorreu um erro no processamento. Verifique os dados e tente novamente. (${JSON.stringify(
+                    response.errors
+                  )})`
+                );
 
-          alert(
-            `Ocorreu um erro no processamento. Verifique os dados e tente novamente. (${JSON.stringify(
-              response.errors
-            )})`
-          );
+                deleteAppointment();
+              },
+              complete: function (response) {
+                console.log("complete", response);
+              },
+            });
+          },
+          error: async function (response) {
+            console.log("error", response);
 
-          deleteAppointment();
-        },
-        complete: function (response) {
-          console.log("complete", response);
-        },
+            alert(
+              `Ocorreu um erro no processamento. Verifique os dados e tente novamente. (${JSON.stringify(
+                response.errors
+              )})`
+            );
+
+            deleteAppointment();
+          },
+          complete: function (response) {
+            console.log("complete", response);
+          },
+        });
       });
     });
   };
@@ -131,9 +144,7 @@ const Process = () => {
 
     if (profile) {
       handleCard();
-    }
-
-    if (!profile) {
+    } else {
       history.push("/");
     }
   }, []);

@@ -25,6 +25,7 @@ const AgendamentoCard = () => {
     category,
     subcategory,
     spot,
+    address,
     location,
     method,
     subtotal,
@@ -40,7 +41,7 @@ const AgendamentoCard = () => {
 
   const [selectedDay, setSelectedDay] = useState(null);
 
-  const [blockedWeekdays, setBlockedWeekdays] = useState(["dom"]);
+  const [blockedWeekdays, setBlockedWeekdays] = useState(["dom", "sáb"]);
 
   const [vehicle, setVehicle] = useState({
     plate: "",
@@ -91,12 +92,26 @@ const AgendamentoCard = () => {
   };
 
   const handleWorkTime = async () => {
+    console.log(spot.freetax === 1);
+
     await api.get("/work_times").then((response) => {
-      const data = response.data.map((item) => {
+      let data = response.data.map((item) => {
         return item.value;
       });
 
+      data.sort();
+
+      /**
+       * Este slice SOMENTE pode ficar presente DURANTE a PANDEMIA,
+       * limitando os horários de atendimento
+       */
+      if (spot.freetax === 1) {
+        data = data.slice(6, 19);
+      }
+
       setWorkTime(data);
+
+      console.log(data);
     });
   };
 
@@ -119,7 +134,7 @@ const AgendamentoCard = () => {
   };
 
   /**
-   * Get Javasctipt array with all days from selected month
+   * Get Javascript array with all days from selected month
    */
   const getDaysInMonth = async (selectedMonth) => {
     let d = new Date(date.year, selectedMonth, 1);
@@ -136,7 +151,7 @@ const AgendamentoCard = () => {
           .toLocaleDateString("pt-BR", { weekday: "short" })
           .substring(0, 3);
 
-        return w !== blockedWeekdays[0];
+        return !blockedWeekdays.includes(w);
       })
       .map((item) => {
         const d = item.toLocaleDateString("pt-BR");
@@ -156,14 +171,17 @@ const AgendamentoCard = () => {
     await api
       .get(`/appointments_bymonth/${date.year}/${formatMonth}`)
       .then((response) => {
-        const alreadyTaken = response.data.map((item) => {
-          return {
-            date: item.date,
-            day: parseInt(item.date.substring(0, 2)),
-            month: parseInt(item.date.substring(3, 5)),
-            time: item.time,
-          };
-        });
+        const alreadyTaken = response.data
+          .filter((item) => item.status != 7) // Enable cancelled appointments dates to be chosen again
+          .map((item) => {
+            return {
+              date: item.date,
+              day: parseInt(item.date.substring(0, 2)),
+              month: parseInt(item.date.substring(3, 5)),
+              time: item.time,
+              status: item.status,
+            };
+          });
 
         /**
          * Add all unappointed work hours to each day, according to default work time
@@ -186,10 +204,6 @@ const AgendamentoCard = () => {
           return item ? true : false;
         });
 
-        // console.log("Method", method.confirm_days);
-        // console.log("AllDays, with time:", addTimeArr);
-        // console.log("alreadyTaken:", alreadyTaken);
-        // console.log("workTime:", workTime);
         setDaysByMonth(addTimeArr);
       });
   };
@@ -224,21 +238,20 @@ const AgendamentoCard = () => {
 
   const handleCreateAppointment = async (vehicle) => {
     const appointment_data = {
-      status: "Aguardando Pagamento",
-      vehicle: vehicle,
+      vehicle_id: vehicle,
       date: date.day,
       time: date.time,
       category: category.id,
       subcategory: subcategory.id,
-      location: location.id,
+      location: location?.id,
       spot: spot.id,
-      address: profile.address,
-      address2: profile.address2,
-      address_number: profile.address_number,
-      district: profile.district,
-      city: profile.city,
-      uf: profile.uf,
-      zipcode: profile.zipcode,
+      address: address.address,
+      address2: address.address2,
+      address_number: address.address_number,
+      district: address.district,
+      city: address.city,
+      uf: address.uf,
+      zipcode: address.zipcode,
       payment_method: method.id,
     };
 
@@ -362,7 +375,7 @@ const AgendamentoCard = () => {
               required={true}
               placeholder="Escolha um mês"
               currentMonth={date.currentMonth}
-              style="appointmentInput"
+              customClass="appointmentInput"
               state={date.month}
               onChange={handleDateInput}
             />
@@ -373,7 +386,7 @@ const AgendamentoCard = () => {
               year={date.year}
               required={true}
               placeholder=""
-              style="appointmentInput"
+              customClass="appointmentInput"
               days={daysByMonth}
               state={date.day}
               currentMonth={date.currentMonth}
@@ -387,7 +400,7 @@ const AgendamentoCard = () => {
               required={true}
               placeholder=""
               time={selectedDay?.time || workTime}
-              style="appointmentInput"
+              customClass="appointmentInput"
               state={date.time}
               onChange={handleDateInput}
             />
@@ -408,12 +421,29 @@ const AgendamentoCard = () => {
               <TextInput
                 label="Validade"
                 name="cc_exp"
+                maxlength={5}
+                autocomplete="cc-exp"
                 required={true}
-                mask="99/99"
+                // mask="99/99"
                 placeholder="MM/YY"
                 onChange={handleCardInput}
                 style={validation.cc_exp}
                 onBlur={(e) => emptyMaskValidate(e)}
+                onKeyUp={(e) => {
+                  console.log(e.target.value.length);
+                  var x = e.which || e.keyCode;
+
+                  if (x === 8 || x === 46 || x === 16) {
+                    return;
+                  }
+
+                  if (
+                    e.target.value.length == 2 &&
+                    e.target.value.indexOf("/") === -1
+                  ) {
+                    e.target.value += "/";
+                  }
+                }}
               />
               <TextInput
                 label="CVV"

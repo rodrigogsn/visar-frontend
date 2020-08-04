@@ -13,20 +13,20 @@ const Footer = () => {
         <div>
           <h3>Sobre a Visar Emplaca</h3>
           <p>
-            When you put money directly to a problem, it makes a good headline.
-            It makes a good campaign slogan. You get to claim that you've
-            engaged in these activities within an election cycle. But certain
-            investments take longer than an election cycle.
+            A Visar Emplaca efetua emplacamento de veículos de diversos tipos,
+            mediante autorização de emplacamento do DETRAN. Atendemos à Baixada
+            Santista (Santos, Guarujá, Cubatão e Praia Grande). Em breve mais
+            locais estarão à disposição.
           </p>
         </div>
 
         <div>
-          <h3>Avisos Legais</h3>
+          <h3>Avisos</h3>
           <p>
-            It's actually the minority of religious people who rejects science
-            or feel threatened by it or want to sort of undo or restrict the...
-            where science can go. The rest, you know, are just fine with
-            science. And it has been that way ever since the beginning.
+            Para dar sequência ao cadastro do seu veículo, é necessário ter o
+            número de autorização de emplacamento do DETRAN assim como o RENAVAM
+            do veículo. Se os dados não forem validados por nossa equipe, o
+            agendamento poderá ser cancelado.
           </p>
         </div>
 
@@ -49,20 +49,23 @@ const Footer = () => {
         </div>
 
         <div>
-          <h3>Novidades</h3>
-          <p>
-            It's actually the minority of religious people who rejects science
-            or feel threatened by it or want to sort of undo.
-          </p>
+          <h3>Siga-nos!</h3>
+          <p>Curta a Visar Emplaca e fique por dentro das novidades.</p>
 
           <span style={{ display: "flex", alignItems: "center", marginTop: 8 }}>
-            <a href="#" className="socialIcon">
+            <a
+              href="https://www.instagram.com/visaremplaca"
+              className="socialIcon"
+            >
               <FontAwesomeIcon
                 icon={faInstagram}
                 style={{ fontSize: 26, marginRight: 8 }}
               />
             </a>
-            <a href="#" className="socialIcon">
+            <a
+              href="https://www.facebook.com/visaremplaca"
+              className="socialIcon"
+            >
               <FontAwesomeIcon icon={faFacebookF} style={{ fontSize: 24 }} />
             </a>
           </span>
@@ -77,7 +80,7 @@ const Footer = () => {
             <strong>Razão Social:</strong> Visar Emplaca Veículos Ltda. |{" "}
             <strong>CNPJ:</strong> 25.025.838/0001-60 |{" "}
             <strong>Endereço:</strong> Rua Amador Bueno, 361 - Centro -
-            Santos/SP
+            Santos/SP - CEP: 11013-153
           </p>
         </div>
 

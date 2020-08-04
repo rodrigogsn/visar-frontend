@@ -1,16 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { estados } from "./../views/content/estados";
 import { meses } from "./../views/content/meses";
-import { horarios } from "./../views/content/horarios";
 import { Squares } from "react-activity";
 import "react-activity/dist/react-activity.css";
-
-import MainContext from "./../MainContext";
-
 import InputMask from "react-input-mask";
+import moment from "moment";
 
-let fullDay = false;
+moment.locale("pt-br");
 
 export const Loader = () => (
   <Squares color="black" size={36} speed={1} animating={true} />
@@ -77,6 +74,8 @@ export const TextInput = ({
   name,
   style,
   placeholder,
+  autocomplete,
+  maxlength,
   state,
   onChange,
   onBlur,
@@ -93,6 +92,8 @@ export const TextInput = ({
         type={type}
         name={name}
         placeholder={placeholder}
+        autocomplete={autocomplete}
+        maxlength={maxlength}
         value={state}
         onChange={onChange}
         required={required}
@@ -159,7 +160,7 @@ export const DropListMonth = ({
   name,
   label,
   state,
-  style,
+  customClass,
   placeholder,
   currentMonth,
   onChange,
@@ -182,7 +183,7 @@ export const DropListMonth = ({
         value={state}
         required={required}
         onChange={onChange}
-        className={style}
+        className={customClass}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
       >
         <option value="">{placeholder}</option>
@@ -196,7 +197,7 @@ export const DropListDay = ({
   name,
   label,
   days,
-  style,
+  customClass,
   year,
   state,
   placeholder,
@@ -211,11 +212,15 @@ export const DropListDay = ({
       const day = parseInt(value.d.substring(0, 2));
       const month = parseInt(value.d.substring(3, 5)) - 1;
 
-      if (month === currentMonth && day < currentDay + methodDays) {
+      const current_moment = moment([year, currentMonth, currentDay]).add(
+        methodDays,
+        "days"
+      );
+
+      if (moment([year, month, day]) < current_moment) {
         return false;
       }
 
-      // console.log(day, month, currentDay, currentMonth, methodDays);
       return true;
     })
     .map((dia) => {
@@ -235,7 +240,7 @@ export const DropListDay = ({
         value={state}
         required={required}
         onChange={onChange}
-        className={style}
+        className={customClass}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
       >
         <option key="" value=""></option>
@@ -249,7 +254,7 @@ export const DropListTime = ({
   name,
   label,
   state,
-  style,
+  customClass,
   disabled,
   time,
   placeholder,
@@ -277,7 +282,7 @@ export const DropListTime = ({
         onChange={onChange}
         disabled={disabled}
         onFocus={(e) => (e.target.originalvalue = e.target.value)}
-        className={style}
+        className={customClass}
       >
         <option value="">{placeholder}</option>
         {options}
@@ -286,8 +291,8 @@ export const DropListTime = ({
   );
 };
 
-export const MiniLink = ({ text, link }) => (
-  <Link to={link} className="miniLink">
+export const MiniLink = ({ text, link, press }) => (
+  <Link to={link} className="miniLink" onClick={press}>
     {text}
   </Link>
 );

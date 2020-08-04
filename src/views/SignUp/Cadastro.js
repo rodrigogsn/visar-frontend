@@ -35,19 +35,39 @@ const Cadastro = () => {
 
     await api
       .post("/register", auth)
-      .then((response) => {
+      .then(async (response) => {
         console.log(response.data);
-        setButtonText("Cadastrar");
 
         setUser("");
         setProfile("");
         logout();
-        history.push("/confirmacao");
+
+        const data = {
+          email: response.data.email,
+          redirect_url: process.env.REACT_APP_REDIRECT_URL,
+        };
+
+        await api
+          .post("/confirm", data)
+          .then(() => {
+            setButtonText("Cadastrar");
+
+            history.push("/reconfirm", { email: response.data.email });
+          })
+          .catch((error) => {
+            alert(error.response.data.error.message);
+
+            setButtonText("Cadastrar");
+
+            console.log(error.response);
+          });
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error.response.data[0].message);
+
         setButtonText("Cadastrar");
-        alert("Ocorreu um erro! Revise os dados e tente novamente.");
+
+        alert(error.response.data[0].message);
       });
   };
 

@@ -42,11 +42,13 @@ const Metodo = () => {
 
     setSubtotal({
       ...subtotal,
-      method: method[0].increase + method[0].discount,
+      method: method[0].increase - method[0].discount,
     });
 
     if (method[0].pagseguro === "boleto") {
       history.push("/agendamento-boleto");
+    } else if (method[0].pagseguro === "eft") {
+      history.push("/agendamento-debito");
     } else {
       history.push("/agendamento-card");
     }
@@ -66,7 +68,7 @@ const Metodo = () => {
     const currentDate = new Intl.DateTimeFormat("pt-BR").format(date1);
 
     const date2 = new Date();
-    date2.setDate(date2.getDate() + 3);
+    date2.setDate(date2.getDate() + 5);
     const nextDate = new Intl.DateTimeFormat("pt-BR").format(date2);
 
     return [currentDate, nextDate];
@@ -83,29 +85,43 @@ const Metodo = () => {
         </header>
 
         <div className="buttonGroup">
-          <div className="buttonWide" onClick={() => saveMethod(1)}>
-            <SvgCredito className="buttonWide-image" alt="" />
-            <h2>Cartão de Crédito</h2>
-            <p>
-              Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
-            </p>
-          </div>
+          <span className="buttonWide-container">
+            <div className="buttonWide metodo" onClick={() => saveMethod(1)}>
+              <SvgCredito className="buttonWide-image" alt="" />
+              <h2>Cartão de Crédito</h2>
+              <p>
+                Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
+              </p>
+            </div>
+            <div className="buttonWide-detail"></div>
+          </span>
 
-          {/* <div className="buttonWide" onClick={() => saveMethod(2)}>
-            <SvgDebito className="buttonWide-image" alt="" />
-            <h2>Cartão de Débito</h2>
-            <p>
-              Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
-            </p>
-          </div> */}
+          <span className="buttonWide-container">
+            <div className="buttonWide metodo" onClick={() => saveMethod(2)}>
+              <SvgDebito className="buttonWide-image" alt="" />
+              <h2>Online Banking</h2>
+              <p>
+                Agende uma data a partir de <strong>{handleDates()[0]}</strong>.
+              </p>
+            </div>
+            <div className="buttonWide-detail">
+              <p>
+                <strong>Disponível para:</strong> Itaú, Bradesco, Banco do
+                Brasil e Banrisul.
+              </p>
+            </div>
+          </span>
 
-          <div className="buttonWide" onClick={() => saveMethod(3)}>
-            <SvgBoleto className="buttonWide-image" alt="" />
-            <h2>Boleto</h2>
-            <p>
-              Agende uma data a partir de <strong>{handleDates()[1]}</strong>.
-            </p>
-          </div>
+          <span className="buttonWide-container">
+            <div className="buttonWide metodo" onClick={() => saveMethod(3)}>
+              <SvgBoleto className="buttonWide-image" alt="" />
+              <h2>Boleto</h2>
+              <p>
+                Agende uma data a partir de <strong>{handleDates()[1]}</strong>.
+              </p>
+            </div>
+            <div className="buttonWide-detail"></div>
+          </span>
         </div>
       </main>
 

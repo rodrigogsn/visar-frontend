@@ -5,7 +5,7 @@ import Footer from "./../../components/Footer";
 import {
   Title,
   Paragraph,
-  ButtonSuccess,
+  ButtonPrimary,
   TextInput,
   DropListDay,
   DropListMonth,
@@ -14,10 +14,15 @@ import {
 } from "./../../components/Elements";
 import { _agendamento } from "./../../views/content";
 
+import bancodobrasil from "./../../assets/img/bancodobrasil.png";
+import bradesco from "./../../assets/img/bradesco.png";
+import itau from "./../../assets/img/itau.png";
+import banrisul from "./../../assets/img/banrisul.png";
+
 import api from "./../../services/api";
 import MainContext from "./../../MainContext";
 
-const AgendamentoBoleto = () => {
+const AgendamentoDebito = () => {
   let history = useHistory();
 
   const {
@@ -29,22 +34,16 @@ const AgendamentoBoleto = () => {
     address,
     method,
     subtotal,
-    setBoleto,
+    setEft,
   } = useContext(MainContext);
 
-  // This adds PagSeguro Boleto R$1,00 tax in frontend, but subtotal.method will calculate it properly
-  const total = subtotal.subcategory + subtotal.spot + subtotal.method + 1;
+  const total = subtotal.subcategory + subtotal.spot + subtotal.method;
 
   const [storage, setStorage] = useState("");
-
-  const [buttonText, setButtonText] = useState(`Gerar Boleto: R$${total}`);
-
+  const [buttonText, setButtonText] = useState(`Continuar: R$${total}`);
   const [workTime, setWorkTime] = useState([]);
-
   const [selectedDay, setSelectedDay] = useState(null);
-
   const [blockedWeekdays, setBlockedWeekdays] = useState(["dom", "sáb"]);
-
   const [vehicle, setVehicle] = useState({
     plate: "",
     brand: "",
@@ -53,7 +52,7 @@ const AgendamentoBoleto = () => {
     detran: "",
     renavam: "",
   });
-
+  const [bank, setBank] = useState(null);
   const [date, setDate] = useState({
     day: "",
     month: "",
@@ -106,6 +105,10 @@ const AgendamentoBoleto = () => {
     }
 
     setDate({ ...date, [e.target.name]: e.target.value });
+  };
+
+  const handleBank = (bank) => {
+    setBank(bank);
   };
 
   /**
@@ -186,6 +189,10 @@ const AgendamentoBoleto = () => {
   const handleSendData = async (e) => {
     e.preventDefault();
 
+    if (!bank) {
+      return alert("É necessário escolher o banco para realizar o pagamento.");
+    }
+
     const vehicle_data = {
       plate: vehicle.plate.replace(/[^a-zA-Z0-9]/g, "").toUpperCase(),
       brand: vehicle.brand.toUpperCase(),
@@ -207,7 +214,7 @@ const AgendamentoBoleto = () => {
         alert(
           "Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios."
         );
-        setButtonText(`Gerar Boleto: R$${total}`);
+        setButtonText(`Continuar: R$${total}`);
       });
   };
 
@@ -266,15 +273,15 @@ const AgendamentoBoleto = () => {
               method: method.pagseguro,
               value: response_appointment.data.total,
               hash: process.env.REACT_APP_NODE_ENV === "production" ? hash : "",
+              bankName: bank,
             };
 
             await api
               .post("/transaction", transaction)
               .then(async (response_transaction) => {
-                setBoleto({
+                setEft({
                   code: response_transaction.data.code,
                   link: response_transaction.data.paymentLink,
-                  payment_link: response_transaction.data.paymentLink,
                 });
 
                 /**
@@ -286,15 +293,15 @@ const AgendamentoBoleto = () => {
                     transaction: response_transaction.data.code,
                     payment_link: response_transaction.data.paymentLink,
                   })
-                  .then(async () => {});
+                  .then(() => {});
 
                 /**
-                 * Sending boleto via email
+                 * Sending eft link via email
                  */
                 await api
-                  .post(`/boleto/${response_appointment.data.id}`)
+                  .post(`/eft/${response_appointment.data.id}`)
                   .then(() => {
-                    return history.push("/boleto");
+                    return history.push("/debito", { total });
                   });
               })
               .catch((error) => {
@@ -305,14 +312,14 @@ const AgendamentoBoleto = () => {
 
                 deleteAppointment(response_appointment.data.id);
 
-                setButtonText(`Gerar Boleto: R$${total}`);
+                setButtonText(`Continuar: R$${total}`);
               });
           });
         });
       })
       .catch((error) => {
         console.log(error.response);
-        setButtonText(`Gerar Boleto: R$${total}`);
+        setButtonText(`Continuar: R$${total}`);
       });
   };
 
@@ -326,13 +333,9 @@ const AgendamentoBoleto = () => {
 
     setStorage(storage);
 
-    if (!profile || method.pagseguro !== "boleto") {
-      history.push("/");
-    }
-
-    if (!profile) {
-      history.push("/");
-    }
+    // if (!profile || method.pagseguro !== "eft") {
+    //   history.push("/");
+    // }
 
     /**
      * Fetching default work time to offer
@@ -458,7 +461,69 @@ const AgendamentoBoleto = () => {
             />
           </div>
 
-          <ButtonSuccess text={buttonText} />
+          <div style={{ marginTop: 30, marginBottom: 30 }}>
+            <label>Escolha o banco para pagamento:</label>
+
+            <div style={{ flexDirection: "column" }} className="buttonGroup">
+              <span
+                id="bancodobrasil"
+                className={`buttonWide-container ${
+                  bank === "bancodobrasil" ? "active" : ""
+                }`}
+                style={{ marginRight: 0, marginBottom: 12 }}
+                onClick={() => handleBank("bancodobrasil")}
+              >
+                <div className="buttonWide select">
+                  <img src={bancodobrasil} alt="" />
+                  <h2>Banco do Brasil</h2>
+                </div>
+              </span>
+
+              <span
+                id="bradesco"
+                className={`buttonWide-container ${
+                  bank === "bradesco" ? "active" : ""
+                }`}
+                style={{ marginRight: 0, marginBottom: 12 }}
+                onClick={() => handleBank("bradesco")}
+              >
+                <div className="buttonWide select">
+                  <img src={bradesco} alt="" />
+                  <h2>Bradesco</h2>
+                </div>
+              </span>
+
+              <span
+                id="itau"
+                className={`buttonWide-container ${
+                  bank === "itau" ? "active" : ""
+                }`}
+                style={{ marginRight: 0, marginBottom: 12 }}
+                onClick={() => handleBank("itau")}
+              >
+                <div className="buttonWide select">
+                  <img src={itau} alt="" />
+                  <h2>Itaú</h2>
+                </div>
+              </span>
+
+              <span
+                id="banrisul"
+                className={`buttonWide-container ${
+                  bank === "banrisul" ? "active" : ""
+                }`}
+                style={{ marginRight: 0, marginBottom: 12 }}
+                onClick={() => handleBank("banrisul")}
+              >
+                <div className="buttonWide select">
+                  <img src={banrisul} alt="" />
+                  <h2>Banrisul</h2>
+                </div>
+              </span>
+            </div>
+          </div>
+
+          <ButtonPrimary text={buttonText} />
         </form>
       </main>
 
@@ -467,4 +532,4 @@ const AgendamentoBoleto = () => {
   );
 };
 
-export default AgendamentoBoleto;
+export default AgendamentoDebito;

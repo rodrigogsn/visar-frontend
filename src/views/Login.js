@@ -56,26 +56,16 @@ const Login = () => {
       .then((response) => {
         console.log(response.data);
 
-        // SWITCH TO THIS AFTER TEST:
-        // const { confirmed } = response.data.data;
-
-        const confirmed = 1;
-        let userTestData = response.data.data;
-        userTestData = { ...userTestData, confirmed: 1 };
-
-        const { profile } = response.data.data;
+        const { profile, confirmed, email } = response.data.data;
 
         setUser(response.data);
 
-        // SWITCH TO THIS AFTER TEST:
-        // login(response.data.token, JSON.stringify(response.data.data));
-
-        login(response.data.token, JSON.stringify(userTestData));
+        login(response.data.token, JSON.stringify(response.data.data));
 
         setButtonText("Entrar");
 
         if (!confirmed) {
-          history.push("/confirmacao");
+          history.push("/reconfirm", { email });
         } else if (!profile) {
           history.push("/perfil");
         } else {
@@ -84,10 +74,14 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error.response);
-        if (error.response) {
+
+        setButtonText("Entrar");
+
+        if (error.response.data.error) {
+          alert("Login inválido.");
+        } else {
           alert(error.response.data[0].message);
         }
-        setButtonText("Entrar");
       });
   };
 

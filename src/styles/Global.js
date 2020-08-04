@@ -57,11 +57,15 @@ const GlobalStyle = createGlobalStyle`
   }
 
   a.miniLink {
+    display: flex;
+    align-self: center;
+
     margin-top: 15px;
     text-decoration: underline !important;
     text-transform: uppercase;
     color: #828282;
     font-size: 11px;
+    white-space: nowrap;
   }
 
   input, select {
@@ -127,6 +131,11 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  .logo-admin {
+    max-width: 120px;
+    margin: 20px 0;
+  } 
+
   .loader {
     /* background: #ff000057;
     display: flex;
@@ -146,6 +155,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: space-between;
     align-items: center;
     padding: 20px 30px;
+    min-height: fit-content;
 
     img {
       max-width: 125px;
@@ -206,6 +216,7 @@ const GlobalStyle = createGlobalStyle`
 
       &.footerTop {
         padding: 50px 2.5% 65px;
+        min-height: fit-content;
 
         h3 {
           color: #263238;
@@ -230,6 +241,7 @@ const GlobalStyle = createGlobalStyle`
         background: #19408c;
         padding: 1.5% 50px;
         align-items: center;
+        min-height: fit-content;
 
         .copyright {
           flex: 2;
@@ -337,8 +349,9 @@ const GlobalStyle = createGlobalStyle`
     .buttonGroup {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
       margin-top: 10px;
-      max-width: 600px;
+      /* max-width: 600px; */
 
       a:not(:last-child) {
         margin-right: 10px;
@@ -352,11 +365,31 @@ const GlobalStyle = createGlobalStyle`
         }
       }
 
+      .buttonWide-container {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+
+        &.active {
+          .buttonWide {
+            border-color: #25d366;
+          }
+
+          h2 {
+            color: #25d366;
+          }
+        }
+
+      }
+
       .buttonWide {
         display: flex;
         flex: 1;
         flex-direction: column;
-        justify-content: space-between;
         align-items: center;
         min-height: 290px;
         border: 3px solid black;
@@ -364,21 +397,36 @@ const GlobalStyle = createGlobalStyle`
         transition: .3s all;
         cursor: pointer;
 
-        &.customHeight {
-          min-height: fit-content;
-          justify-content: center;
-          padding: 10px 20px;
+        &.metodo {
+          flex: initial;
+          min-height: auto;
         }
 
-        &:not(:last-child) {
-          margin-right: 10px;
+        &.select {
+          display: flex;
+          flex-direction: row;
+          justify-content: stretch;
+          min-height: auto;
+          padding: 0px 0px;
+          padding-right: 10px;
+
+          h2 {
+            padding-left: 10px;
+            font-size: 15px;
+          }
+
+        }
+
+        &.customHeight {
+          min-height: 130px;
+          justify-content: center;
+          padding: 10px 20px;
         }
 
         &:hover {
           background: #eeeeee;
           transform: translate(0px, -5px);
         }
-
 
         .buttonWide-image {
           max-width: 125px;
@@ -411,8 +459,29 @@ const GlobalStyle = createGlobalStyle`
           & h2, p {
             color: #828282;
           }
+
+          & p {
+           max-width: 270px;
+          }  
         }
       }
+
+      .buttonWide-detail {
+          display: flex;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
+
+          & p {
+            font-size: 12px;
+            margin: 8px;
+            max-width: 160px;
+          }
+
+          & strong {
+            font-size: 12px;
+          }
+        }
 
     }
 
@@ -568,6 +637,29 @@ const GlobalStyle = createGlobalStyle`
 
   /********** Input Form **********/
   @media (max-width: 700px) {
+    input[type="color"],
+    input[type="date"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="email"],
+    input[type="month"],
+    input[type="number"],
+    input[type="password"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="text"],
+    input[type="time"],
+    input[type="url"],
+    input[type="week"],
+    select:focus,
+    textarea {
+      font-size: 16px;
+    }
+
+    main {
+      flex: none;
+    }
+
     nav {
       flex-direction: column;
       border-bottom: 1px solid #26323850;
@@ -636,7 +728,7 @@ const GlobalStyle = createGlobalStyle`
           margin-bottom: 12px;
         }
 
-        .buttonWide:not(:last-child) {
+        .buttonWide-container:not(:last-child) {
           margin-right: 0;
           margin-bottom: 12px;
         }
@@ -669,6 +761,14 @@ const GlobalStyle = createGlobalStyle`
       &.footerBottom {
         padding: 10px;
         flex: none;
+        
+        .copyright {
+          margin-right: 0;
+        }
+
+        .logoWrapper {
+          margin: 15px 0;
+        }
         
         p {
           text-align: center;

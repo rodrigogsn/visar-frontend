@@ -74,7 +74,9 @@ const Perfil = () => {
   };
 
   const keyValidate = (e) => {
-    if ((e.which >= 48 && e.which <= 57) || (e.which >= 96 && e.which <= 105)) {
+    var x = e.which || e.keyCode;
+
+    if ((x >= 48 && x <= 57) || (x >= 96 && x <= 105)) {
       return true;
     }
 

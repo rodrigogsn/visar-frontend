@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
@@ -8,7 +8,6 @@ import {
   Subtitle,
   ButtonPrimary,
   Warning,
-  Code,
 } from "./../../components/Elements";
 import { _boleto } from "./../../views/content";
 
@@ -36,15 +35,13 @@ const Sucesso = () => {
           <Title text={_boleto.title} />
 
           <Subtitle text={_boleto.subtitle} />
-
-          {/* <Code text={boleto.code} /> */}
         </header>
 
         <section>
           <Paragraph text={_boleto.paragraph} />
 
           <a href={boleto.link} target="_blank" rel="noopener noreferrer">
-            <ButtonPrimary text="📄 Imprimir boleto" />
+            <ButtonPrimary text="📄 Visualizar boleto" />
           </a>
 
           <Warning text={_boleto.legal} />
