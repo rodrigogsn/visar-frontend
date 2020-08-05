@@ -146,6 +146,22 @@ const GlobalStyle = createGlobalStyle`
     height: 100%; */
   }
 
+  /********** Toasts/Warnings **********/
+  .toast {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #b3dbff;
+    opacity: 0.95;
+    border-top: 2px solid #19408c;
+    border-radius: 5px;
+    padding: 11px 5%;
+    margin: 0 20px 10px;
+    position: fixed;
+    bottom: 0;
+  }
+
 
 
   /********** Navigation Bar **********/
