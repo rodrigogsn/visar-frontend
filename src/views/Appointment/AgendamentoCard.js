@@ -92,26 +92,20 @@ const AgendamentoCard = () => {
   };
 
   const handleWorkTime = async () => {
-    console.log(spot.freetax === 1);
-
     await api.get("/work_times").then((response) => {
       let data = response.data.map((item) => {
         return item.value;
       });
-
-      data.sort();
 
       /**
        * Este slice SOMENTE pode ficar presente DURANTE a PANDEMIA,
        * limitando os horários de atendimento
        */
       if (spot.freetax === 1) {
-        data = data.slice(6, 19);
+        data = data.slice(3, 19);
       }
 
       setWorkTime(data);
-
-      console.log(data);
     });
   };
 

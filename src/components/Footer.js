@@ -15,7 +15,7 @@ const Footer = () => {
           <p>
             A Visar Emplaca efetua emplacamento de veículos de diversos tipos,
             mediante autorização de emplacamento do DETRAN. Atendemos à Baixada
-            Santista (Santos, Guarujá, Cubatão e Praia Grande). Em breve mais
+            Santista (Santos, Guarujá, Cubatão, e Praia Grande). Em breve mais
             locais estarão à disposição.
           </p>
         </div>
