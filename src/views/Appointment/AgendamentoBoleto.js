@@ -83,7 +83,7 @@ const AgendamentoBoleto = () => {
        * limitando os horários de atendimento
        */
       if (spot.freetax === 1) {
-        data = data.slice(6, 19);
+        data = data.slice(3, 19);
       }
 
       setWorkTime(data);
