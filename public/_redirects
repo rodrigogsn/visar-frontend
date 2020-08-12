@@ -12,6 +12,10 @@
 
 /atualizar /index.html   200
 
+/senha /index.html   200
+
+/reset /index.html   200
+
 /tipo /index.html   200
 
 /subtipo /index.html   200
