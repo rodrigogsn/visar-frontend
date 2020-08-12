@@ -147,7 +147,7 @@ const Login = () => {
           <ButtonPrimary text={buttonText} type="submit" />
 
           <div className="buttonGroup">
-            <MiniLink text="Esqueci a senha" link="/forget" />
+            <MiniLink text="Esqueci a senha" link="/senha" />
             <MiniLink text="Não tenho cadastro" link="/cadastro" />
           </div>
         </form>

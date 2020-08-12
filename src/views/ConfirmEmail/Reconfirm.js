@@ -25,7 +25,7 @@ const Reconfirm = () => {
 
     const data = {
       email: location.state.email,
-      redirect_url: process.env.REACT_APP_REDIRECT_URL,
+      redirect_url: `${process.env.REACT_APP_REDIRECT_URL}/confirm`,
     };
 
     console.log("enviando:", data);

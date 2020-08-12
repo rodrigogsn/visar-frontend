@@ -47,6 +47,11 @@ export const _atualizar = {
   title: `Atualizar dados`,
 };
 
+export const _redefinir = {
+  title: `Redefinir senha`,
+  paragraph: `Será enviado um link de redefinição de senha para o email abaixo.`,
+};
+
 //// VEHICLE ////
 export const _tipo = {
   title: `Tipo de Veículo`,

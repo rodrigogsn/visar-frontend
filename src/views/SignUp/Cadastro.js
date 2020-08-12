@@ -44,7 +44,7 @@ const Cadastro = () => {
 
         const data = {
           email: response.data.email,
-          redirect_url: process.env.REACT_APP_REDIRECT_URL,
+          redirect_url: `${process.env.REACT_APP_REDIRECT_URL}/confirm`,
         };
 
         await api

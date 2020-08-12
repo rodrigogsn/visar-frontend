@@ -21,6 +21,9 @@ import Cadastro from "./views/SignUp/Cadastro";
 import Perfil from "./views/SignUp/Perfil";
 import Atualizar from "./views/SignUp/Atualizar";
 
+import EnviarLink from "./views/ResetPassword/EnviarLink";
+import Reset from "./views/ResetPassword/Reset";
+
 import Tipo from "./views/Vehicle/Tipo";
 import Subtipo from "./views/Vehicle/Subtipo";
 
@@ -74,6 +77,8 @@ const Routes = () => (
       <Route path="/login" exact component={Login} />
       <Route path="/confirm" exact component={Confirm} />
       <Route path="/reconfirm" exact component={Reconfirm} />
+      <Route path="/senha" exact component={EnviarLink} />
+      <Route path="/reset" exact component={Reset} />
       <Route path="/start" exact component={Start} />
       <Route path="/cadastro" exact component={Cadastro} />
       <PrivateRoute path="/perfil" exact component={Perfil} />
@@ -119,7 +124,7 @@ const Routes = () => (
       <Route path="/dashboard" exact component={Dashboard} /> */}
 
       {/* 404 */}
-      <Route path="*" component={() => <h1>Page not found</h1>} />
+      <Route path="*" component={() => <h1>Página não encontrada!</h1>} />
     </Switch>
   </Router>
 );
