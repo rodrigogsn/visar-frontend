@@ -47,9 +47,7 @@ const ConfirmarEndereco = () => {
 
         setLocations(addLocation);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 
   const handleConfirm = () => {
@@ -61,8 +59,6 @@ const ConfirmarEndereco = () => {
       ...subtotal,
       spot: selectedCity.increase - selectedCity.discount,
     });
-
-    console.log(subtotal, selectedCity);
 
     history.push("/metodo");
   };
@@ -88,7 +84,6 @@ const ConfirmarEndereco = () => {
     </p>
   );
 
-  console.log(locations.toString().replace(/[,]/g, ", "));
   return (
     <>
       <Header />

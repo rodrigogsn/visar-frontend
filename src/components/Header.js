@@ -1,22 +1,37 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Toast from "./Toast";
 import logo from "./../assets/img/logo.png";
 
+import MainContext from "./../MainContext";
+import { isAuthenticated, logout } from "./../services/auth";
+
 const Header = () => {
+  let history = useHistory();
+
+  const [logged, setLogged] = useState(false);
+
+  const { setUser, setProfile } = useContext(MainContext);
+
+  const handleLogout = () => {
+    setUser("");
+    setProfile("");
+    logout();
+
+    history.push("/");
+  };
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      setLogged(true);
+    }
+  }, [logged]);
+
   return (
     <>
-      {process.env.REACT_APP_NODE_ENV === "development" && (
-        <div className="toast">
-          <p>
-            <strong>Ambiente de desenvolvimento:</strong> As transações feitas
-            neste site não são oficiais e os agendamentos são feitos para fins
-            de testes apenas. Para acessar o site em produção use o link{" "}
-            <a href="https://visaremplaca.com.br">
-              https://visaremplaca.com.br
-            </a>
-          </p>
-        </div>
-      )}
+      <Toast />
+
       <nav>
         <Link to="/">
           <img src={logo} alt="Logotipo Visar Emplaca" />

@@ -6,7 +6,6 @@ import {
   Paragraph,
   ButtonPrimary,
   Image,
-  Detran,
 } from "./../components/Elements";
 import { _home } from "./../views/content";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -28,8 +28,6 @@ const Reconfirm = () => {
       redirect_url: `${process.env.REACT_APP_REDIRECT_URL}/confirm`,
     };
 
-    console.log("enviando:", data);
-
     await api
       .post("/confirm", data)
       .then(() => {
@@ -45,8 +43,6 @@ const Reconfirm = () => {
         alert(error.response.data.error.message);
 
         setButtonText("Não recebi o email");
-
-        console.log(error.response);
       });
   };
 

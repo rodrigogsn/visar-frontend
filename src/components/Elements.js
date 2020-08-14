@@ -303,10 +303,6 @@ export const Subtitle = ({ text }) => <h2>{text}</h2>;
 
 export const Paragraph = ({ text }) => <p>{text}</p>;
 
-export const Detran = ({ text, icon }) => (
-  <span className="detran">{icon}</span>
-);
-
 export const Warning = ({ text }) => <p className="warning">{text}</p>;
 
 export const Code = ({ text }) => <p className="code">{text}</p>;

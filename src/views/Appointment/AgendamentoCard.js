@@ -164,7 +164,6 @@ const AgendamentoCard = () => {
      * Get All Appointments from API
      */
     const formatMonth = ("0" + (parseInt(selectedMonth) + 1)).slice(-2);
-    console.log(formatMonth);
 
     await api
       .get(`/appointments_bymonth/${date.year}/${formatMonth}`)
@@ -226,7 +225,6 @@ const AgendamentoCard = () => {
         handleCreateAppointment(response.data.id);
       })
       .catch((error) => {
-        console.log(error);
         alert(
           "Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios."
         );
@@ -262,7 +260,6 @@ const AgendamentoCard = () => {
         });
       })
       .catch((error) => {
-        console.log(error.response);
         setButtonText(`Pagar: R$${total}`);
       });
   };
@@ -428,7 +425,6 @@ const AgendamentoCard = () => {
                 style={validation.cc_exp}
                 onBlur={(e) => emptyMaskValidate(e)}
                 onKeyUp={(e) => {
-                  console.log(e.target.value.length);
                   var x = e.which || e.keyCode;
 
                   if (x === 8 || x === 46 || x === 16) {

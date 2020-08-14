@@ -35,17 +35,13 @@ const Login = () => {
   });
 
   const handleProfile = async (user_id) => {
-    console.log(user_id);
-
     await api
       .get(`/profiles/${user_id}`)
       .then((response) => {
         setProfile(response.data[0]);
         profile(JSON.stringify(response.data[0]));
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 
   const handleLogin = async (e) => {
@@ -56,8 +52,6 @@ const Login = () => {
     await api
       .post("/authenticate", auth)
       .then((response) => {
-        console.log(response.data);
-
         const { profile, confirmed, email } = response.data.data;
 
         setUser(response.data);
@@ -75,8 +69,6 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        console.log(error.response);
-
         setButtonText("Entrar");
 
         if (error.response.data.error) {
@@ -92,8 +84,6 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log(user);
-
     if (isAuthenticated() && isProfileSet()) {
       const USER_DATA = "@visar-User";
 
@@ -108,8 +98,6 @@ const Login = () => {
   }, []);
 
   useEffect(() => {
-    console.log(contextProfile);
-
     if (contextProfile) {
       history.push("/tipo");
     }

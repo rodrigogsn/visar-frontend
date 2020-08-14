@@ -42,6 +42,9 @@ const MainContext = React.createContext({
 
   transaction: "",
   setTransaction: () => {},
+
+  toastClosed: "",
+  setToastClosed: () => {},
 });
 
 export default MainContext;

@@ -162,17 +162,33 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
 
-    background: #b3dbff;
+    background: #afffb4;
     opacity: 0.95;
-    border-top: 2px solid #19408c;
+    border-top: 2px solid #026f00;
     border-radius: 5px;
     padding: 11px 5%;
     margin: 0 20px 10px;
     position: fixed;
     bottom: 0;
+
+    &.closed {
+      display: none;
+    }
   }
 
+  .toast__close {
+    background: none;
+    margin: 10px 0 10px 10px;
+    padding: 3px 8px;
+    height: auto;
+    min-width: auto;
+    border: 1px solid #00000029;
+    border-radius: 4px;
 
+    &:hover {
+      background: #00000029;
+    }
+  }
 
   /********** Navigation Bar **********/
   nav {

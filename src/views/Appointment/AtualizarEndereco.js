@@ -61,7 +61,6 @@ const AtualizarEndereco = () => {
         })
         .catch((error) => {
           setValidation({ ...validation, zipcode: "inputError" });
-          console.log(error);
         });
     }
   };
@@ -99,8 +98,6 @@ const AtualizarEndereco = () => {
 
     setButtonText(<Loader />);
 
-    console.log(profile);
-
     await api
       .get("/locations")
       .then((response) => {
@@ -122,8 +119,6 @@ const AtualizarEndereco = () => {
         history.push("/metodo");
       })
       .catch((error) => {
-        console.log(error);
-
         setButtonText("Enviar");
 
         return alert("Ocorreu um erro! Tente novamente, por favor.");
@@ -132,7 +127,6 @@ const AtualizarEndereco = () => {
 
   const handleInputChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-    console.log(data);
   };
 
   useEffect(() => {

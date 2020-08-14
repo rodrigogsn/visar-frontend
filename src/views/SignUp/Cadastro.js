@@ -36,8 +36,6 @@ const Cadastro = () => {
     await api
       .post("/register", auth)
       .then(async (response) => {
-        console.log(response.data);
-
         setUser("");
         setProfile("");
         logout();
@@ -58,13 +56,9 @@ const Cadastro = () => {
             alert(error.response.data.error.message);
 
             setButtonText("Cadastrar");
-
-            console.log(error.response);
           });
       })
       .catch((error) => {
-        console.log(error.response.data[0].message);
-
         setButtonText("Cadastrar");
 
         alert(error.response.data[0].message);

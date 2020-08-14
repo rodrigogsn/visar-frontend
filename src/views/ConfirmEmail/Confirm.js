@@ -34,7 +34,6 @@ const Confirm = () => {
         setButton(<ButtonPrimary text="Login" link="/login" />);
       })
       .catch((error) => {
-        console.log(error.response.data[0].message);
         let msg = `Mensagem do sistema: ${error.response.data[0].message} Tente fazer login para confirmar o cadastro.`;
 
         setTitle(<Title text="Ocorreu um erro ao confirmar" />);

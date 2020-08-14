@@ -19,12 +19,9 @@ const Tipo = () => {
     await api
       .get("/vehicle_categories")
       .then((response) => {
-        console.log(response.data);
         setCategories(response.data);
       })
-      .catch((error) => {
-        console.log(error.response);
-      });
+      .catch((error) => {});
   };
 
   const handleSubcategories = async (category_id) => {
@@ -37,14 +34,10 @@ const Tipo = () => {
           (item) => item.category_id === category_id
         );
 
-        console.log(subcategory);
-
         // Set all subcategories for context (next screen will filter them)
         setSubcategory(subcategory);
       })
-      .catch((error) => {
-        console.log(error.response);
-      });
+      .catch((error) => {});
   };
 
   const saveCategory = (key) => {

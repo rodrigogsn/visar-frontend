@@ -60,9 +60,7 @@ const Local = () => {
 
         setSpots(data);
       })
-      .catch((error) => {
-        console.log(error.response);
-      });
+      .catch((error) => {});
   };
 
   const handleClick = async (spot) => {
@@ -86,11 +84,8 @@ const Local = () => {
 
           setSubtotal({ ...subtotal, spot: 0 });
           setAddress(profile);
-
-          console.log(city, location, profile);
         })
         .catch((error) => {
-          console.log(error);
           return alert("Ocorreu um erro! Tente novamente, por favor.");
         });
 
