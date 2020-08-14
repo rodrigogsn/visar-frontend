@@ -67,7 +67,6 @@ const AgendamentoBoleto = () => {
 
   const deleteAppointment = async (appointment_id) => {
     await api.delete(`/appointments/${appointment_id}`).then((response) => {
-      console.log("Agendamento cancelado");
       history.goBack();
     });
   };
@@ -145,7 +144,6 @@ const AgendamentoBoleto = () => {
      * Get All Appointments from API
      */
     const formatMonth = ("0" + (parseInt(selectedMonth) + 1)).slice(-2);
-    console.log(formatMonth);
 
     await api
       .get(`/appointments_bymonth/${date.year}/${formatMonth}`)
@@ -207,7 +205,6 @@ const AgendamentoBoleto = () => {
         handleCreateAppointment(response.data.id);
       })
       .catch((error) => {
-        console.log(error);
         alert(
           "Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios."
         );
@@ -249,7 +246,6 @@ const AgendamentoBoleto = () => {
             response_hash
           ) {
             if (response_hash.status == "error") {
-              console.log(response_hash.message);
               return false;
             }
             var hash = response_hash.senderHash; //Hash estará disponível nesta variável.
@@ -302,7 +298,6 @@ const AgendamentoBoleto = () => {
                   });
               })
               .catch((error) => {
-                console.log(error.response);
                 alert(
                   "Ocorreu um erro ao processar. Verifique os dados e tente novamente."
                 );
@@ -315,7 +310,6 @@ const AgendamentoBoleto = () => {
         });
       })
       .catch((error) => {
-        console.log(error.response);
         setButtonText(`Gerar Boleto: R$${total}`);
       });
   };

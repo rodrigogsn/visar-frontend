@@ -27,7 +27,6 @@ import Reset from "./views/ResetPassword/Reset";
 import Tipo from "./views/Vehicle/Tipo";
 import Subtipo from "./views/Vehicle/Subtipo";
 
-import Regiao from "./views/Appointment/Regiao";
 import ConfirmarEndereco from "./views/Appointment/ConfirmarEndereco";
 import AtualizarEndereco from "./views/Appointment/AtualizarEndereco";
 import Local from "./views/Appointment/Local";
@@ -85,7 +84,6 @@ const Routes = () => (
       <PrivateRoute path="/atualizar" exact component={Atualizar} />
       <PrivateRoute path="/tipo" exact component={Tipo} />
       <PrivateRoute path="/subtipo" exact component={Subtipo} />
-      <PrivateRoute path="/regiao" exact component={Regiao} />
       <PrivateRoute
         path="/confirmar-endereco"
         exact

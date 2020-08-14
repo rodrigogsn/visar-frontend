@@ -19,6 +19,7 @@ const App = () => {
   const [boleto, setBoleto] = useState("");
   const [eft, setEft] = useState("");
   const [transaction, setTransaction] = useState("");
+  const [toastClosed, setToastClosed] = useState("");
 
   const value = {
     user,
@@ -49,6 +50,8 @@ const App = () => {
     setEft,
     transaction,
     setTransaction,
+    toastClosed,
+    setToastClosed,
   };
 
   return (

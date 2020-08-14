@@ -68,7 +68,6 @@ const Perfil = () => {
         })
         .catch((error) => {
           setValidation({ ...validation, zipcode: "inputError" });
-          console.log(error);
         });
     }
   };
@@ -215,15 +214,11 @@ const Perfil = () => {
       city: data.city,
     };
 
-    console.log(request);
-
     setButtonText(<Loader />);
 
     await api
       .post("/profiles", request)
       .then((response) => {
-        console.log(response.data);
-
         setButtonText("Enviar");
 
         setProfile(response.data);
@@ -231,7 +226,6 @@ const Perfil = () => {
         history.push("/tipo");
       })
       .catch((error) => {
-        console.log(error.response);
         alert(
           "Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios."
         );
@@ -241,7 +235,6 @@ const Perfil = () => {
 
   const handleInputChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-    console.log(data);
   };
 
   useEffect(() => {

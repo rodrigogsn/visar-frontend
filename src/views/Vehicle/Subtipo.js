@@ -48,9 +48,7 @@ const Subtipo = () => {
 
         setOptions(html);
       })
-      .catch((error) => {
-        console.log(error.response);
-      });
+      .catch((error) => {});
   };
 
   const handleInputChange = (e) => {
@@ -62,8 +60,6 @@ const Subtipo = () => {
       setButton(<ButtonPrimary text="Continuar" press={handleClick} />);
 
       setSubtotal({ ...subtotal, subcategory: selected[0].value });
-
-      console.log("Valor por Subtipo:", selected[0].value, "Total:", subtotal);
     } else {
       setButton(<ButtonDisabled text="Continuar" />);
     }

@@ -18,7 +18,6 @@ const Process = () => {
     await api
       .delete(`/appointments/${location.state.appointment.id}`)
       .then((response) => {
-        console.log("Agendamento cancelado");
         history.goBack();
       });
   };
@@ -34,7 +33,6 @@ const Process = () => {
        */
       window.PagSeguroDirectPayment.onSenderHashReady(function (response) {
         if (response.status == "error") {
-          console.log(response.message);
           return false;
         }
         var hash = response.senderHash; //Hash estará disponível nesta variável.
@@ -44,9 +42,6 @@ const Process = () => {
           success: function (response) {
             const data = cc_exp.split("/");
 
-            console.log("brand", response.brand.name);
-            console.log(data[0], `20${data[1]}`);
-
             window.PagSeguroDirectPayment.createCardToken({
               cardNumber: cc_number.replace(/\s/g, ""), // Número do cartão de crédito
               brand: response.brand.name, // Bandeira do cartão
@@ -54,8 +49,6 @@ const Process = () => {
               expirationMonth: data[0], // Mês da expiração do cartão
               expirationYear: `20${data[1]}`, // Ano da expiração do cartão, é necessário os 4 dígitos.
               success: async function (response) {
-                console.log(response);
-
                 const transaction = {
                   name: profile.name,
                   email: location.state.email,
@@ -79,8 +72,6 @@ const Process = () => {
                 await api
                   .post("/transaction", transaction)
                   .then(async (response) => {
-                    console.log(response.data);
-
                     setTransaction(response.data.code);
 
                     /**
@@ -95,8 +86,6 @@ const Process = () => {
                       });
                   })
                   .catch((error) => {
-                    console.log(error.response);
-
                     alert(
                       "Ocorreu um erro durante a transação. Verifique os dados e tente novamente."
                     );
@@ -105,8 +94,6 @@ const Process = () => {
                   });
               },
               error: async function (response) {
-                console.log("error", response);
-
                 alert(
                   `Ocorreu um erro no processamento. Verifique os dados e tente novamente. (${JSON.stringify(
                     response.errors
@@ -115,14 +102,10 @@ const Process = () => {
 
                 deleteAppointment();
               },
-              complete: function (response) {
-                console.log("complete", response);
-              },
+              complete: function (response) {},
             });
           },
           error: async function (response) {
-            console.log("error", response);
-
             alert(
               `Ocorreu um erro no processamento. Verifique os dados e tente novamente. (${JSON.stringify(
                 response.errors
@@ -131,9 +114,7 @@ const Process = () => {
 
             deleteAppointment();
           },
-          complete: function (response) {
-            console.log("complete", response);
-          },
+          complete: function (response) {},
         });
       });
     });
@@ -149,11 +130,7 @@ const Process = () => {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(location.state.appointment);
-    // console.log(location.state.email);
-    // console.log(location.state.card);
-  }, [location]);
+  useEffect(() => {}, [location]);
 
   return (
     <>

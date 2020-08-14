@@ -134,7 +134,17 @@ const GlobalStyle = createGlobalStyle`
   .logo-admin {
     max-width: 120px;
     margin: 20px 0;
-  } 
+  }
+
+  .logo-detransp {
+    max-width: 140px;
+    padding-top: 10px
+  }
+
+  .logo-detransp-mini {
+    max-width: 140px;
+    padding-top: 10px
+  }
 
   .loader {
     /* background: #ff000057;
@@ -152,17 +162,33 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
 
-    background: #b3dbff;
+    background: #afffb4;
     opacity: 0.95;
-    border-top: 2px solid #19408c;
+    border-top: 2px solid #026f00;
     border-radius: 5px;
     padding: 11px 5%;
     margin: 0 20px 10px;
     position: fixed;
     bottom: 0;
+
+    &.closed {
+      display: none;
+    }
   }
 
+  .toast__close {
+    background: none;
+    margin: 10px 0 10px 10px;
+    padding: 3px 8px;
+    height: auto;
+    min-width: auto;
+    border: 1px solid #00000029;
+    border-radius: 4px;
 
+    &:hover {
+      background: #00000029;
+    }
+  }
 
   /********** Navigation Bar **********/
   nav {
@@ -299,7 +325,7 @@ const GlobalStyle = createGlobalStyle`
 
       p {
         max-width: 300px;
-        margin: 10px 0 20px;
+        margin: 10px 0 5px;
         animation: 0.5s ${appearLeft} ease;
       }
 
@@ -319,6 +345,16 @@ const GlobalStyle = createGlobalStyle`
       z-index: -1;
       margin-left: 160px;
       animation: 0.3s ${appearLeft} ease;
+    }
+
+    .detran {
+      padding: 3px 7px;
+      margin-bottom: 20px;
+      width: max-content;
+      font-weight: bold;
+      color: #19408c;
+      border-radius: 6px;
+      border: 2px solid #19408c;
     }
   }
 

@@ -27,12 +27,9 @@ const Metodo = () => {
     await api
       .get("/payment_methods")
       .then((response) => {
-        console.log(response.data);
         setMethods(response.data);
       })
-      .catch((error) => {
-        console.log(error.response);
-      });
+      .catch((error) => {});
   };
 
   const saveMethod = (key) => {
