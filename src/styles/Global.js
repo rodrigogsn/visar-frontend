@@ -134,7 +134,17 @@ const GlobalStyle = createGlobalStyle`
   .logo-admin {
     max-width: 120px;
     margin: 20px 0;
-  } 
+  }
+
+  .logo-detransp {
+    max-width: 140px;
+    padding-top: 10px
+  }
+
+  .logo-detransp-mini {
+    max-width: 140px;
+    padding-top: 10px
+  }
 
   .loader {
     /* background: #ff000057;
@@ -299,7 +309,7 @@ const GlobalStyle = createGlobalStyle`
 
       p {
         max-width: 300px;
-        margin: 10px 0 20px;
+        margin: 10px 0 5px;
         animation: 0.5s ${appearLeft} ease;
       }
 
@@ -319,6 +329,16 @@ const GlobalStyle = createGlobalStyle`
       z-index: -1;
       margin-left: 160px;
       animation: 0.3s ${appearLeft} ease;
+    }
+
+    .detran {
+      padding: 3px 7px;
+      margin-bottom: 20px;
+      width: max-content;
+      font-weight: bold;
+      color: #19408c;
+      border-radius: 6px;
+      border: 2px solid #19408c;
     }
   }
 

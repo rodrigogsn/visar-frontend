@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <>
       {process.env.REACT_APP_NODE_ENV === "development" && (
-        <div class="toast">
+        <div className="toast">
           <p>
             <strong>Ambiente de desenvolvimento:</strong> As transações feitas
             neste site não são oficiais e os agendamentos são feitos para fins

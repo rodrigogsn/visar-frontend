@@ -1,6 +1,7 @@
 import React from "react";
 import { Image } from "./../components/Elements";
 import logo from "./../assets/img/gomes.png";
+import detransp from "./../assets/img/detransp.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 
@@ -18,6 +19,11 @@ const Footer = () => {
             Santista (Santos, Guarujá, Cubatão, Praia Grande e São Vicente). Em
             breve mais locais estarão à disposição.
           </p>
+          <img
+            src={detransp}
+            className="logo-detransp-mini"
+            alt="Empresa credenciada pelo Detran SP"
+          />
         </div>
 
         <div>
@@ -36,9 +42,9 @@ const Footer = () => {
           <p>
             <strong>Telefone:</strong>
             <br />
-            (13)3222-5442
+            (13) 3222-5442
             <br />
-            (13)3223-9102
+            (13) 3223-9102
           </p>
 
           <p style={{ marginTop: 15 }}>
