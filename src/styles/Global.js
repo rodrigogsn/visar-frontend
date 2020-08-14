@@ -156,6 +156,17 @@ const GlobalStyle = createGlobalStyle`
     height: 100%; */
   }
 
+  .devbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-weight: bold;
+    background: #24882b;
+    padding: 7px 10px;
+  }
+
   /********** Toasts/Warnings **********/
   .toast {
     display: flex;

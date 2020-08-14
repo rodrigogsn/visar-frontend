@@ -32,6 +32,10 @@ const Header = () => {
     <>
       <Toast />
 
+      {process.env.REACT_APP_NODE_ENV === "development" && (
+        <div className="devbar">Ambiente de Desenvolvimento</div>
+      )}
+
       <nav>
         <Link to="/">
           <img src={logo} alt="Logotipo Visar Emplaca" />
