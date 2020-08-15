@@ -227,10 +227,18 @@ const GlobalStyle = createGlobalStyle`
       }
     }
 
-    a {
+    a,
+    .navButton {
       text-decoration: none;
       text-transform: uppercase;
       font-weight: bold;
+      background: none;
+      padding: 0;
+      min-width:  auto;
+    }
+
+    .navButton:hover {
+      color: red;
     }
   }
 
@@ -414,7 +422,6 @@ const GlobalStyle = createGlobalStyle`
       flex-direction: row;
       justify-content: space-between;
       margin-top: 10px;
-      /* max-width: 600px; */
 
       a:not(:last-child) {
         margin-right: 10px;
@@ -735,11 +742,17 @@ const GlobalStyle = createGlobalStyle`
       }
 
       ul {
-        margin-top: 10px;
+        margin-top: 15px;
 
-        li a {
+        li a,
+        .navButton {
           font-size: 12px;
-          text-decoration: underline;
+          text-decoration: underline !important;
+          height: auto;
+
+          svg {
+            font-size: 14px !important;
+          }
         }
       
         li a button {
@@ -756,6 +769,7 @@ const GlobalStyle = createGlobalStyle`
         }
       }
     }
+
 
     main.home {
       flex-direction: column-reverse;
@@ -839,6 +853,7 @@ const GlobalStyle = createGlobalStyle`
       }
     }
   }
-
+}
 `;
+
 export default GlobalStyle;
