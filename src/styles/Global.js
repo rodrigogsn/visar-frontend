@@ -163,8 +163,7 @@ const GlobalStyle = createGlobalStyle`
 
     color: white;
     font-weight: bold;
-    /* background: #24882b; */
-    background: red;
+    background: #24882b;
     padding: 7px 10px;
   }
 
