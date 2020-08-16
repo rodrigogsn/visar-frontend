@@ -30,7 +30,6 @@
 //     await api
 //       .post("/admin_authenticate", auth)
 //       .then((response) => {
-//         console.log(response.data);
 
 //         setButtonText("Entrar");
 
@@ -39,7 +38,6 @@
 //         history.push("/dashboard");
 //       })
 //       .catch((error) => {
-//         console.log(error.response);
 
 //         setButtonText("Entrar");
 

@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Toast from "./Toast";
 import logo from "./../assets/img/logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 import MainContext from "./../MainContext";
 import { isAuthenticated, logout } from "./../services/auth";
@@ -12,8 +14,13 @@ const Header = () => {
 
   const [logged, setLogged] = useState(false);
 
-  const { setUser, setProfile } = useContext(MainContext);
+  const { profile, setUser, setProfile } = useContext(MainContext);
 
+  /**
+   *
+   * Logout
+   *
+   */
   const handleLogout = () => {
     setUser("");
     setProfile("");
@@ -23,7 +30,7 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated()) {
+    if (isAuthenticated() && profile) {
       setLogged(true);
     }
   }, [logged]);
@@ -32,17 +39,29 @@ const Header = () => {
     <>
       <Toast />
 
+      {process.env.REACT_APP_NODE_ENV === "development" && (
+        <div className="devbar">Ambiente de Desenvolvimento</div>
+      )}
+
       <nav>
         <Link to="/">
           <img src={logo} alt="Logotipo Visar Emplaca" />
         </Link>
         <ul>
           {/* <li>
-          <Link to="/start">Contato</Link>
-        </li> */}
-          {/* <li>
-          <Link to="/start">Localização</Link>
-        </li> */}
+            <Link to="/start">Contato</Link>
+          </li>
+          <li>
+            <Link to="/start">Localização</Link>
+          </li> */}
+          {logged && (
+            <li>
+              <button onClick={handleLogout} className="navButton">
+                Sair{" "}
+                <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: 16 }} />
+              </button>
+            </li>
+          )}
           <li>
             <Link to="/start">
               <button>Agendar Emplacamento</button>
