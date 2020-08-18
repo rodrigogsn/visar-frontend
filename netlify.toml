@@ -3,7 +3,7 @@
 # will inherit these settings.
 [context.deploy-preview.environment]
   REACT_APP_NODE_ENV = "development"
-  REACT_APP_API_URL = "http://devapi.visaremplaca.com.br"
+  REACT_APP_API_URL = "https://devapi.visaremplaca.com.br"
   REACT_APP_REDIRECT_URL = "https://dev.visaremplaca.com.br"
 
 # Specific branch context:
@@ -11,5 +11,5 @@
 # and override their current ones.
 [context.dev.environment]
   REACT_APP_NODE_ENV = "development"
-  REACT_APP_API_URL = "http://devapi.visaremplaca.com.br"
+  REACT_APP_API_URL = "https://devapi.visaremplaca.com.br"
   REACT_APP_REDIRECT_URL = "https://dev.visaremplaca.com.br"

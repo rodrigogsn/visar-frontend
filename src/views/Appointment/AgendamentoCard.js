@@ -98,15 +98,21 @@ const AgendamentoCard = () => {
       });
 
       /**
+       *
        * Este slice SOMENTE pode ficar presente DURANTE a PANDEMIA,
        * limitando os horários de atendimento
+       *
        */
       if (spot.freetax === 1) {
-        data = data.slice(3);
+        // Loja
+        data = data.sort().slice(6, 19);
       }
 
       if (spot.freetax === 0) {
-        data = data.slice(1, 5);
+        // Domicílio
+        const validInterval = data.filter((e) => !e.includes(":30"));
+
+        data = validInterval.sort().slice(1, 5);
       }
 
       setWorkTime(data);
