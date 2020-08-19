@@ -31,7 +31,23 @@ const AgendamentoCard = () => {
     subtotal,
   } = useContext(MainContext);
 
-  const total = subtotal.subcategory + subtotal.spot + subtotal.method;
+  /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
+  var extra_discount = 0;
+
+  /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
+  if (spot.freetax === 1 && subtotal.subcategory >= 200) {
+    extra_discount = 30 + subtotal.method;
+  }
+
+  /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
+  if (spot.freetax === 1 && subtotal.subcategory < 200) {
+    extra_discount = 10 + subtotal.method;
+  }
+
+  /** O extra_discount deverá ser removido após a PANDEMIA */
+  // This adds PagSeguro Boleto R$1,00 tax in frontend, but subtotal.method will calculate it properly
+  const total =
+    subtotal.subcategory + subtotal.spot + subtotal.method - extra_discount;
 
   const [storage, setStorage] = useState("");
 
