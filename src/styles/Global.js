@@ -377,6 +377,21 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  aside {
+    img {
+      width: 100%;
+      border-top: 1px solid #26323850;
+      padding-bottom: 20px;
+      box-shadow: 1px 10px 15px #d2d2d2;
+      transition: 0.6s;
+
+      animation: 0.9s ${appearLeft} ease;
+    }
+
+    &:active {
+      opacity: 0.7;
+    }
+  }
 
   /********** Default Pages **********/
   main.default {
@@ -728,6 +743,12 @@ const GlobalStyle = createGlobalStyle`
 
     main {
       flex: none;
+    }
+
+    aside {
+      img {
+        border-top: none;
+      }
     }
 
     nav {

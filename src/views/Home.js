@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Header from "./../components/Header";
 import Footer from "./../components/Footer";
 import {
@@ -12,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 import image from "./../assets/img/hero-ilust-1.png";
+import banner from "./../assets/img/banner-visar.png";
 
 const Home = () => {
   useEffect(() => {
@@ -21,6 +23,14 @@ const Home = () => {
   return (
     <>
       <Header />
+      <aside>
+        <Link to="/start">
+          <Image
+            source={banner}
+            alt="Promoção válida somente para agendamento de emplacamento pelo site: carros (2 placas) R$170,00 e moto (1 placa) R$90,00. Nota: somente para veículos de passageiros e/ou misto, exceto micro-ônibus, ônibus, bonde, reboque ou semi-reboque e caminhão."
+          />
+        </Link>
+      </aside>
 
       <main className="home">
         <header>

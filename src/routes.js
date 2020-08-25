@@ -10,8 +10,8 @@ import { isAuthenticated, isAdmin } from "./services/auth";
 
 import Home from "./views/Home";
 import Login from "./views/Login";
-// import AdminLogin from "./views/Admin/AdminLogin";
-// import Dashboard from "./views/Admin/Dashboard";
+import AdminLogin from "./views/Admin/AdminLogin";
+import Dashboard from "./views/Admin/Dashboard";
 
 import Confirm from "./views/ConfirmEmail/Confirm";
 import Reconfirm from "./views/ConfirmEmail/Reconfirm";
@@ -118,8 +118,8 @@ const Routes = () => (
       <PrivateRoute path="/retorno" exact component={Retorno} />
 
       {/* Admin Routes */}
-      {/* <Route path="/admin" exact component={AdminLogin} />
-      <Route path="/dashboard" exact component={Dashboard} /> */}
+      <Route path="/admin" exact component={AdminLogin} />
+      <Route path="/dashboard" exact component={Dashboard} />
 
       {/* 404 */}
       <Route path="*" component={() => <h1>Página não encontrada!</h1>} />
