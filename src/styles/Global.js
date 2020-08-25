@@ -381,9 +381,8 @@ const GlobalStyle = createGlobalStyle`
     img {
       width: 100%;
       border-top: 1px solid #26323850;
-      padding-bottom: 20px;
+      margin-bottom: 15px;
       box-shadow: 1px 10px 15px #d2d2d2;
-      transition: 0.6s;
 
       animation: 0.9s ${appearLeft} ease;
     }
