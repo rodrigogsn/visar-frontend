@@ -10,8 +10,8 @@ import { isAuthenticated, isAdmin } from "./services/auth";
 
 import Home from "./views/Home";
 import Login from "./views/Login";
-// import AdminLogin from "./views/Admin/AdminLogin";
-// import Dashboard from "./views/Admin/Dashboard";
+import AdminLogin from "./views/Admin/AdminLogin";
+import Dashboard from "./views/Admin/Dashboard";
 
 import Confirm from "./views/ConfirmEmail/Confirm";
 import Reconfirm from "./views/ConfirmEmail/Reconfirm";

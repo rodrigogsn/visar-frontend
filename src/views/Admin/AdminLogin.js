@@ -30,7 +30,6 @@
 //     await api
 //       .post("/admin_authenticate", auth)
 //       .then((response) => {
-
 //         setButtonText("Entrar");
 
 //         login(response.data.token, JSON.stringify(response.data.data));
@@ -38,7 +37,6 @@
 //         history.push("/dashboard");
 //       })
 //       .catch((error) => {
-
 //         setButtonText("Entrar");
 
 //         alert(error.response.data.message);
