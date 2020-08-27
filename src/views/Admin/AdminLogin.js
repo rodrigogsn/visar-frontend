@@ -1,89 +1,95 @@
-// import React, { useState, useEffect } from "react";
-// import { useHistory } from "react-router-dom";
-// import {
-//   Title,
-//   ButtonPrimary,
-//   TextInput,
-//   Loader,
-// } from "./../../components/Elements";
-// import { _admin } from "./../../views/content";
-// import { login } from "./../../services/auth";
-// import logo from "./../../assets/img/logo.png";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import {
+  Title,
+  ButtonPrimary,
+  TextInput,
+  Loader,
+} from "./../../components/Elements";
+import { _admin } from "./../../views/content";
+import { login } from "./../../services/auth";
+import logo from "./../../assets/img/logo.png";
 
-// import api from "./../../services/api";
+import api from "./../../services/api";
 
-// const AdminLogin = () => {
-//   const history = useHistory();
+const AdminLogin = () => {
+  const history = useHistory();
 
-//   const [buttonText, setButtonText] = useState("Entrar");
+  const [buttonText, setButtonText] = useState("Entrar");
 
-//   const [auth, setAuth] = useState({
-//     email: "",
-//     password: "",
-//   });
+  const [auth, setAuth] = useState({
+    email: "",
+    password: "",
+  });
 
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-//     setButtonText(<Loader />);
+    setButtonText(<Loader />);
 
-//     await api
-//       .post("/admin_authenticate", auth)
-//       .then((response) => {
-//         setButtonText("Entrar");
+    await api
+      .post("/authenticate", auth)
+      .then((response) => {
+        setButtonText("Entrar");
 
-//         login(response.data.token, JSON.stringify(response.data.data));
+        if (!response.data.data.admin) {
+          alert("Acesso negado! Esta área é para gerentes do sistema apenas.");
 
-//         history.push("/dashboard");
-//       })
-//       .catch((error) => {
-//         setButtonText("Entrar");
+          return;
+        }
 
-//         alert(error.response.data.message);
-//       });
-//   };
+        login(response.data.token, JSON.stringify(response.data.data));
 
-//   const handleInputChange = (e) => {
-//     setAuth({ ...auth, [e.target.name]: e.target.value });
-//   };
+        history.push("/dashboard");
+      })
+      .catch((error) => {
+        setButtonText("Entrar");
 
-//   useEffect(() => {
-//     window.scrollTo(0, 0);
-//   }, []);
+        alert(error.response.data[0].message);
+      });
+  };
 
-//   return (
-//     <>
-//       <main className="default">
-//         <header style={{ marginBottom: 35 }}>
-//           <img src={logo} alt="Logo Visar Emplaca" className="logo-admin" />
-//           <Title text={_admin.title} />
-//         </header>
+  const handleInputChange = (e) => {
+    setAuth({ ...auth, [e.target.name]: e.target.value });
+  };
 
-//         <form onSubmit={handleLogin}>
-//           <TextInput
-//             label="Email"
-//             type="email"
-//             name="email"
-//             required={true}
-//             placeholder="Digite o seu email"
-//             value={auth.email}
-//             onChange={handleInputChange}
-//           />
-//           <TextInput
-//             label="Senha"
-//             type="password"
-//             name="password"
-//             required={true}
-//             placeholder="Digite sua senha"
-//             value={auth.password}
-//             onChange={handleInputChange}
-//           />
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-//           <ButtonPrimary text={buttonText} type="submit" />
-//         </form>
-//       </main>
-//     </>
-//   );
-// };
+  return (
+    <>
+      <main className="default">
+        <header style={{ marginBottom: 35 }}>
+          <img src={logo} alt="Logo Visar Emplaca" className="logo-admin" />
+          <Title text={_admin.title} />
+        </header>
 
-// export default AdminLogin;
+        <form onSubmit={handleLogin}>
+          <TextInput
+            label="Email"
+            type="email"
+            name="email"
+            required={true}
+            placeholder="Digite o seu email"
+            value={auth.email}
+            onChange={handleInputChange}
+          />
+          <TextInput
+            label="Senha"
+            type="password"
+            name="password"
+            required={true}
+            placeholder="Digite sua senha"
+            value={auth.password}
+            onChange={handleInputChange}
+          />
+
+          <ButtonPrimary text={buttonText} type="submit" />
+        </form>
+      </main>
+    </>
+  );
+};
+
+export default AdminLogin;

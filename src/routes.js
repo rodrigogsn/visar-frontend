@@ -118,8 +118,8 @@ const Routes = () => (
       <PrivateRoute path="/retorno" exact component={Retorno} />
 
       {/* Admin Routes */}
-      {/* <Route path="/admin" exact component={AdminLogin} />
-      <Route path="/dashboard" exact component={Dashboard} /> */}
+      <Route path="/admin" exact component={AdminLogin} />
+      <AdminRoute path="/dashboard" exact component={Dashboard} />
 
       {/* 404 */}
       <Route path="*" component={() => <h1>Página não encontrada!</h1>} />
