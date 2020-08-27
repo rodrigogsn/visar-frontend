@@ -45,7 +45,7 @@ const AdminLogin = () => {
       .catch((error) => {
         setButtonText("Entrar");
 
-        alert(error.response.data.message);
+        alert(error.response.data[0].message);
       });
   };
 

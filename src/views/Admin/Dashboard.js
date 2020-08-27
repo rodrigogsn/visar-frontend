@@ -29,7 +29,7 @@ const Dashboard = () => {
           (e) => e.date === today && e.status
         );
 
-        const tomorrow = moment().add("days", 1).format("DD/MM/YYYY");
+        const tomorrow = moment().add(1, "days").format("DD/MM/YYYY");
 
         const filterTomorrow = response.data.filter(
           (e) => e.date === tomorrow && e.status
