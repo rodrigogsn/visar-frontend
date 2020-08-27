@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useTable } from "react-table";
-import Style from "./DashboardStyle";
 import styled from "styled-components";
 import moment from "moment";
 
