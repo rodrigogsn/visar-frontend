@@ -11,11 +11,15 @@ import {
 import { _home } from "./../views/content";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-
 import image from "./../assets/img/hero-ilust-1.png";
+
+import useWindowDimensions from "./../utils/ViewportSize";
 import banner from "./../assets/img/banner-visar.png";
+import bannerMobile from "./../assets/img/banner-visar-mobile.png";
 
 const Home = () => {
+  const { width } = useWindowDimensions();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -26,7 +30,7 @@ const Home = () => {
       <aside>
         <Link to="/start">
           <Image
-            source={banner}
+            source={width <= 700 ? bannerMobile : banner}
             alt="Promoção válida somente para agendamento de emplacamento pelo site: carros (2 placas) R$170,00 e moto (1 placa) R$90,00. Nota: somente para veículos de passageiros e/ou misto, exceto micro-ônibus, ônibus, bonde, reboque ou semi-reboque e caminhão."
           />
         </Link>
