@@ -385,7 +385,7 @@ const AgendamentoDebito = () => {
 
         <form onSubmit={(e) => handleSendData(e)}>
           <TextInput
-            label="Número da autorização de estampagem/emplacamento"
+            label="Nº da autorização de estampagem"
             type="text"
             name="detran"
             required={true}
