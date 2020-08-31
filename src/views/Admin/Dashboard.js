@@ -15,8 +15,6 @@ const Dashboard = () => {
   const [tomorrowList, setTomorrowList] = useState([]);
   const [toggleScreen, setToggleScreen] = useState(false);
 
-  const today = moment();
-
   const Style = styled.div`
     h1 {
       padding: 1rem 3rem;
@@ -27,6 +25,11 @@ const Dashboard = () => {
       text-decoration: underline;
       text-transform: uppercase;
       padding: 1rem 3rem 0.1rem;
+    }
+
+    .empty {
+      display: flex;
+      padding: 1rem 3rem 3rem;
     }
 
     footer {
@@ -128,23 +131,40 @@ const Dashboard = () => {
     }
   `;
 
+  const handleFilter = (data, day) => {
+    const result = data.filter((e) => e.date === day && e.status);
+
+    const sort = result.sort(function (a, b) {
+      let timeA = a.time;
+      let timeB = b.time;
+
+      if (timeA < timeB) {
+        return -1;
+      }
+
+      if (timeA > timeB) {
+        return 1;
+      }
+
+      return 0;
+    });
+
+    return sort;
+  };
+
   const handleAppointments = () => {
     api
       .get("/appointments")
       .then((response) => {
-        setAppointments(response.data);
-
         const today = moment().format("DD/MM/YYYY");
 
-        const filterToday = response.data.filter(
-          (e) => e.date === today && e.status
-        );
+        const filterToday = handleFilter(response.data, today);
 
         const tomorrow = moment().add(1, "days").format("DD/MM/YYYY");
 
-        const filterTomorrow = response.data.filter(
-          (e) => e.date === tomorrow && e.status
-        );
+        const filterTomorrow = handleFilter(response.data, tomorrow);
+
+        setAppointments(response.data);
 
         setTodayList(filterToday);
 
@@ -383,10 +403,18 @@ const Dashboard = () => {
       <h1>Agendamentos</h1>
 
       <h2>Hoje</h2>
-      <Table columns={columns} data={todayList} />
+      {todayList.length !== 0 ? (
+        <Table columns={columns} data={todayList} />
+      ) : (
+        <span className="empty">Sem agendamentos ainda.</span>
+      )}
 
-      <h2>Amanhã</h2>
-      <Table columns={columns} data={tomorrowList} />
+      <h2>Próximo dia útil</h2>
+      {tomorrowList.length !== 0 ? (
+        <Table columns={columns} data={tomorrowList} />
+      ) : (
+        <span className="empty">Sem agendamentos ainda.</span>
+      )}
 
       <h2>Todos</h2>
       <Table columns={columns} data={appointments} />
