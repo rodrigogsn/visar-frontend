@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useTable } from "react-table";
+import { Loader } from "./../../components/Elements";
 import styled from "styled-components";
 import moment from "moment";
 
@@ -13,18 +14,27 @@ const Dashboard = () => {
   const [appointments, setAppointments] = useState([]);
   const [todayList, setTodayList] = useState([]);
   const [tomorrowList, setTomorrowList] = useState([]);
+  const [updateButtonText, setUpdateButtonText] = useState("Atualizar");
   const [toggleScreen, setToggleScreen] = useState(false);
 
   const Style = styled.div`
     h1 {
-      padding: 1rem 3rem;
+      padding: 1rem 0;
     }
 
     h2 {
       font-size: 24px;
       text-decoration: underline;
-      text-transform: uppercase;
       padding: 1rem 3rem 0.1rem;
+    }
+
+    .dashboardHeader {
+      padding: 1rem 3rem 0;
+
+      &__title {
+        display: flex;
+        align-items: center;
+      }
     }
 
     .empty {
@@ -32,11 +42,29 @@ const Dashboard = () => {
       padding: 1rem 3rem 3rem;
     }
 
+    .button {
+      border-radius: 8px;
+      margin: 10px;
+      padding: 10px 20px;
+      box-shadow: 1px 3px 6px #2560d21f;
+      text-transform: uppercase;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s all;
+      height: auto;
+      min-width: 120px;
+
+      &:active {
+        opacity: 0.8;
+      }
+    }
+
     footer {
       height: 20px;
       width: 100%;
       border: 0;
       background-color: #19408c;
+      bottom: 0;
     }
 
     table {
@@ -111,15 +139,21 @@ const Dashboard = () => {
         }
 
         &.spot1 {
-          /* background-color: #fff5e6;
-        border: 1px solid #fff5e6;
-        color: #ff6a00; */
+          background-color: #f7f7f7;
+          border: 1px solid #828282;
+          color: #828282;
         }
 
         &.spot2 {
-          background-color: #e5f1ff;
-          border: 1px solid #e5f1ff;
+          background-color: #f6faff;
+          border: 1px solid #2560d2;
           color: #2560d2;
+        }
+
+        &.location {
+          background-color: #f7f7f7;
+          border: 1px solid #828282;
+          color: #828282;
         }
 
         &.method {
@@ -152,15 +186,38 @@ const Dashboard = () => {
     return sort;
   };
 
+  const handleNextWorkday = () => {
+    const weekday = moment().day();
+
+    switch (weekday) {
+      case 5:
+        var next = 3;
+        break;
+      case 6:
+        var next = 2;
+        break;
+      default:
+        var next = 1;
+    }
+
+    return next;
+  };
+
   const handleAppointments = () => {
+    setUpdateButtonText(<Loader />);
+
     api
       .get("/appointments")
       .then((response) => {
+        setUpdateButtonText("Atualizar");
+
         const today = moment().format("DD/MM/YYYY");
 
         const filterToday = handleFilter(response.data, today);
 
-        const tomorrow = moment().add(1, "days").format("DD/MM/YYYY");
+        const tomorrow = moment()
+          .add(handleNextWorkday(), "days")
+          .format("DD/MM/YYYY");
 
         const filterTomorrow = handleFilter(response.data, tomorrow);
 
@@ -171,6 +228,8 @@ const Dashboard = () => {
         setTomorrowList(filterTomorrow);
       })
       .catch(() => {
+        setUpdateButtonText("Atualizar");
+
         alert("Ocorreu um erro");
       });
   };
@@ -242,7 +301,7 @@ const Dashboard = () => {
           Header: "Cidade",
           Cell: (e) =>
             !e.row.original.full_spot.freetax && (
-              <span className={`tag`}>{e.row.original.city}</span>
+              <span className={`tag location`}>{e.row.original.city}</span>
             ),
         },
         {
@@ -340,7 +399,7 @@ const Dashboard = () => {
           accessor: "transaction",
         },
         {
-          Header: "Criada em",
+          Header: "Data da Compra",
           accessor: "created_at",
         },
         {
@@ -400,9 +459,18 @@ const Dashboard = () => {
 
   return (
     <Style>
-      <h1>Agendamentos</h1>
+      <div className="dashboardHeader">
+        <div className="dashboardHeader__title">
+          <h1>Agendamentos</h1>
+
+          <button className="button" onClick={handleAppointments}>
+            {updateButtonText}
+          </button>
+        </div>
+      </div>
 
       <h2>Hoje</h2>
+
       {todayList.length !== 0 ? (
         <Table columns={columns} data={todayList} />
       ) : (
@@ -410,6 +478,7 @@ const Dashboard = () => {
       )}
 
       <h2>Próximo dia útil</h2>
+
       {tomorrowList.length !== 0 ? (
         <Table columns={columns} data={tomorrowList} />
       ) : (
@@ -417,6 +486,7 @@ const Dashboard = () => {
       )}
 
       <h2>Todos</h2>
+
       <Table columns={columns} data={appointments} />
 
       <footer></footer>

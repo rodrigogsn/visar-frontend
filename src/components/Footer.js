@@ -29,10 +29,10 @@ const Footer = () => {
         <div>
           <h3>Avisos</h3>
           <p>
-            Para dar sequência ao cadastro do seu veículo, é necessário ter o
-            número de autorização de emplacamento do DETRAN assim como o RENAVAM
-            do veículo. Se os dados não forem validados por nossa equipe, o
-            agendamento poderá ser cancelado.
+            Para dar sequência ao emplacamento do seu veículo, é necessário ter
+            o número do <strong>chassis</strong>, a <strong>placa</strong> e o{" "}
+            <strong>RENAVAM</strong>. Se os dados não forem validados por nossa
+            equipe, o agendamento poderá ser cancelado.
           </p>
         </div>
 
