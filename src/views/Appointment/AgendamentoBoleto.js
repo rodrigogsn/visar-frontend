@@ -381,11 +381,11 @@ const AgendamentoBoleto = () => {
 
         <form onSubmit={(e) => handleSendData(e)}>
           <TextInput
-            label="Nº da autorização de estampagem"
+            label="Nº da Autorização de Estampagem ou Chassis do Veículo"
             type="text"
             name="detran"
             required={true}
-            placeholder="Digite a autorização do DETRAN"
+            placeholder="Autorização do Detran ou Chassis"
             state={vehicle.detran}
             onChange={handleVehicleInput}
           />
@@ -430,7 +430,7 @@ const AgendamentoBoleto = () => {
           </div>
 
           <TextInput
-            label="Ano de Fabricação"
+            label="Ano de fabricação"
             type="text"
             name="year"
             required={true}
