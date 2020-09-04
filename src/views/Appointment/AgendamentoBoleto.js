@@ -185,6 +185,10 @@ const AgendamentoBoleto = () => {
          * Add all unappointed work hours to each day, according to default work time
          */
         const addTimeArr = result.filter((item) => {
+          if (item.d === "07/09/2020" || item.d === "08/09/2020") {
+            return false;
+          }
+
           item.time = workTime.filter((value) => {
             let takenTime = alreadyTaken.filter((time) => {
               return time.date === item.d;
