@@ -9,7 +9,7 @@ export default class LoadLibrary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loaded: false,
+      loaded: true,
     };
   }
 
@@ -43,7 +43,6 @@ export default class LoadLibrary extends React.Component {
     tag.onload = this.onLoad.bind(this);
 
     document.body.appendChild(tag);
-    document.cookie = "cross-site-cookie=bar; SameSite=None; Secure";
   }
 
   /**
