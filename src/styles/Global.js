@@ -146,16 +146,6 @@ const GlobalStyle = createGlobalStyle`
     padding-top: 10px
   }
 
-  .loader {
-    /* background: #ff000057;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 100%;
-    height: 100%; */
-  }
-
   .devbar {
     display: flex;
     align-items: center;
@@ -165,6 +155,17 @@ const GlobalStyle = createGlobalStyle`
     font-weight: bold;
     background: #24882b;
     padding: 7px 10px;
+  }
+
+  .warningbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-weight: bold;
+    background: #203878;
+    padding: 30px 10px;
   }
 
   /********** Toasts/Warnings **********/

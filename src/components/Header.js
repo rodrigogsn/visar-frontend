@@ -43,6 +43,13 @@ const Header = () => {
         <div className="devbar">Ambiente de Desenvolvimento</div>
       )}
 
+      {/* <div className="warningbar">
+        O sistema está apresentando instabilidades.
+        <br />
+        Caso tenha problemas para se cadastrar entre em contato conosco pelo
+        (13) 3222-5442 ou (13) 3223-9102.
+      </div> */}
+
       <nav>
         <Link to="/">
           <img src={logo} alt="Logotipo Visar Emplaca" />
