@@ -72,14 +72,18 @@ const Dashboard = () => {
 
         // Filter current day
         const today = moment().format("DD/MM/YYYY");
+
         const filterToday = handleFilter(response.data, today);
+
         setTodayList(filterToday);
 
         // Filter next working day
         const tomorrow = moment()
           .add(handleNextWorkday(), "days")
           .format("DD/MM/YYYY");
+
         const filterTomorrow = handleFilter(response.data, tomorrow);
+
         setTomorrowList(filterTomorrow);
       })
       .catch(() => {
@@ -90,14 +94,12 @@ const Dashboard = () => {
   };
 
   const Table = ({ columns, data }) => {
-    // Use the state and functions returned from useTable to build your UI
     const {
       getTableProps,
       getTableBodyProps,
       headerGroups,
       page,
       prepareRow,
-
       canPreviousPage,
       canNextPage,
       pageOptions,
@@ -117,7 +119,6 @@ const Dashboard = () => {
       usePagination
     );
 
-    // Render the UI for your table
     return (
       <>
         <table {...getTableProps()}>
@@ -127,7 +128,7 @@ const Dashboard = () => {
                 {headerGroup.headers.map((column) => (
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                     {column.render("Header")}
-                    {/* Add a sort direction indicator */}
+
                     <span>
                       {column.isSorted
                         ? column.isSortedDesc
