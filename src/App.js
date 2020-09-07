@@ -3,6 +3,7 @@ import Routes from "./routes";
 import GlobalStyle from "./styles/Global";
 import MainContext from "./MainContext";
 import LoadLibrary from "./utils/LoadLibrary";
+import "./styles/font.css";
 
 const App = () => {
   const [user, setUser] = useState("");
