@@ -161,7 +161,8 @@ const columns = [
         Cell: (e) => (
           <span
             className={`tag ${
-              (e.row.original.status == 3 || e.row.original.status == 4) &&
+              (e.row.original.status === "3" ||
+                e.row.original.status === "4") &&
               "success"
             }`}
           >
