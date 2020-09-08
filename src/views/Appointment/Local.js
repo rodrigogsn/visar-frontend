@@ -16,7 +16,6 @@ const Local = () => {
     subcategory,
     setSpot,
     setAddress,
-    location,
     setLocation,
     subtotal,
     setSubtotal,
