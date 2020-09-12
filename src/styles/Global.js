@@ -5,8 +5,6 @@ export const appear = keyframes`${fadeIn}`;
 export const appearLeft = keyframes`${fadeInLeft}`;
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
   /********** General Styles **********/
   * {
     margin: 0;
