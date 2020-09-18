@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-const columns = [
+const Columns = [
   {
     Header: "Agendamento",
     columns: [
@@ -172,6 +172,7 @@ const columns = [
       },
       {
         Header: "ID da Transação",
+        accessor: "transaction",
       },
       {
         Header: "Data da Compra",
@@ -185,4 +186,4 @@ const columns = [
   },
 ];
 
-export default columns;
+export default Columns;

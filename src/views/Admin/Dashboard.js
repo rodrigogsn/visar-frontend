@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 // import { useHistory } from "react-router-dom";
 import { useTable, useSortBy, usePagination } from "react-table";
-import { Loader } from "./../../components/Elements";
-import Style from "./Style";
-import columns from "./columns";
+import Style from "../../styles/Admin";
 import moment from "moment";
+
+import { Loader } from "./../../components/Elements";
+import Sidebar from "./../../components/Admin/Sidebar";
+import Columns from "./../../components/Admin/Columns";
 
 import api from "./../../services/api";
 // import MainContext from "./../../MainContext";
@@ -229,37 +231,43 @@ const Dashboard = () => {
 
   return (
     <Style>
-      <div className="dashboardHeader">
-        <div className="dashboardHeader__title">
-          <h1>Agendamentos</h1>
+      <section className="dashboard">
+        <Sidebar />
 
-          <button className="button" onClick={handleAppointments}>
-            {updateButtonText}
-          </button>
-        </div>
-      </div>
+        <main className="dashboard">
+          <div className="dashboardHeader">
+            <div className="dashboardHeader__title">
+              <h1>Agendamentos</h1>
 
-      <h2>Hoje</h2>
+              <button className="button" onClick={handleAppointments}>
+                {updateButtonText}
+              </button>
+            </div>
+          </div>
 
-      {todayList.length !== 0 ? (
-        <Table columns={columns} data={todayList} />
-      ) : (
-        <span className="empty">Sem agendamentos ainda.</span>
-      )}
+          <h2>Hoje</h2>
 
-      <h2>Próximo dia útil</h2>
+          {todayList.length !== 0 ? (
+            <Table columns={Columns} data={todayList} />
+          ) : (
+            <span className="empty">Sem agendamentos ainda.</span>
+          )}
 
-      {tomorrowList.length !== 0 ? (
-        <Table columns={columns} data={tomorrowList} />
-      ) : (
-        <span className="empty">Sem agendamentos ainda.</span>
-      )}
+          <h2>Próximo dia útil</h2>
 
-      <h2>Todos</h2>
+          {tomorrowList.length !== 0 ? (
+            <Table columns={Columns} data={tomorrowList} />
+          ) : (
+            <span className="empty">Sem agendamentos ainda.</span>
+          )}
 
-      <Table columns={columns} data={appointments} />
+          <h2>Todos</h2>
 
-      <footer></footer>
+          <Table columns={Columns} data={appointments} />
+
+          <footer></footer>
+        </main>
+      </section>
     </Style>
   );
 };
