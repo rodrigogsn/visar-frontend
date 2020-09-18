@@ -384,10 +384,10 @@ const GlobalStyle = createGlobalStyle`
       box-shadow: 1px 10px 15px #d2d2d2;
 
       animation: 0.9s ${appearLeft} ease;
-    }
 
-    &:active {
-      opacity: 0.7;
+      &:active {
+        opacity: 0.7;
+      }
     }
   }
 
@@ -872,7 +872,6 @@ const GlobalStyle = createGlobalStyle`
       }
     }
   }
-}
 `;
 
 export default GlobalStyle;
