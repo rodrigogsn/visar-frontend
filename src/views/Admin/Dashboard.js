@@ -5,6 +5,7 @@ import Style from "../../styles/Admin";
 import moment from "moment";
 
 import { Loader } from "./../../components/Elements";
+import Header from "./../../components/Admin/Header";
 import Sidebar from "./../../components/Admin/Sidebar";
 import Columns from "./../../components/Admin/Columns";
 
@@ -231,6 +232,8 @@ const Dashboard = () => {
 
   return (
     <Style>
+      <Header />
+
       <section className="dashboard">
         <Sidebar />
 
@@ -264,10 +267,10 @@ const Dashboard = () => {
           <h2>Todos</h2>
 
           <Table columns={Columns} data={appointments} />
-
-          <footer></footer>
         </main>
       </section>
+
+      <footer />
     </Style>
   );
 };
