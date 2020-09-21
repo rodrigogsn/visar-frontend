@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
 const Style = styled.div`
+  header {
+    position: sticky;
+    top: 0;
+  }
+
   section.dashboard {
     display: flex;
 
