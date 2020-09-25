@@ -1,11 +1,26 @@
 import React from "react";
+import { Image } from "../Elements";
 
-function Header() {
+import logo from "../../assets/img/logo-mono.png";
+
+const Header = ({ title, buttonAction, buttonText }) => {
   return (
     <header>
-      <h1>Título da página</h1>
+      <div className="logoWrapper">
+        <Image source={logo} alt="Logo Visar Emplaca" />
+      </div>
+
+      <div className="titleWrapper">
+        <h1>{title}</h1>
+
+        {buttonAction && buttonText && (
+          <button className="button" onClick={buttonAction}>
+            {buttonText}
+          </button>
+        )}
+      </div>
     </header>
   );
-}
+};
 
 export default Header;

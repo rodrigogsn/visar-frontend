@@ -2,8 +2,62 @@ import styled from "styled-components";
 
 const Style = styled.div`
   header {
-    position: sticky;
+    display: flex;
+    position: fixed;
     top: 0;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid #dcdcdc;
+
+    .logoWrapper {
+      padding: 0.9rem 1rem;
+      border-right: 1px solid #dcdcdc;
+      min-width: 200px;
+      display: flex;
+      justify-content: center;
+
+      img {
+        max-width: 100px;
+      }
+    }
+
+    .titleWrapper {
+      display: flex;
+      padding: 0 3rem;
+
+      h1 {
+        align-self: center;
+      }
+    }
+  }
+
+  .button,
+  .button__pagination {
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px 20px;
+    box-shadow: 1px 3px 6px #2560d21f;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s all;
+    height: auto;
+    min-width: 120px;
+
+    &__pagination {
+      background: white;
+      height: 40px;
+      min-width: 40px;
+      margin: 0;
+
+      &:hover {
+        background: #ffc300;
+      }
+    }
+
+    &:active {
+      opacity: 0.8;
+    }
   }
 
   section.dashboard {
@@ -12,6 +66,8 @@ const Style = styled.div`
     main {
       display: flex;
       flex-direction: column;
+      margin-top: 58px;
+      margin-left: 200px;
     }
 
     aside {
@@ -19,7 +75,13 @@ const Style = styled.div`
       flex-direction: column;
       background: #ffffff;
       border-right: 1px solid #dcdcdc;
-      padding: 3rem 1rem;
+      padding: 1rem;
+      min-width: 200px;
+      margin-top: 58px;
+
+      position: fixed;
+      height: 100%;
+      overflow: auto;
     }
 
     ul {
@@ -50,53 +112,15 @@ const Style = styled.div`
       }
     }
 
-    .dashboardHeader {
-      padding: 2.2rem 3rem 0;
-
-      &__title {
-        display: flex;
-        align-items: center;
-      }
-    }
-
     h2 {
-      font-size: 24px;
-      text-decoration: underline;
+      font-size: 20px;
       padding: 1rem 3rem 0.1rem;
     }
 
     .empty {
       display: flex;
-      padding: 1rem 3rem 3rem;
-    }
-
-    .button,
-    .button__pagination {
-      border-radius: 8px;
-      margin: 10px;
-      padding: 10px 20px;
-      box-shadow: 1px 3px 6px #2560d21f;
-      text-transform: uppercase;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s all;
-      height: auto;
-      min-width: 120px;
-
-      &__pagination {
-        background: white;
-        height: 40px;
-        min-width: 40px;
-        margin: 0;
-
-        &:hover {
-          background: #ffc300;
-        }
-      }
-
-      &:active {
-        opacity: 0.8;
-      }
+      color: gray;
+      padding: 0.5rem 3rem 3rem;
     }
 
     footer {

@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-const Columns = [
+export const Appointments = [
   {
     Header: "Agendamento",
     columns: [
@@ -186,4 +186,4 @@ const Columns = [
   },
 ];
 
-export default Columns;
+export default Appointments;
