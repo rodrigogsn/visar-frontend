@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faCalendar } from "@fortawesome/free-solid-svg-icons";
 
-const Sidebar = () => {
+const Sidebar = ({ menu, page, setPage }) => {
   return (
     <aside className="dashboard">
       <div>
@@ -13,16 +13,16 @@ const Sidebar = () => {
                 icon={faCalendar}
                 style={{ fontSize: 16, marginRight: 5 }}
               />
-              Agendamentos
+              {menu[0].name}
             </span>
           </li>
           <li>
-            <span role="link" tabIndex={0}>
+            <span role="link" tabIndex={0} style={{ color: "gray" }}>
               <FontAwesomeIcon
                 icon={faUserCircle}
                 style={{ fontSize: 16, marginRight: 5 }}
               />
-              Usuários
+              {menu[1].name}
             </span>
           </li>
         </ul>
