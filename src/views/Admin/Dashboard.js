@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-
+import Style from "../../styles/Admin";
 import { Loader } from "./../../components/Elements";
 
-import Style from "../../styles/Admin";
-
+import Appointments from "./Appointments";
+import Users from "./Users";
 import Header from "./../../components/Admin/Header";
 import Sidebar from "./../../components/Admin/Sidebar";
-import Table from "./../../components/Admin/Table";
-import { Appointments } from "./../../components/Admin/Columns";
 import menu from "./../../components/Admin/menu.json";
+
+import {
+  AppointmentColumns,
+  UserColumns,
+} from "./../../components/Admin/Columns";
 
 import api from "./../../services/api";
 
 const Dashboard = () => {
   const [page, setPage] = useState(0);
+
+  const [users, setUsers] = useState([]);
 
   const [appointments, setAppointments] = useState([]);
 
@@ -22,9 +27,7 @@ const Dashboard = () => {
 
   const [tomorrowList, setTomorrowList] = useState([]);
 
-  const [updateButtonText, setUpdateButtonText] = useState("Atualizar");
-
-  // const [toggleScreen, setToggleScreen] = useState(false);
+  const [loader, setLoader] = useState({ loading: false, icon: <Loader /> });
 
   const handleFilter = (data, day) => {
     const result = data.filter((e) => e.date === day && e.status);
@@ -65,12 +68,12 @@ const Dashboard = () => {
   };
 
   const handleAppointments = () => {
-    setUpdateButtonText(<Loader />);
+    setLoader({ ...loader, loading: true });
 
     api
       .get("/appointments")
       .then((response) => {
-        setUpdateButtonText("Atualizar");
+        setLoader({ ...loader, loading: false });
 
         setAppointments(response.data);
 
@@ -91,7 +94,24 @@ const Dashboard = () => {
         setTomorrowList(filterTomorrow);
       })
       .catch(() => {
-        setUpdateButtonText("Atualizar");
+        setLoader({ ...loader, loading: false });
+
+        alert("Ocorreu um erro");
+      });
+  };
+
+  const handleUsers = () => {
+    setLoader({ ...loader, loading: true });
+
+    api
+      .get("/users")
+      .then((response) => {
+        setLoader({ ...loader, loading: false });
+
+        setUsers(response.data);
+      })
+      .catch(() => {
+        setLoader({ ...loader, loading: false });
 
         alert("Ocorreu um erro");
       });
@@ -99,15 +119,18 @@ const Dashboard = () => {
 
   useEffect(() => {
     handleAppointments();
+
+    handleUsers();
   }, []);
 
   return (
     <Style>
       <div>
         <Header
-          title={menu[0].name}
-          buttonAction={handleAppointments}
-          buttonText={updateButtonText}
+          title={menu[page].name}
+          action={handleAppointments}
+          loader={loader}
+          buttonText={"Atualizar"}
         />
 
         <section className="dashboard">
@@ -115,27 +138,16 @@ const Dashboard = () => {
 
           <main className="dashboard">
             {page === menu[0].id && (
-              <>
-                <h2>Hoje</h2>
+              <Appointments
+                columns={AppointmentColumns}
+                all={appointments}
+                today={todayList}
+                tomorrow={tomorrowList}
+              />
+            )}
 
-                {todayList.length !== 0 ? (
-                  <Table columns={Appointments} data={todayList} />
-                ) : (
-                  <span className="empty">Sem agendamentos ainda.</span>
-                )}
-
-                <h2>Próximo dia útil</h2>
-
-                {tomorrowList.length !== 0 ? (
-                  <Table columns={Appointments} data={tomorrowList} />
-                ) : (
-                  <span className="empty">Sem agendamentos ainda.</span>
-                )}
-
-                <h2>Todos</h2>
-
-                <Table columns={Appointments} data={appointments} />
-              </>
+            {page === menu[1].id && (
+              <Users columns={UserColumns} users={users} />
             )}
           </main>
         </section>

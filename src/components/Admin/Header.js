@@ -3,7 +3,7 @@ import { Image } from "../Elements";
 
 import logo from "../../assets/img/logo-mono.png";
 
-const Header = ({ title, buttonAction, buttonText }) => {
+const Header = ({ title, buttonText, action, loader }) => {
   return (
     <header>
       <div className="logoWrapper">
@@ -13,9 +13,9 @@ const Header = ({ title, buttonAction, buttonText }) => {
       <div className="titleWrapper">
         <h1>{title}</h1>
 
-        {buttonAction && buttonText && (
-          <button className="button" onClick={buttonAction}>
-            {buttonText}
+        {action && (
+          <button className="button" onClick={action}>
+            {loader.loading ? loader.icon : buttonText}
           </button>
         )}
       </div>

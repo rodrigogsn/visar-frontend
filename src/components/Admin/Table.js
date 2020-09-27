@@ -121,7 +121,7 @@ const Table = ({ columns, data }) => {
           >
             {[10, 20, 30, 40, 50].map((pageSize) => (
               <option key={pageSize} value={pageSize}>
-                Mostrar {pageSize} agendamentos
+                Mostrar {pageSize}
               </option>
             ))}
           </select>
