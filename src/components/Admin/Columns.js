@@ -1,7 +1,13 @@
 import React from "react";
 import moment from "moment";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckCircle,
+  faTimesCircle,
+  faExclamationCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
-export const Appointments = [
+export const AppointmentColumns = [
   {
     Header: "Agendamento",
     columns: [
@@ -186,4 +192,64 @@ export const Appointments = [
   },
 ];
 
-export default Appointments;
+export const UserColumns = [
+  {
+    Header: "Todos",
+    columns: [
+      {
+        Header: "ID",
+        accessor: "id",
+      },
+      {
+        Header: "Email",
+        accessor: "email",
+        Cell: (e) => (
+          <span>
+            <FontAwesomeIcon
+              icon={
+                (!e.row.original.confirmed || !e.row.original.profile) &&
+                faExclamationCircle
+              }
+              style={{ color: "red", marginRight: 5 }}
+            />
+            {e.row.original.email}
+          </span>
+        ),
+      },
+      {
+        Header: "Confirmado",
+        accessor: "confirmed",
+        Cell: (e) => (
+          <span className={`tag ${e.row.original.confirmed && "success"}`}>
+            <FontAwesomeIcon
+              icon={e.row.original.confirmed ? faCheckCircle : faTimesCircle}
+              style={{ fontSize: 12 }}
+            />
+          </span>
+        ),
+      },
+      {
+        Header: "Perfil",
+        accessor: "profile",
+        Cell: (e) => (
+          <span className={`tag ${e.row.original.profile && "success"}`}>
+            <FontAwesomeIcon
+              icon={e.row.original.profile ? faCheckCircle : faTimesCircle}
+              style={{ fontSize: 12 }}
+            />
+          </span>
+        ),
+      },
+      {
+        Header: "Data da Cadastro",
+        accessor: "created_at",
+      },
+      {
+        Header: "Atualizado em",
+        accessor: "updated_at",
+      },
+    ],
+  },
+];
+
+export default AppointmentColumns;

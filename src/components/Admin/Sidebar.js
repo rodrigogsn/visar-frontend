@@ -8,7 +8,7 @@ const Sidebar = ({ menu, page, setPage }) => {
       <div>
         <ul>
           <li>
-            <span role="link" tabIndex={0}>
+            <span role="link" tabIndex={0} onClick={() => setPage(0)}>
               <FontAwesomeIcon
                 icon={faCalendar}
                 style={{ fontSize: 16, marginRight: 5 }}
@@ -17,7 +17,7 @@ const Sidebar = ({ menu, page, setPage }) => {
             </span>
           </li>
           <li>
-            <span role="link" tabIndex={0} style={{ color: "gray" }}>
+            <span role="link" tabIndex={0} onClick={() => setPage(1)}>
               <FontAwesomeIcon
                 icon={faUserCircle}
                 style={{ fontSize: 16, marginRight: 5 }}
