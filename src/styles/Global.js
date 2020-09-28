@@ -146,6 +146,7 @@ const GlobalStyle = createGlobalStyle`
 
   .devbar {
     display: flex;
+    flex: 1 0 auto;
     align-items: center;
     justify-content: center;
 
@@ -791,6 +792,7 @@ const GlobalStyle = createGlobalStyle`
 
 
     main.home {
+      flex: 1 0 auto;
       flex-direction: column-reverse;
       padding-top: 5px;
 
