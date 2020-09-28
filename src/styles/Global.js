@@ -328,6 +328,7 @@ const GlobalStyle = createGlobalStyle`
   main.home {
     display: flex;
     align-items: center;
+    flex: 1 0 auto;
     justify-content: center;
     padding: 80px 0 100px;
     animation: 0.9s ${appearLeft} ease;
