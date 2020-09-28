@@ -8,6 +8,7 @@ const Style = styled.div`
     width: 100%;
     background-color: white;
     border-bottom: 1px solid #dcdcdc;
+    max-height: 58px; /* Safari */
 
     .logoWrapper {
       padding: 0.9rem 1rem;
