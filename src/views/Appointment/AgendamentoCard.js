@@ -206,7 +206,7 @@ const AgendamentoCard = () => {
          * Add all unappointed work hours to each day, according to default work time
          */
         const addTimeArr = result.filter((item) => {
-          if (item.d === "07/09/2020" || item.d === "08/09/2020") {
+          if (item.d === "12/10/2020") {
             return false;
           }
 
