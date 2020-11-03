@@ -203,6 +203,7 @@ export const UserColumns = [
       {
         Header: "Email",
         accessor: "email",
+        
         Cell: (e) => (
           <span>
             <FontAwesomeIcon
