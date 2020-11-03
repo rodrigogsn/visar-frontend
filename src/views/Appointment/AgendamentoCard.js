@@ -119,10 +119,10 @@ const AgendamentoCard = () => {
        * limitando os horários de atendimento
        *
        */
-      if (spot.freetax === 1) {
-        // Loja
-        data = data.sort().slice(6, 19);
-      }
+      // if (spot.freetax === 1) {
+      //   // Loja
+      //   data = data.sort().slice(6, 19);
+      // }
 
       if (spot.freetax === 0) {
         // Domicílio
