@@ -301,6 +301,7 @@ const AgendamentoCard = () => {
           pathname: '/process',
           state: { appointment: response.data, email: storage.email, card },
         });
+        console.log('erro', response.data);
       })
       .catch(error => {
         setButtonText(`Pagar: R$${total}`);
