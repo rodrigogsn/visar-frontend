@@ -304,6 +304,7 @@ const AgendamentoCard = () => {
       })
       .catch(error => {
         setButtonText(`Pagar: R$${total}`);
+        console.log('erro', error);
       });
   };
 
