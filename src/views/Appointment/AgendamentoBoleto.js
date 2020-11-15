@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import Header from "./../../components/Header";
-import Footer from "./../../components/Footer";
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import Header from './../../components/Header';
+import Footer from './../../components/Footer';
 import {
   Title,
   Paragraph,
@@ -11,11 +11,11 @@ import {
   DropListMonth,
   DropListTime,
   Loader,
-} from "./../../components/Elements";
-import { _agendamento } from "./../../views/content";
+} from './../../components/Elements';
+import { _agendamento } from './../../views/content';
 
-import api from "./../../services/api";
-import MainContext from "./../../MainContext";
+import api from './../../services/api';
+import MainContext from './../../MainContext';
 
 const AgendamentoBoleto = () => {
   let history = useHistory();
@@ -37,12 +37,30 @@ const AgendamentoBoleto = () => {
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory >= 200) {
-    extra_discount = 30 + subtotal.method + 1;
+    extra_discount = 40.01 + subtotal.method + 1;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory < 200) {
-    extra_discount = 10 + subtotal.method + 1;
+    extra_discount = 20.01 + subtotal.method + 1;
+  }
+
+  /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
+  if (
+    spot.freetax === 0 &&
+    subtotal.subcategory >= 200 &&
+    location.name === 'Santos'
+  ) {
+    extra_discount = 40.01;
+  }
+
+  /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
+  if (
+    spot.freetax === 0 &&
+    subtotal.subcategory < 200 &&
+    location.name === 'Santos'
+  ) {
+    extra_discount = 20.01;
   }
 
   /** O extra_discount deverá ser removido após a PANDEMIA */
@@ -50,7 +68,7 @@ const AgendamentoBoleto = () => {
   const total =
     subtotal.subcategory + subtotal.spot + subtotal.method + 1 - extra_discount;
 
-  const [storage, setStorage] = useState("");
+  const [storage, setStorage] = useState('');
 
   const [buttonText, setButtonText] = useState(`Gerar Boleto: R$${total}`);
 
@@ -58,37 +76,37 @@ const AgendamentoBoleto = () => {
 
   const [selectedDay, setSelectedDay] = useState(null);
 
-  const [blockedWeekdays, setBlockedWeekdays] = useState(["dom", "sáb"]);
+  const [blockedWeekdays, setBlockedWeekdays] = useState(['dom', 'sáb']);
 
   const [vehicle, setVehicle] = useState({
-    plate: "",
-    brand: "",
-    model: "",
-    year: "",
-    detran: "",
-    renavam: "",
+    plate: '',
+    brand: '',
+    model: '',
+    year: '',
+    detran: '',
+    renavam: '',
   });
 
   const [date, setDate] = useState({
-    day: "",
-    month: "",
-    year: "",
-    time: "",
-    currentMonth: "",
-    currentDay: "",
-    currentYear: "",
+    day: '',
+    month: '',
+    year: '',
+    time: '',
+    currentMonth: '',
+    currentDay: '',
+    currentYear: '',
   });
   const [daysByMonth, setDaysByMonth] = useState([]);
 
-  const deleteAppointment = async (appointment_id) => {
-    await api.delete(`/appointments/${appointment_id}`).then((response) => {
+  const deleteAppointment = async appointment_id => {
+    await api.delete(`/appointments/${appointment_id}`).then(response => {
       history.goBack();
     });
   };
 
   const handleWorkTime = async () => {
-    await api.get("/work_times").then((response) => {
-      let data = response.data.map((item) => {
+    await api.get('/work_times').then(response => {
+      let data = response.data.map(item => {
         return item.value;
       });
 
@@ -105,7 +123,7 @@ const AgendamentoBoleto = () => {
 
       if (spot.freetax === 0) {
         // Domicílio
-        const validInterval = data.filter((e) => !e.includes(":30"));
+        const validInterval = data.filter(e => !e.includes(':30'));
 
         data = validInterval.sort().slice(1, 5);
       }
@@ -114,18 +132,18 @@ const AgendamentoBoleto = () => {
     });
   };
 
-  const handleVehicleInput = (e) => {
+  const handleVehicleInput = e => {
     setVehicle({ ...vehicle, [e.target.name]: e.target.value });
   };
 
   const handleDateInput = (e, daysByMonth) => {
-    if (e.target.name === "day") {
-      setDate({ ...date, time: "" });
-      setSelectedDay(daysByMonth.find((elem) => elem.d === e.target.value));
+    if (e.target.name === 'day') {
+      setDate({ ...date, time: '' });
+      setSelectedDay(daysByMonth.find(elem => elem.d === e.target.value));
     }
 
-    if (e.target.name === "month") {
-      setDate({ ...date, day: "", time: "" });
+    if (e.target.name === 'month') {
+      setDate({ ...date, day: '', time: '' });
       getDaysInMonth(e.target.value);
     }
 
@@ -135,7 +153,7 @@ const AgendamentoBoleto = () => {
   /**
    * Get Javasctipt array with all days from selected month
    */
-  const getDaysInMonth = async (selectedMonth) => {
+  const getDaysInMonth = async selectedMonth => {
     let d = new Date(date.year, selectedMonth, 1);
     let days = [];
 
@@ -145,17 +163,17 @@ const AgendamentoBoleto = () => {
     }
 
     const result = days
-      .filter((item) => {
+      .filter(item => {
         const w = item
-          .toLocaleDateString("pt-BR", { weekday: "short" })
+          .toLocaleDateString('pt-BR', { weekday: 'short' })
           .substring(0, 3);
 
         return !blockedWeekdays.includes(w);
       })
-      .map((item) => {
-        const d = item.toLocaleDateString("pt-BR");
+      .map(item => {
+        const d = item.toLocaleDateString('pt-BR');
         const w = item
-          .toLocaleDateString("pt-BR", { weekday: "short" })
+          .toLocaleDateString('pt-BR', { weekday: 'short' })
           .substring(0, 3);
 
         return { d, w };
@@ -164,14 +182,14 @@ const AgendamentoBoleto = () => {
     /**
      * Get All Appointments from API
      */
-    const formatMonth = ("0" + (parseInt(selectedMonth) + 1)).slice(-2);
+    const formatMonth = ('0' + (parseInt(selectedMonth) + 1)).slice(-2);
 
     await api
       .get(`/appointments_bymonth/${date.year}/${formatMonth}`)
-      .then((response) => {
+      .then(response => {
         const alreadyTaken = response.data
-          .filter((item) => item.status != 7) // Enable cancelled appointments dates to be chosen again
-          .map((item) => {
+          .filter(item => item.status != 7) // Enable cancelled appointments dates to be chosen again
+          .map(item => {
             return {
               date: item.date,
               day: parseInt(item.date.substring(0, 2)),
@@ -184,17 +202,17 @@ const AgendamentoBoleto = () => {
         /**
          * Add all unappointed work hours to each day, according to default work time
          */
-        const addTimeArr = result.filter((item) => {
-          if (item.d === "20/11/2020") {
+        const addTimeArr = result.filter(item => {
+          if (item.d === '20/11/2020') {
             return false;
           }
 
-          item.time = workTime.filter((value) => {
-            let takenTime = alreadyTaken.filter((time) => {
+          item.time = workTime.filter(value => {
+            let takenTime = alreadyTaken.filter(time => {
               return time.date === item.d;
             });
 
-            takenTime = takenTime.find((element) => element.time === value);
+            takenTime = takenTime.find(element => element.time === value);
 
             return takenTime ? false : true;
           });
@@ -210,11 +228,11 @@ const AgendamentoBoleto = () => {
       });
   };
 
-  const handleSendData = async (e) => {
+  const handleSendData = async e => {
     e.preventDefault();
 
     const vehicle_data = {
-      plate: vehicle.plate.replace(/[^a-zA-Z0-9]/g, "").toUpperCase(),
+      plate: vehicle.plate.replace(/[^a-zA-Z0-9]/g, '').toUpperCase(),
       brand: vehicle.brand.toUpperCase(),
       model: vehicle.model.toUpperCase(),
       year: vehicle.year,
@@ -225,19 +243,19 @@ const AgendamentoBoleto = () => {
     setButtonText(<Loader />);
 
     await api
-      .post("/vehicles", vehicle_data)
-      .then((response) => {
+      .post('/vehicles', vehicle_data)
+      .then(response => {
         handleCreateAppointment(response.data.id);
       })
-      .catch((error) => {
+      .catch(error => {
         alert(
-          "Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios."
+          'Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios.',
         );
         setButtonText(`Gerar Boleto: R$${total}`);
       });
   };
 
-  const handleCreateAppointment = async (vehicle) => {
+  const handleCreateAppointment = async vehicle => {
     const appointment_data = {
       vehicle_id: vehicle,
       date: date.day,
@@ -257,20 +275,20 @@ const AgendamentoBoleto = () => {
     };
 
     await api
-      .post("/appointments", appointment_data)
-      .then(async (response_appointment) => {
-        await api.get("/session").then((response_session) => {
+      .post('/appointments', appointment_data)
+      .then(async response_appointment => {
+        await api.get('/session').then(response_session => {
           window.PagSeguroDirectPayment.setSessionId(
-            response_session.data.session_id
+            response_session.data.session_id,
           );
 
           /**
            * Getting sender hash
            */
           window.PagSeguroDirectPayment.onSenderHashReady(async function (
-            response_hash
+            response_hash,
           ) {
-            if (response_hash.status == "error") {
+            if (response_hash.status == 'error') {
               return false;
             }
             var hash = response_hash.senderHash; //Hash estará disponível nesta variável.
@@ -290,12 +308,12 @@ const AgendamentoBoleto = () => {
               postal_code: profile.zipcode,
               method: method.pagseguro,
               value: response_appointment.data.total,
-              hash: process.env.REACT_APP_NODE_ENV === "production" ? hash : "",
+              hash: process.env.REACT_APP_NODE_ENV === 'production' ? hash : '',
             };
 
             await api
-              .post("/transaction", transaction)
-              .then(async (response_transaction) => {
+              .post('/transaction', transaction)
+              .then(async response_transaction => {
                 setBoleto({
                   code: response_transaction.data.code,
                   link: response_transaction.data.paymentLink,
@@ -319,12 +337,12 @@ const AgendamentoBoleto = () => {
                 await api
                   .post(`/boleto/${response_appointment.data.id}`)
                   .then(() => {
-                    return history.push("/boleto");
+                    return history.push('/boleto');
                   });
               })
-              .catch((error) => {
+              .catch(error => {
                 alert(
-                  "Ocorreu um erro ao processar. Verifique os dados e tente novamente."
+                  'Ocorreu um erro ao processar. Verifique os dados e tente novamente.',
                 );
 
                 deleteAppointment(response_appointment.data.id);
@@ -334,7 +352,7 @@ const AgendamentoBoleto = () => {
           });
         });
       })
-      .catch((error) => {
+      .catch(error => {
         setButtonText(`Gerar Boleto: R$${total}`);
       });
   };
@@ -345,16 +363,16 @@ const AgendamentoBoleto = () => {
     /**
      * Getting user email
      */
-    const storage = JSON.parse(localStorage.getItem("@visar-User"));
+    const storage = JSON.parse(localStorage.getItem('@visar-User'));
 
     setStorage(storage);
 
-    if (!profile || method.pagseguro !== "boleto") {
-      history.push("/");
+    if (!profile || method.pagseguro !== 'boleto') {
+      history.push('/');
     }
 
     if (!profile) {
-      history.push("/");
+      history.push('/');
     }
 
     /**
@@ -383,7 +401,7 @@ const AgendamentoBoleto = () => {
           <Paragraph text={_agendamento.paragraph} />
         </header>
 
-        <form onSubmit={(e) => handleSendData(e)}>
+        <form onSubmit={e => handleSendData(e)}>
           <TextInput
             label="Nº da Autorização de Estampagem ou Chassis do Veículo"
             type="text"
@@ -467,7 +485,7 @@ const AgendamentoBoleto = () => {
               currentMonth={date.currentMonth}
               currentDay={date.currentDay}
               methodDays={method.confirm_days}
-              onChange={(e) => handleDateInput(e, daysByMonth)}
+              onChange={e => handleDateInput(e, daysByMonth)}
             />
             <DropListTime
               label="Horários disponíveis"

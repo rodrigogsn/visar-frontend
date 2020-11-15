@@ -1,13 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { estados } from "./../views/content/estados";
-import { meses } from "./../views/content/meses";
-import { Squares } from "react-activity";
-import "react-activity/dist/react-activity.css";
-import InputMask from "react-input-mask";
-import moment from "moment";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { estados } from './../views/content/estados';
+import { meses } from './../views/content/meses';
+import { Squares } from 'react-activity';
+import 'react-activity/dist/react-activity.css';
+import InputMask from 'react-input-mask';
+import moment from 'moment';
 
-moment.locale("pt-br");
+moment.locale('pt-br');
 
 export const Loader = () => (
   <Squares color="black" size={36} speed={1} animating={true} />
@@ -103,7 +103,7 @@ export const TextInput = ({
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
         className={style}
-        onFocus={(e) => (e.target.originalvalue = e.target.value)}
+        onFocus={e => (e.target.originalvalue = e.target.value)}
       ></InputMask>
     </div>
   );
@@ -132,7 +132,7 @@ export const DropListUF = ({
 }) => {
   const estadosSort = estados.sort((a, b) => (a.sigla > b.sigla ? 1 : -1));
 
-  const options = estadosSort.map((estado) => (
+  const options = estadosSort.map(estado => (
     <option key={estado.id} value={estado.sigla}>
       {estado.sigla}
     </option>
@@ -147,7 +147,7 @@ export const DropListUF = ({
         value={state}
         required={required}
         onChange={onChange}
-        onFocus={(e) => (e.target.originalvalue = e.target.value)}
+        onFocus={e => (e.target.originalvalue = e.target.value)}
       >
         <option value="">{placeholder}</option>
         {options}
@@ -167,8 +167,8 @@ export const DropListMonth = ({
   required,
 }) => {
   const options = meses
-    .filter((mes) => mes.value >= currentMonth)
-    .map((mes) => (
+    .filter(mes => mes.value >= currentMonth)
+    .map(mes => (
       <option key={mes.value} value={mes.value}>
         {mes.name}
       </option>
@@ -184,7 +184,7 @@ export const DropListMonth = ({
         required={required}
         onChange={onChange}
         className={customClass}
-        onFocus={(e) => (e.target.originalvalue = e.target.value)}
+        onFocus={e => (e.target.originalvalue = e.target.value)}
       >
         <option value="">{placeholder}</option>
         {options}
@@ -208,13 +208,13 @@ export const DropListDay = ({
   required,
 }) => {
   const options = days
-    .filter((value) => {
+    .filter(value => {
       const day = parseInt(value.d.substring(0, 2));
       const month = parseInt(value.d.substring(3, 5)) - 1;
 
       const current_moment = moment([year, currentMonth, currentDay]).add(
         methodDays,
-        "days"
+        'days',
       );
 
       if (moment([year, month, day]) < current_moment) {
@@ -223,7 +223,7 @@ export const DropListDay = ({
 
       return true;
     })
-    .map((dia) => {
+    .map(dia => {
       return (
         <option key={dia.d} value={dia.d}>
           {dia.d} ({dia.w})
@@ -241,7 +241,7 @@ export const DropListDay = ({
         required={required}
         onChange={onChange}
         className={customClass}
-        onFocus={(e) => (e.target.originalvalue = e.target.value)}
+        onFocus={e => (e.target.originalvalue = e.target.value)}
       >
         <option key="" value=""></option>
         {options}
@@ -261,7 +261,7 @@ export const DropListTime = ({
   onChange,
   required,
 }) => {
-  const options = time.sort().map((horario) => {
+  const options = time.sort().map(horario => {
     if (horario) {
       return (
         <option key={horario} value={horario}>
@@ -281,7 +281,7 @@ export const DropListTime = ({
         required={required}
         onChange={onChange}
         disabled={disabled}
-        onFocus={(e) => (e.target.originalvalue = e.target.value)}
+        onFocus={e => (e.target.originalvalue = e.target.value)}
         className={customClass}
       >
         <option value="">{placeholder}</option>
