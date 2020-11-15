@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import Header from "./../../components/Header";
-import Footer from "./../../components/Footer";
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import Header from './../../components/Header';
+import Footer from './../../components/Footer';
 import {
   Title,
   Paragraph,
@@ -11,16 +11,16 @@ import {
   DropListMonth,
   DropListTime,
   Loader,
-} from "./../../components/Elements";
-import { _agendamento } from "./../../views/content";
+} from './../../components/Elements';
+import { _agendamento } from './../../views/content';
 
-import bancodobrasil from "./../../assets/img/bancodobrasil.png";
-import bradesco from "./../../assets/img/bradesco.png";
-import itau from "./../../assets/img/itau.png";
-import banrisul from "./../../assets/img/banrisul.png";
+import bancodobrasil from './../../assets/img/bancodobrasil.png';
+import bradesco from './../../assets/img/bradesco.png';
+import itau from './../../assets/img/itau.png';
+import banrisul from './../../assets/img/banrisul.png';
 
-import api from "./../../services/api";
-import MainContext from "./../../MainContext";
+import api from './../../services/api';
+import MainContext from './../../MainContext';
 
 const AgendamentoDebito = () => {
   let history = useHistory();
@@ -42,12 +42,30 @@ const AgendamentoDebito = () => {
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory >= 200) {
-    extra_discount = 30 + subtotal.method;
+    extra_discount = 40.01 + subtotal.method;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory < 200) {
-    extra_discount = 10 + subtotal.method;
+    extra_discount = 20.01 + subtotal.method;
+  }
+
+  /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
+  if (
+    spot.freetax === 0 &&
+    subtotal.subcategory >= 200 &&
+    location.name === 'Santos'
+  ) {
+    extra_discount = 40.01;
+  }
+
+  /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
+  if (
+    spot.freetax === 0 &&
+    subtotal.subcategory < 200 &&
+    location.name === 'Santos'
+  ) {
+    extra_discount = 20.01;
   }
 
   /** O extra_discount deverá ser removido após a PANDEMIA */
@@ -55,40 +73,40 @@ const AgendamentoDebito = () => {
   const total =
     subtotal.subcategory + subtotal.spot + subtotal.method - extra_discount;
 
-  const [storage, setStorage] = useState("");
+  const [storage, setStorage] = useState('');
   const [buttonText, setButtonText] = useState(`Continuar: R$${total}`);
   const [workTime, setWorkTime] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
-  const [blockedWeekdays, setBlockedWeekdays] = useState(["dom", "sáb"]);
+  const [blockedWeekdays, setBlockedWeekdays] = useState(['dom', 'sáb']);
   const [vehicle, setVehicle] = useState({
-    plate: "",
-    brand: "",
-    model: "",
-    year: "",
-    detran: "",
-    renavam: "",
+    plate: '',
+    brand: '',
+    model: '',
+    year: '',
+    detran: '',
+    renavam: '',
   });
   const [bank, setBank] = useState(null);
   const [date, setDate] = useState({
-    day: "",
-    month: "",
-    year: "",
-    time: "",
-    currentMonth: "",
-    currentDay: "",
-    currentYear: "",
+    day: '',
+    month: '',
+    year: '',
+    time: '',
+    currentMonth: '',
+    currentDay: '',
+    currentYear: '',
   });
   const [daysByMonth, setDaysByMonth] = useState([]);
 
-  const deleteAppointment = async (appointment_id) => {
-    await api.delete(`/appointments/${appointment_id}`).then((response) => {
+  const deleteAppointment = async appointment_id => {
+    await api.delete(`/appointments/${appointment_id}`).then(response => {
       history.goBack();
     });
   };
 
   const handleWorkTime = async () => {
-    await api.get("/work_times").then((response) => {
-      let data = response.data.map((item) => {
+    await api.get('/work_times').then(response => {
+      let data = response.data.map(item => {
         return item.value;
       });
 
@@ -105,7 +123,7 @@ const AgendamentoDebito = () => {
 
       if (spot.freetax === 0) {
         // Domicílio
-        const validInterval = data.filter((e) => !e.includes(":30"));
+        const validInterval = data.filter(e => !e.includes(':30'));
 
         data = validInterval.sort().slice(1, 5);
       }
@@ -114,32 +132,32 @@ const AgendamentoDebito = () => {
     });
   };
 
-  const handleVehicleInput = (e) => {
+  const handleVehicleInput = e => {
     setVehicle({ ...vehicle, [e.target.name]: e.target.value });
   };
 
   const handleDateInput = (e, daysByMonth) => {
-    if (e.target.name === "day") {
-      setDate({ ...date, time: "" });
-      setSelectedDay(daysByMonth.find((elem) => elem.d === e.target.value));
+    if (e.target.name === 'day') {
+      setDate({ ...date, time: '' });
+      setSelectedDay(daysByMonth.find(elem => elem.d === e.target.value));
     }
 
-    if (e.target.name === "month") {
-      setDate({ ...date, day: "", time: "" });
+    if (e.target.name === 'month') {
+      setDate({ ...date, day: '', time: '' });
       getDaysInMonth(e.target.value);
     }
 
     setDate({ ...date, [e.target.name]: e.target.value });
   };
 
-  const handleBank = (bank) => {
+  const handleBank = bank => {
     setBank(bank);
   };
 
   /**
    * Get Javasctipt array with all days from selected month
    */
-  const getDaysInMonth = async (selectedMonth) => {
+  const getDaysInMonth = async selectedMonth => {
     let d = new Date(date.year, selectedMonth, 1);
     let days = [];
 
@@ -149,17 +167,17 @@ const AgendamentoDebito = () => {
     }
 
     const result = days
-      .filter((item) => {
+      .filter(item => {
         const w = item
-          .toLocaleDateString("pt-BR", { weekday: "short" })
+          .toLocaleDateString('pt-BR', { weekday: 'short' })
           .substring(0, 3);
 
         return !blockedWeekdays.includes(w);
       })
-      .map((item) => {
-        const d = item.toLocaleDateString("pt-BR");
+      .map(item => {
+        const d = item.toLocaleDateString('pt-BR');
         const w = item
-          .toLocaleDateString("pt-BR", { weekday: "short" })
+          .toLocaleDateString('pt-BR', { weekday: 'short' })
           .substring(0, 3);
 
         return { d, w };
@@ -168,14 +186,14 @@ const AgendamentoDebito = () => {
     /**
      * Get All Appointments from API
      */
-    const formatMonth = ("0" + (parseInt(selectedMonth) + 1)).slice(-2);
+    const formatMonth = ('0' + (parseInt(selectedMonth) + 1)).slice(-2);
 
     await api
       .get(`/appointments_bymonth/${date.year}/${formatMonth}`)
-      .then((response) => {
+      .then(response => {
         const alreadyTaken = response.data
-          .filter((item) => item.status != 7) // Enable cancelled appointments dates to be chosen again
-          .map((item) => {
+          .filter(item => item.status != 7) // Enable cancelled appointments dates to be chosen again
+          .map(item => {
             return {
               date: item.date,
               day: parseInt(item.date.substring(0, 2)),
@@ -188,17 +206,17 @@ const AgendamentoDebito = () => {
         /**
          * Add all unappointed work hours to each day, according to default work time
          */
-        const addTimeArr = result.filter((item) => {
-          if (item.d === "20/11/2020") {
+        const addTimeArr = result.filter(item => {
+          if (item.d === '20/11/2020') {
             return false;
           }
 
-          item.time = workTime.filter((value) => {
-            let takenTime = alreadyTaken.filter((time) => {
+          item.time = workTime.filter(value => {
+            let takenTime = alreadyTaken.filter(time => {
               return time.date === item.d;
             });
 
-            takenTime = takenTime.find((element) => element.time === value);
+            takenTime = takenTime.find(element => element.time === value);
 
             return takenTime ? false : true;
           });
@@ -214,15 +232,15 @@ const AgendamentoDebito = () => {
       });
   };
 
-  const handleSendData = async (e) => {
+  const handleSendData = async e => {
     e.preventDefault();
 
     if (!bank) {
-      return alert("É necessário escolher o banco para realizar o pagamento.");
+      return alert('É necessário escolher o banco para realizar o pagamento.');
     }
 
     const vehicle_data = {
-      plate: vehicle.plate.replace(/[^a-zA-Z0-9]/g, "").toUpperCase(),
+      plate: vehicle.plate.replace(/[^a-zA-Z0-9]/g, '').toUpperCase(),
       brand: vehicle.brand.toUpperCase(),
       model: vehicle.model.toUpperCase(),
       year: vehicle.year,
@@ -233,19 +251,19 @@ const AgendamentoDebito = () => {
     setButtonText(<Loader />);
 
     await api
-      .post("/vehicles", vehicle_data)
-      .then((response) => {
+      .post('/vehicles', vehicle_data)
+      .then(response => {
         handleCreateAppointment(response.data.id);
       })
-      .catch((error) => {
+      .catch(error => {
         alert(
-          "Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios."
+          'Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios.',
         );
         setButtonText(`Continuar: R$${total}`);
       });
   };
 
-  const handleCreateAppointment = async (vehicle) => {
+  const handleCreateAppointment = async vehicle => {
     const appointment_data = {
       vehicle_id: vehicle,
       date: date.day,
@@ -265,20 +283,20 @@ const AgendamentoDebito = () => {
     };
 
     await api
-      .post("/appointments", appointment_data)
-      .then(async (response_appointment) => {
-        await api.get("/session").then((response_session) => {
+      .post('/appointments', appointment_data)
+      .then(async response_appointment => {
+        await api.get('/session').then(response_session => {
           window.PagSeguroDirectPayment.setSessionId(
-            response_session.data.session_id
+            response_session.data.session_id,
           );
 
           /**
            * Getting sender hash
            */
           window.PagSeguroDirectPayment.onSenderHashReady(async function (
-            response_hash
+            response_hash,
           ) {
-            if (response_hash.status == "error") {
+            if (response_hash.status == 'error') {
               return false;
             }
             var hash = response_hash.senderHash; //Hash estará disponível nesta variável.
@@ -298,13 +316,13 @@ const AgendamentoDebito = () => {
               postal_code: profile.zipcode,
               method: method.pagseguro,
               value: response_appointment.data.total,
-              hash: process.env.REACT_APP_NODE_ENV === "production" ? hash : "",
+              hash: process.env.REACT_APP_NODE_ENV === 'production' ? hash : '',
               bankName: bank,
             };
 
             await api
-              .post("/transaction", transaction)
-              .then(async (response_transaction) => {
+              .post('/transaction', transaction)
+              .then(async response_transaction => {
                 setEft({
                   code: response_transaction.data.code,
                   link: response_transaction.data.paymentLink,
@@ -327,12 +345,12 @@ const AgendamentoDebito = () => {
                 await api
                   .post(`/eft/${response_appointment.data.id}`)
                   .then(() => {
-                    return history.push("/debito", { total });
+                    return history.push('/debito', { total });
                   });
               })
-              .catch((error) => {
+              .catch(error => {
                 alert(
-                  "Ocorreu um erro ao processar. Verifique os dados e tente novamente."
+                  'Ocorreu um erro ao processar. Verifique os dados e tente novamente.',
                 );
 
                 deleteAppointment(response_appointment.data.id);
@@ -342,7 +360,7 @@ const AgendamentoDebito = () => {
           });
         });
       })
-      .catch((error) => {
+      .catch(error => {
         setButtonText(`Continuar: R$${total}`);
       });
   };
@@ -353,7 +371,7 @@ const AgendamentoDebito = () => {
     /**
      * Getting user email
      */
-    const storage = JSON.parse(localStorage.getItem("@visar-User"));
+    const storage = JSON.parse(localStorage.getItem('@visar-User'));
 
     setStorage(storage);
 
@@ -387,7 +405,7 @@ const AgendamentoDebito = () => {
           <Paragraph text={_agendamento.paragraph} />
         </header>
 
-        <form onSubmit={(e) => handleSendData(e)}>
+        <form onSubmit={e => handleSendData(e)}>
           <TextInput
             label="Nº da Autorização de Estampagem ou Chassis do Veículo"
             type="text"
@@ -471,7 +489,7 @@ const AgendamentoDebito = () => {
               currentMonth={date.currentMonth}
               currentDay={date.currentDay}
               methodDays={method.confirm_days}
-              onChange={(e) => handleDateInput(e, daysByMonth)}
+              onChange={e => handleDateInput(e, daysByMonth)}
             />
             <DropListTime
               label="Horários disponíveis"
@@ -488,14 +506,14 @@ const AgendamentoDebito = () => {
           <div style={{ marginTop: 30, marginBottom: 30 }}>
             <label>Escolha o banco para pagamento:</label>
 
-            <div style={{ flexDirection: "column" }} className="buttonGroup">
+            <div style={{ flexDirection: 'column' }} className="buttonGroup">
               <span
                 id="bancodobrasil"
                 className={`buttonWide-container ${
-                  bank === "bancodobrasil" ? "active" : ""
+                  bank === 'bancodobrasil' ? 'active' : ''
                 }`}
                 style={{ marginRight: 0, marginBottom: 12 }}
-                onClick={() => handleBank("bancodobrasil")}
+                onClick={() => handleBank('bancodobrasil')}
               >
                 <div className="buttonWide select">
                   <img src={bancodobrasil} alt="" />
@@ -506,10 +524,10 @@ const AgendamentoDebito = () => {
               <span
                 id="bradesco"
                 className={`buttonWide-container ${
-                  bank === "bradesco" ? "active" : ""
+                  bank === 'bradesco' ? 'active' : ''
                 }`}
                 style={{ marginRight: 0, marginBottom: 12 }}
-                onClick={() => handleBank("bradesco")}
+                onClick={() => handleBank('bradesco')}
               >
                 <div className="buttonWide select">
                   <img src={bradesco} alt="" />
@@ -520,10 +538,10 @@ const AgendamentoDebito = () => {
               <span
                 id="itau"
                 className={`buttonWide-container ${
-                  bank === "itau" ? "active" : ""
+                  bank === 'itau' ? 'active' : ''
                 }`}
                 style={{ marginRight: 0, marginBottom: 12 }}
-                onClick={() => handleBank("itau")}
+                onClick={() => handleBank('itau')}
               >
                 <div className="buttonWide select">
                   <img src={itau} alt="" />
@@ -534,10 +552,10 @@ const AgendamentoDebito = () => {
               <span
                 id="banrisul"
                 className={`buttonWide-container ${
-                  bank === "banrisul" ? "active" : ""
+                  bank === 'banrisul' ? 'active' : ''
                 }`}
                 style={{ marginRight: 0, marginBottom: 12 }}
-                onClick={() => handleBank("banrisul")}
+                onClick={() => handleBank('banrisul')}
               >
                 <div className="buttonWide select">
                   <img src={banrisul} alt="" />

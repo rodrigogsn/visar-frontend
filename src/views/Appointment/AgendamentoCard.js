@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import Header from "./../../components/Header";
-import Footer from "./../../components/Footer";
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import Header from './../../components/Header';
+import Footer from './../../components/Footer';
 import {
   Title,
   Paragraph,
@@ -11,11 +11,11 @@ import {
   DropListMonth,
   DropListTime,
   Loader,
-} from "./../../components/Elements";
-import { _agendamento } from "./../../views/content";
+} from './../../components/Elements';
+import { _agendamento } from './../../views/content';
 
-import api from "./../../services/api";
-import MainContext from "./../../MainContext";
+import api from './../../services/api';
+import MainContext from './../../MainContext';
 
 const AgendamentoCard = () => {
   let history = useHistory();
@@ -36,20 +36,37 @@ const AgendamentoCard = () => {
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory >= 200) {
-    extra_discount = 30 + subtotal.method;
+    extra_discount = 40.01 + subtotal.method;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory < 200) {
-    extra_discount = 10 + subtotal.method;
+    extra_discount = 20.01 + subtotal.method;
+  }
+
+  /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
+  if (
+    spot.freetax === 0 &&
+    subtotal.subcategory >= 200 &&
+    location.name === 'Santos'
+  ) {
+    extra_discount = 40.01;
+  }
+
+  /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
+  if (
+    spot.freetax === 0 &&
+    subtotal.subcategory < 200 &&
+    location.name === 'Santos'
+  ) {
+    extra_discount = 20.01;
   }
 
   /** O extra_discount deverá ser removido após a PANDEMIA */
-  // This adds PagSeguro Boleto R$1,00 tax in frontend, but subtotal.method will calculate it properly
   const total =
     subtotal.subcategory + subtotal.spot + subtotal.method - extra_discount;
 
-  const [storage, setStorage] = useState("");
+  const [storage, setStorage] = useState('');
 
   const [buttonText, setButtonText] = useState(`Pagar: R$${total}`);
 
@@ -57,59 +74,59 @@ const AgendamentoCard = () => {
 
   const [selectedDay, setSelectedDay] = useState(null);
 
-  const [blockedWeekdays, setBlockedWeekdays] = useState(["dom", "sáb"]);
+  const [blockedWeekdays, setBlockedWeekdays] = useState(['dom', 'sáb']);
 
   const [vehicle, setVehicle] = useState({
-    plate: "",
-    brand: "",
-    model: "",
-    year: "",
-    detran: "",
-    renavam: "",
+    plate: '',
+    brand: '',
+    model: '',
+    year: '',
+    detran: '',
+    renavam: '',
   });
 
   const [date, setDate] = useState({
-    day: "",
-    month: "",
-    year: "",
-    time: "",
-    currentMonth: "",
-    currentDay: "",
-    currentYear: "",
+    day: '',
+    month: '',
+    year: '',
+    time: '',
+    currentMonth: '',
+    currentDay: '',
+    currentYear: '',
   });
   const [daysByMonth, setDaysByMonth] = useState([]);
 
   const [card, setCard] = useState({
-    cc_number: "",
-    cc_exp: "",
-    cc_cvv: "",
-    cc_name: "",
+    cc_number: '',
+    cc_exp: '',
+    cc_cvv: '',
+    cc_name: '',
   });
 
   const [validation, setValidation] = useState({
-    cc_number: "",
-    cc_exp: "",
-    cc_cvv: "",
-    cc_name: "",
+    cc_number: '',
+    cc_exp: '',
+    cc_cvv: '',
+    cc_name: '',
   });
 
-  const handleCardInput = (e) => {
+  const handleCardInput = e => {
     setCard({ ...card, [e.target.name]: e.target.value });
   };
 
-  const emptyMaskValidate = (e) => {
-    const index = e.target.value.indexOf("_");
+  const emptyMaskValidate = e => {
+    const index = e.target.value.indexOf('_');
 
     if (index !== -1) {
-      setValidation({ ...validation, [e.target.name]: "inputError" });
+      setValidation({ ...validation, [e.target.name]: 'inputError' });
     } else {
-      setValidation({ ...validation, [e.target.name]: "" });
+      setValidation({ ...validation, [e.target.name]: '' });
     }
   };
 
   const handleWorkTime = async () => {
-    await api.get("/work_times").then((response) => {
-      let data = response.data.map((item) => {
+    await api.get('/work_times').then(response => {
+      let data = response.data.map(item => {
         return item.value;
       });
 
@@ -126,7 +143,7 @@ const AgendamentoCard = () => {
 
       if (spot.freetax === 0) {
         // Domicílio
-        const validInterval = data.filter((e) => !e.includes(":30"));
+        const validInterval = data.filter(e => !e.includes(':30'));
 
         data = validInterval.sort().slice(1, 5);
       }
@@ -135,18 +152,18 @@ const AgendamentoCard = () => {
     });
   };
 
-  const handleVehicleInput = (e) => {
+  const handleVehicleInput = e => {
     setVehicle({ ...vehicle, [e.target.name]: e.target.value });
   };
 
   const handleDateInput = (e, daysByMonth) => {
-    if (e.target.name === "day") {
-      setDate({ ...date, time: "" });
-      setSelectedDay(daysByMonth.find((elem) => elem.d === e.target.value));
+    if (e.target.name === 'day') {
+      setDate({ ...date, time: '' });
+      setSelectedDay(daysByMonth.find(elem => elem.d === e.target.value));
     }
 
-    if (e.target.name === "month") {
-      setDate({ ...date, day: "", time: "" });
+    if (e.target.name === 'month') {
+      setDate({ ...date, day: '', time: '' });
       getDaysInMonth(e.target.value);
     }
 
@@ -156,7 +173,7 @@ const AgendamentoCard = () => {
   /**
    * Get Javascript array with all days from selected month
    */
-  const getDaysInMonth = async (selectedMonth) => {
+  const getDaysInMonth = async selectedMonth => {
     let d = new Date(date.year, selectedMonth, 1);
     let days = [];
 
@@ -166,17 +183,17 @@ const AgendamentoCard = () => {
     }
 
     const result = days
-      .filter((item) => {
+      .filter(item => {
         const w = item
-          .toLocaleDateString("pt-BR", { weekday: "short" })
+          .toLocaleDateString('pt-BR', { weekday: 'short' })
           .substring(0, 3);
 
         return !blockedWeekdays.includes(w);
       })
-      .map((item) => {
-        const d = item.toLocaleDateString("pt-BR");
+      .map(item => {
+        const d = item.toLocaleDateString('pt-BR');
         const w = item
-          .toLocaleDateString("pt-BR", { weekday: "short" })
+          .toLocaleDateString('pt-BR', { weekday: 'short' })
           .substring(0, 3);
 
         return { d, w };
@@ -185,14 +202,14 @@ const AgendamentoCard = () => {
     /**
      * Get All Appointments from API
      */
-    const formatMonth = ("0" + (parseInt(selectedMonth) + 1)).slice(-2);
+    const formatMonth = ('0' + (parseInt(selectedMonth) + 1)).slice(-2);
 
     await api
       .get(`/appointments_bymonth/${date.year}/${formatMonth}`)
-      .then((response) => {
+      .then(response => {
         const alreadyTaken = response.data
-          .filter((item) => item.status != 7) // Enable cancelled appointments dates to be chosen again
-          .map((item) => {
+          .filter(item => item.status != 7) // Enable cancelled appointments dates to be chosen again
+          .map(item => {
             return {
               date: item.date,
               day: parseInt(item.date.substring(0, 2)),
@@ -205,17 +222,17 @@ const AgendamentoCard = () => {
         /**
          * Add all unappointed work hours to each day, according to default work time
          */
-        const addTimeArr = result.filter((item) => {
-          if (item.d === "20/11/2020") {
+        const addTimeArr = result.filter(item => {
+          if (item.d === '20/11/2020') {
             return false;
           }
 
-          item.time = workTime.filter((value) => {
-            let takenTime = alreadyTaken.filter((time) => {
+          item.time = workTime.filter(value => {
+            let takenTime = alreadyTaken.filter(time => {
               return time.date === item.d;
             });
 
-            takenTime = takenTime.find((element) => element.time === value);
+            takenTime = takenTime.find(element => element.time === value);
 
             return takenTime ? false : true;
           });
@@ -231,11 +248,11 @@ const AgendamentoCard = () => {
       });
   };
 
-  const handleSendData = async (e) => {
+  const handleSendData = async e => {
     e.preventDefault();
 
     const vehicle_data = {
-      plate: vehicle.plate.replace(/[^a-zA-Z0-9]/g, "").toUpperCase(),
+      plate: vehicle.plate.replace(/[^a-zA-Z0-9]/g, '').toUpperCase(),
       brand: vehicle.brand.toUpperCase(),
       model: vehicle.model.toUpperCase(),
       year: vehicle.year,
@@ -246,19 +263,19 @@ const AgendamentoCard = () => {
     setButtonText(<Loader />);
 
     await api
-      .post("/vehicles", vehicle_data)
-      .then((response) => {
+      .post('/vehicles', vehicle_data)
+      .then(response => {
         handleCreateAppointment(response.data.id);
       })
-      .catch((error) => {
+      .catch(error => {
         alert(
-          "Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios."
+          'Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios.',
         );
         setButtonText(`Pagar: R$${total}`);
       });
   };
 
-  const handleCreateAppointment = async (vehicle) => {
+  const handleCreateAppointment = async vehicle => {
     const appointment_data = {
       vehicle_id: vehicle,
       date: date.day,
@@ -278,14 +295,14 @@ const AgendamentoCard = () => {
     };
 
     await api
-      .post("/appointments", appointment_data)
-      .then((response) => {
+      .post('/appointments', appointment_data)
+      .then(response => {
         history.push({
-          pathname: "/process",
+          pathname: '/process',
           state: { appointment: response.data, email: storage.email, card },
         });
       })
-      .catch((error) => {
+      .catch(error => {
         setButtonText(`Pagar: R$${total}`);
       });
   };
@@ -296,12 +313,12 @@ const AgendamentoCard = () => {
     /**
      * Getting user email
      */
-    const storage = JSON.parse(localStorage.getItem("@visar-User"));
+    const storage = JSON.parse(localStorage.getItem('@visar-User'));
 
     setStorage(storage);
 
     if (!profile) {
-      history.push("/");
+      history.push('/');
     }
 
     /**
@@ -329,7 +346,7 @@ const AgendamentoCard = () => {
           <Paragraph text={_agendamento.paragraph} />
         </header>
 
-        <form onSubmit={(e) => handleSendData(e)}>
+        <form onSubmit={e => handleSendData(e)}>
           <TextInput
             label="Nº da Autorização de Estampagem ou Chassis do Veículo"
             type="text"
@@ -413,7 +430,7 @@ const AgendamentoCard = () => {
               currentMonth={date.currentMonth}
               currentDay={date.currentDay}
               methodDays={method.confirm_days}
-              onChange={(e) => handleDateInput(e, daysByMonth)}
+              onChange={e => handleDateInput(e, daysByMonth)}
             />
             <DropListTime
               label="Horários disponíveis"
@@ -435,7 +452,7 @@ const AgendamentoCard = () => {
               mask="9999 9999 9999 9999"
               onChange={handleCardInput}
               style={validation.cc_number}
-              onBlur={(e) => emptyMaskValidate(e)}
+              onBlur={e => emptyMaskValidate(e)}
             />
 
             <div className="col2">
@@ -449,8 +466,8 @@ const AgendamentoCard = () => {
                 placeholder="MM/YY"
                 onChange={handleCardInput}
                 style={validation.cc_exp}
-                onBlur={(e) => emptyMaskValidate(e)}
-                onKeyUp={(e) => {
+                onBlur={e => emptyMaskValidate(e)}
+                onKeyUp={e => {
                   var x = e.which || e.keyCode;
 
                   if (x === 8 || x === 46 || x === 16) {
@@ -459,9 +476,9 @@ const AgendamentoCard = () => {
 
                   if (
                     e.target.value.length == 2 &&
-                    e.target.value.indexOf("/") === -1
+                    e.target.value.indexOf('/') === -1
                   ) {
-                    e.target.value += "/";
+                    e.target.value += '/';
                   }
                 }}
               />
@@ -471,7 +488,7 @@ const AgendamentoCard = () => {
                 required={true}
                 onChange={handleCardInput}
                 style={validation.cc_cvv}
-                onBlur={(e) => emptyMaskValidate(e)}
+                onBlur={e => emptyMaskValidate(e)}
               />
             </div>
 
@@ -481,7 +498,7 @@ const AgendamentoCard = () => {
               required={true}
               onChange={handleCardInput}
               style={validation.cc_name}
-              onBlur={(e) => emptyMaskValidate(e)}
+              onBlur={e => emptyMaskValidate(e)}
             />
           </div>
 
