@@ -297,6 +297,7 @@ const AgendamentoCard = () => {
     await api
       .post('/appointments', appointment_data)
       .then(response => {
+        console.log('location', location);
         history.push({
           pathname: '/process',
           state: { appointment: response.data, email: storage.email, card },
@@ -304,6 +305,8 @@ const AgendamentoCard = () => {
       })
       .catch(error => {
         setButtonText(`Pagar: R$${total}`);
+        console.log('location', location);
+
         console.log('erro', error.response, error.response.data);
       });
   };
