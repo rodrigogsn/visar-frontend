@@ -37,12 +37,12 @@ const AgendamentoBoleto = () => {
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory >= 200) {
-    extra_discount = 40.01 + subtotal.method + 1;
+    extra_discount = 40 + subtotal.method + 1;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory < 200) {
-    extra_discount = 20.01 + subtotal.method + 1;
+    extra_discount = 20 + subtotal.method + 1;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
@@ -51,7 +51,7 @@ const AgendamentoBoleto = () => {
     subtotal.subcategory >= 200 &&
     location.name === 'Santos'
   ) {
-    extra_discount = 40.01;
+    extra_discount = 40;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
@@ -60,17 +60,21 @@ const AgendamentoBoleto = () => {
     subtotal.subcategory < 200 &&
     location.name === 'Santos'
   ) {
-    extra_discount = 20.01;
+    extra_discount = 20;
   }
 
   /** O extra_discount deverá ser removido após a PANDEMIA */
   // This adds PagSeguro Boleto R$1,00 tax in frontend, but subtotal.method will calculate it properly
-  const total =
-    subtotal.subcategory + subtotal.spot + subtotal.method + 1 - extra_discount;
+  const total = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(
+    subtotal.subcategory + subtotal.spot + subtotal.method + 1 - extra_discount,
+  );
 
   const [storage, setStorage] = useState('');
 
-  const [buttonText, setButtonText] = useState(`Gerar Boleto: R$${total}`);
+  const [buttonText, setButtonText] = useState(`Gerar Boleto: ${total}`);
 
   const [workTime, setWorkTime] = useState([]);
 
@@ -251,7 +255,7 @@ const AgendamentoBoleto = () => {
         alert(
           'Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios.',
         );
-        setButtonText(`Gerar Boleto: R$${total}`);
+        setButtonText(`Gerar Boleto: ${total}`);
       });
   };
 
@@ -347,13 +351,13 @@ const AgendamentoBoleto = () => {
 
                 deleteAppointment(response_appointment.data.id);
 
-                setButtonText(`Gerar Boleto: R$${total}`);
+                setButtonText(`Gerar Boleto: ${total}`);
               });
           });
         });
       })
       .catch(error => {
-        setButtonText(`Gerar Boleto: R$${total}`);
+        setButtonText(`Gerar Boleto: ${total}`);
       });
   };
 

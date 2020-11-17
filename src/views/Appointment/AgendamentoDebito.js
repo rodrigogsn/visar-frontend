@@ -42,12 +42,12 @@ const AgendamentoDebito = () => {
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory >= 200) {
-    extra_discount = 40.01 + subtotal.method;
+    extra_discount = 40 + subtotal.method;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory < 200) {
-    extra_discount = 20.01 + subtotal.method;
+    extra_discount = 20 + subtotal.method;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
@@ -56,7 +56,7 @@ const AgendamentoDebito = () => {
     subtotal.subcategory >= 200 &&
     location.name === 'Santos'
   ) {
-    extra_discount = 40.01;
+    extra_discount = 40;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
@@ -65,16 +65,20 @@ const AgendamentoDebito = () => {
     subtotal.subcategory < 200 &&
     location.name === 'Santos'
   ) {
-    extra_discount = 20.01;
+    extra_discount = 20;
   }
 
   /** O extra_discount deverá ser removido após a PANDEMIA */
   // This adds PagSeguro Boleto R$1,00 tax in frontend, but subtotal.method will calculate it properly
-  const total =
-    subtotal.subcategory + subtotal.spot + subtotal.method - extra_discount;
+  const total = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(
+    subtotal.subcategory + subtotal.spot + subtotal.method - extra_discount,
+  );
 
   const [storage, setStorage] = useState('');
-  const [buttonText, setButtonText] = useState(`Continuar: R$${total}`);
+  const [buttonText, setButtonText] = useState(`Continuar: ${total}`);
   const [workTime, setWorkTime] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
   const [blockedWeekdays, setBlockedWeekdays] = useState(['dom', 'sáb']);
@@ -259,7 +263,7 @@ const AgendamentoDebito = () => {
         alert(
           'Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios.',
         );
-        setButtonText(`Continuar: R$${total}`);
+        setButtonText(`Continuar: ${total}`);
       });
   };
 
@@ -355,13 +359,13 @@ const AgendamentoDebito = () => {
 
                 deleteAppointment(response_appointment.data.id);
 
-                setButtonText(`Continuar: R$${total}`);
+                setButtonText(`Continuar: ${total}`);
               });
           });
         });
       })
       .catch(error => {
-        setButtonText(`Continuar: R$${total}`);
+        setButtonText(`Continuar: ${total}`);
       });
   };
 

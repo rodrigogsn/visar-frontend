@@ -36,12 +36,12 @@ const AgendamentoCard = () => {
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory >= 200) {
-    extra_discount = 40.01 + subtotal.method;
+    extra_discount = 40 + subtotal.method;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory < 200) {
-    extra_discount = 20.01 + subtotal.method;
+    extra_discount = 20 + subtotal.method;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
@@ -50,7 +50,7 @@ const AgendamentoCard = () => {
     subtotal.subcategory >= 200 &&
     location.name === 'Santos'
   ) {
-    extra_discount = 40.01;
+    extra_discount = 40;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
@@ -59,16 +59,20 @@ const AgendamentoCard = () => {
     subtotal.subcategory < 200 &&
     location.name === 'Santos'
   ) {
-    extra_discount = 20.01;
+    extra_discount = 20;
   }
 
   /** O extra_discount deverá ser removido após a PANDEMIA */
-  const total =
-    subtotal.subcategory + subtotal.spot + subtotal.method - extra_discount;
+  const total = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(
+    subtotal.subcategory + subtotal.spot + subtotal.method - extra_discount,
+  );
 
   const [storage, setStorage] = useState('');
 
-  const [buttonText, setButtonText] = useState(`Pagar: R$${total}`);
+  const [buttonText, setButtonText] = useState(`Pagar: ${total}`);
 
   const [workTime, setWorkTime] = useState([]);
 
@@ -271,7 +275,7 @@ const AgendamentoCard = () => {
         alert(
           'Ocorreu um erro! Verifique os dados preenchidos. Todos os campos são obrigatórios.',
         );
-        setButtonText(`Pagar: R$${total}`);
+        setButtonText(`Pagar: ${total}`);
       });
   };
 
@@ -304,7 +308,7 @@ const AgendamentoCard = () => {
         });
       })
       .catch(error => {
-        setButtonText(`Pagar: R$${total}`);
+        setButtonText(`Pagar: ${total}`);
         console.log('location', location);
 
         console.log('erro', error.response, error.response.data);
