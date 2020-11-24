@@ -34,21 +34,22 @@ const AgendamentoBoleto = () => {
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   var extra_discount = 0;
+  var plate_value = 199.99;
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
-  if (spot.freetax === 1 && subtotal.subcategory >= 200) {
+  if (spot.freetax === 1 && subtotal.subcategory >= plate_value) {
     extra_discount = 40 + subtotal.method + 1;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
-  if (spot.freetax === 1 && subtotal.subcategory < 200) {
-    extra_discount = 40 + subtotal.method + 1;
+  if (spot.freetax === 1 && subtotal.subcategory < plate_value) {
+    extra_discount = 20 + subtotal.method + 1;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (
     spot.freetax === 0 &&
-    subtotal.subcategory >= 200 &&
+    subtotal.subcategory >= plate_value &&
     location.name === 'Santos'
   ) {
     extra_discount = 40;
@@ -57,7 +58,7 @@ const AgendamentoBoleto = () => {
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (
     spot.freetax === 0 &&
-    subtotal.subcategory < 200 &&
+    subtotal.subcategory < plate_value &&
     location.name === 'Santos'
   ) {
     extra_discount = 20;
