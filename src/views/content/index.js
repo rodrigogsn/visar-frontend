@@ -1,7 +1,7 @@
 //// HOME ////
 export const _home = {
   title: `Agende online o emplacamento do seu veículo.`,
-  paragraph: `Faça um agendamento online com a Visar Emplaca, e garanta o emplacamento do seu veículo. Efetuamos o serviço a domicílio para a Baixada Santista, ou em nosso próprio estabelecimento. Confira!`,
+  paragraph: `Faça um agendamento online com a Visar Emplaca, e garanta o emplacamento do seu veículo. Efetuamos o serviço a domicílio (sob consulta) para a Baixada Santista, ou em nosso próprio estabelecimento. Confira!`,
 };
 
 //// LOGIN ////
@@ -113,7 +113,7 @@ export const _sucesso = {
   title: `Agendamento concluído! ✅`,
   subtitle: `Aguardando autorização da operadora.`,
   paragraph: `Após autorizado, o agendamento será efetivado e você receberá um email com confirmação. Para atendimento à domicílio, a tolerância para chegada no recinto é de 15 minutos.`,
-  legal: "Em caso de dúvidas, fale conosco: (13)3222-5442",
+  legal: 'Em caso de dúvidas, fale conosco: (13)3222-5442',
 };
 
 export const _eft = {

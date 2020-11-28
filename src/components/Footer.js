@@ -1,9 +1,9 @@
-import React from "react";
-import { Image } from "./../components/Elements";
-import logo from "./../assets/img/gomes.png";
-import detransp from "./../assets/img/detransp.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInstagram, faFacebookF } from "@fortawesome/free-brands-svg-icons";
+import React from 'react';
+import { Image } from './../components/Elements';
+import logo from './../assets/img/gomes.png';
+import detransp from './../assets/img/detransp.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInstagram, faFacebookF } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -15,9 +15,9 @@ const Footer = () => {
           <h3>Sobre a Visar Emplaca</h3>
           <p>
             A Visar Emplaca efetua emplacamento de veículos de diversos tipos,
-            mediante autorização de emplacamento do DETRAN. Atendemos à Baixada
-            Santista (Santos, Guarujá, Cubatão, Praia Grande e São Vicente). Em
-            breve mais locais estarão à disposição.
+            mediante autorização de emplacamento do DETRAN. Atendemos sob
+            consulta à Baixada Santista (Santos, Guarujá, Cubatão, Praia Grande
+            e São Vicente). Em breve mais locais estarão à disposição.
           </p>
           <img
             src={detransp}
@@ -30,7 +30,7 @@ const Footer = () => {
           <h3>Avisos</h3>
           <p>
             Para dar sequência ao emplacamento do seu veículo, é necessário ter
-            o número do <strong>chassis</strong>, a <strong>placa</strong> e o{" "}
+            o número do <strong>chassis</strong>, a <strong>placa</strong> e o{' '}
             <strong>RENAVAM</strong>. Se os dados não forem validados por nossa
             equipe, o agendamento poderá ser cancelado.
           </p>
@@ -58,7 +58,7 @@ const Footer = () => {
           <h3>Siga-nos!</h3>
           <p>Curta a Visar Emplaca e fique por dentro das novidades.</p>
 
-          <span style={{ display: "flex", alignItems: "center", marginTop: 8 }}>
+          <span style={{ display: 'flex', alignItems: 'center', marginTop: 8 }}>
             <a
               href="https://www.instagram.com/visaremplaca"
               className="socialIcon"
@@ -83,8 +83,8 @@ const Footer = () => {
           <p>
             ©1990~{currentYear}, Visar Emplaca - Todos os direitos reservados.
             <br />
-            <strong>Razão Social:</strong> Visar Emplaca Veículos Ltda. |{" "}
-            <strong>CNPJ:</strong> 25.025.838/0001-60 |{" "}
+            <strong>Razão Social:</strong> Visar Emplaca Veículos Ltda. |{' '}
+            <strong>CNPJ:</strong> 25.025.838/0001-60 |{' '}
             <strong>Endereço:</strong> Rua Amador Bueno, 361 - Centro -
             Santos/SP - CEP: 11013-153
           </p>
