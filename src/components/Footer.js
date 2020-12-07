@@ -3,7 +3,11 @@ import { Image } from './../components/Elements';
 import logo from './../assets/img/gomes.png';
 import detransp from './../assets/img/detransp.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faFacebookF } from '@fortawesome/free-brands-svg-icons';
+import {
+  faInstagram,
+  faFacebookF,
+  faWhatsapp,
+} from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -65,14 +69,26 @@ const Footer = () => {
             >
               <FontAwesomeIcon
                 icon={faInstagram}
-                style={{ fontSize: 26, marginRight: 8 }}
+                style={{ fontSize: 26, marginRight: 8, color: '#C13584' }}
               />
             </a>
             <a
               href="https://www.facebook.com/visaremplaca"
               className="socialIcon"
             >
-              <FontAwesomeIcon icon={faFacebookF} style={{ fontSize: 24 }} />
+              <FontAwesomeIcon
+                icon={faFacebookF}
+                style={{ fontSize: 24, marginRight: 8, color: '#3b5998' }}
+              />
+            </a>
+            <a
+              href="https://api.whatsapp.com/send?phone=5513996561205"
+              className="socialIcon"
+            >
+              <FontAwesomeIcon
+                icon={faWhatsapp}
+                style={{ fontSize: 26, color: '#128C7E' }}
+              />
             </a>
           </span>
         </div>
