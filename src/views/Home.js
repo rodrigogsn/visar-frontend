@@ -16,7 +16,7 @@ import image from './../assets/img/hero-ilust-1.png';
 import useWindowDimensions from './../utils/ViewportSize';
 import banner from './../assets/img/banner-visar.png';
 import bannerMobile from './../assets/img/banner-visar-mobile.png';
-import announcement from './../assets/img/announcement.jpg';
+// import announcement from './../assets/img/announcement.jpg';
 
 const Home = () => {
   const { width } = useWindowDimensions();
@@ -31,7 +31,7 @@ const Home = () => {
 
       <aside>
         <Link to="/start">
-          <Image source={announcement} alt="" />
+          {/* <Image source={announcement} alt="" /> */}
           <Image
             source={width <= 700 ? bannerMobile : banner}
             alt="Promoção válida somente para agendamento de emplacamento pelo site: carros (2 placas) R$159,99 e moto (1 placa) R$79,99. Nota: somente para veículos de passageiros e/ou misto, exceto micro-ônibus, ônibus, bonde, reboque ou semi-reboque e caminhão."
