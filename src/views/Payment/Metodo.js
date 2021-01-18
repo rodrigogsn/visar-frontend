@@ -1,16 +1,16 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import Header from "./../../components/Header";
-import Footer from "./../../components/Footer";
-import { Title, Paragraph } from "./../../components/Elements";
-import { _metodo } from "./../../views/content";
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import Header from './../../components/Header';
+import Footer from './../../components/Footer';
+import { Title, Paragraph } from './../../components/Elements';
+import { _metodo } from './../../views/content';
 
-import api from "./../../services/api";
-import MainContext from "./../../MainContext";
+import api from './../../services/api';
+import MainContext from './../../MainContext';
 
-import { ReactComponent as SvgCredito } from "./../../assets/img/credit-card-option.svg";
-import { ReactComponent as SvgDebito } from "./../../assets/img/debit-card-option.svg";
-import { ReactComponent as SvgBoleto } from "./../../assets/img/boleto-option.svg";
+import { ReactComponent as SvgCredito } from './../../assets/img/credit-card-option.svg';
+import { ReactComponent as SvgDebito } from './../../assets/img/debit-card-option.svg';
+import { ReactComponent as SvgBoleto } from './../../assets/img/boleto-option.svg';
 
 const Metodo = () => {
   let history = useHistory();
@@ -18,22 +18,22 @@ const Metodo = () => {
   const { profile, setMethod, subtotal, setSubtotal } = useContext(MainContext);
 
   if (!profile) {
-    history.push("/");
+    history.push('/');
   }
 
   const [methods, setMethods] = useState();
 
   const handleMethods = async () => {
     await api
-      .get("/payment_methods")
-      .then((response) => {
+      .get('/payment_methods')
+      .then(response => {
         setMethods(response.data);
       })
-      .catch((error) => {});
+      .catch(error => {});
   };
 
-  const saveMethod = (key) => {
-    const method = methods.filter((item) => item.id == key);
+  const saveMethod = key => {
+    const method = methods.filter(item => item.id == key);
 
     setMethod(method[0]);
 
@@ -42,12 +42,12 @@ const Metodo = () => {
       method: method[0].increase - method[0].discount,
     });
 
-    if (method[0].pagseguro === "boleto") {
-      history.push("/agendamento-boleto");
-    } else if (method[0].pagseguro === "eft") {
-      history.push("/agendamento-debito");
+    if (method[0].pagseguro === 'boleto') {
+      history.push('/agendamento-boleto');
+    } else if (method[0].pagseguro === 'eft') {
+      history.push('/agendamento-debito');
     } else {
-      history.push("/agendamento-card");
+      history.push('/agendamento-card');
     }
   };
 
@@ -62,11 +62,11 @@ const Metodo = () => {
   const handleDates = () => {
     const date1 = new Date();
     date1.setDate(date1.getDate() + 1);
-    const currentDate = new Intl.DateTimeFormat("pt-BR").format(date1);
+    const currentDate = new Intl.DateTimeFormat('pt-BR').format(date1);
 
     const date2 = new Date();
     date2.setDate(date2.getDate() + 5);
-    const nextDate = new Intl.DateTimeFormat("pt-BR").format(date2);
+    const nextDate = new Intl.DateTimeFormat('pt-BR').format(date2);
 
     return [currentDate, nextDate];
   };
@@ -108,7 +108,7 @@ const Metodo = () => {
               </p>
             </div>
           </span>
-
+          {/* 
           <span className="buttonWide-container">
             <div className="buttonWide metodo" onClick={() => saveMethod(3)}>
               <SvgBoleto className="buttonWide-image" alt="" />
@@ -118,7 +118,7 @@ const Metodo = () => {
               </p>
             </div>
             <div className="buttonWide-detail"></div>
-          </span>
+          </span> */}
         </div>
       </main>
 
