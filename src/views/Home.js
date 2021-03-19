@@ -34,7 +34,7 @@ const Home = () => {
           {/* <Image source={announcement} alt="" /> */}
           <Image
             source={width <= 700 ? bannerMobile : banner}
-            alt="Promoção válida somente para agendamento de emplacamento pelo site: carros (2 placas) R$159,99 e moto (1 placa) R$79,99. Nota: somente para veículos de passageiros e/ou misto, exceto micro-ônibus, ônibus, bonde, reboque ou semi-reboque e caminhão."
+            alt="Promoção válida somente para agendamento de emplacamento pelo site: carros (2 placas) R$159,00 e moto (1 placa) R$79,99. Nota: somente para veículos de passageiros e/ou misto, exceto micro-ônibus, ônibus, bonde, reboque ou semi-reboque e caminhão."
           />
         </Link>
       </aside>
