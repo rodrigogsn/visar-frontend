@@ -39,7 +39,7 @@ const AgendamentoDebito = () => {
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   var extra_discount = 0;
-  var plate_value = 199.0;
+  var plate_value = 199.99;
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory >= plate_value) {
