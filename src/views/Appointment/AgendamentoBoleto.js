@@ -43,7 +43,7 @@ const AgendamentoBoleto = () => {
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
   if (spot.freetax === 1 && subtotal.subcategory < plate_value) {
-    extra_discount = 20 + subtotal.method + 1;
+    extra_discount = 15 + subtotal.method + 1;
   }
 
   /** Essas alterações de valor são TEMPORÁRIAS e DEVEM SER REMOVIDAS após a PANDEMIA */
@@ -61,7 +61,7 @@ const AgendamentoBoleto = () => {
     subtotal.subcategory < plate_value &&
     location.name === 'Santos'
   ) {
-    extra_discount = 20;
+    extra_discount = 15;
   }
 
   /** O extra_discount deverá ser removido após a PANDEMIA */
