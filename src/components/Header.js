@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
-import Toast from "./Toast";
-import logo from "./../assets/img/logo.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Toast from './Toast';
+import logo from './../assets/img/logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
-import MainContext from "./../MainContext";
-import { isAuthenticated, logout } from "./../services/auth";
+import MainContext from './../MainContext';
+import { isAuthenticated, logout } from './../services/auth';
 
 const Header = () => {
   let history = useHistory();
@@ -22,11 +22,11 @@ const Header = () => {
    *
    */
   const handleLogout = () => {
-    setUser("");
-    setProfile("");
+    setUser('');
+    setProfile('');
     logout();
 
-    history.push("/");
+    history.push('/');
   };
 
   useEffect(() => {
@@ -38,8 +38,12 @@ const Header = () => {
   return (
     <>
       <Toast />
+      <div className="devbar">
+        Estaremos em recesso de 23/12/2021 até 02/01/2022. Desejamos aos
+        clientes e amigos boas festas!
+      </div>
 
-      {process.env.REACT_APP_NODE_ENV === "development" && (
+      {process.env.REACT_APP_NODE_ENV === 'development' && (
         <div className="devbar">Ambiente de Desenvolvimento</div>
       )}
 
@@ -64,7 +68,7 @@ const Header = () => {
           {logged && (
             <li>
               <button onClick={handleLogout} className="navButton">
-                Sair{" "}
+                Sair{' '}
                 <FontAwesomeIcon icon={faSignOutAlt} style={{ fontSize: 16 }} />
               </button>
             </li>
