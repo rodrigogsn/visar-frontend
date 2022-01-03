@@ -38,10 +38,10 @@ const Header = () => {
   return (
     <>
       <Toast />
-      <div className="devbar">
+      {/* <div className="devbar">
         Estaremos em recesso de 23/12/2021 até 02/01/2022. Desejamos aos
         clientes e amigos boas festas!
-      </div>
+      </div> */}
 
       {process.env.REACT_APP_NODE_ENV === 'development' && (
         <div className="devbar">Ambiente de Desenvolvimento</div>
